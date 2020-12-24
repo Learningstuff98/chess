@@ -5,6 +5,8 @@ ruby '2.6.2'
 
 gem 'devise'
 
+gem 'react-rails'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.1.0'
 # Use postgresql as the database for Active Record
