@@ -1,1 +1,55 @@
 @import "bootstrap/scss/bootstrap";
+
+body {
+  background-color: #0a0f18;
+}
+
+.header-color {
+  background-color:  #101825;
+}
+
+.column {
+  float: left;
+  width: 25%;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.leftward-header-elements {
+  margin-left: 15px;
+}
+
+.link:hover {
+  color: rgb(14, 73, 168);
+}
+
+.green {
+  color: #00C122;
+}
+
+.blue {
+  color: rgb(7, 82, 204);
+}
+
+.container {
+  display: -webkit-flexbox;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.box {
+  padding: 10px;
+  border: 2px solid;
+  border-color: rgb(7, 82, 204);
+  border-radius: 10px;
+}
