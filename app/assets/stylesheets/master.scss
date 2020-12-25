@@ -8,31 +8,12 @@ body {
   background-color:  #101825;
 }
 
-.column {
-  float: left;
-  width: 25%;
-}
-
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-.leftward-header-elements {
-  margin-left: 15px;
-}
-
 .link:hover {
   color: rgb(14, 73, 168);
 }
 
 .green {
   color: #00C122;
-}
-
-.blue {
-  color: rgb(7, 82, 204);
 }
 
 .container {
@@ -50,6 +31,6 @@ body {
 .box {
   padding: 10px;
   border: 2px solid;
-  border-color: rgb(7, 82, 204);
+  border-color: #00C122;
   border-radius: 10px;
 }
