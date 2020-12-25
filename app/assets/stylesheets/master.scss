@@ -1,1 +1,28 @@
 @import "bootstrap/scss/bootstrap";
+
+.header-color {
+  background-color: rgba(24, 21, 22, 0.9);
+}
+
+.column {
+  float: left;
+  width: 25%;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.leftward-header-elements {
+  margin-left: 15px;
+}
+
+.link:hover {
+  color: rgb(14, 73, 168);
+}
+
+.green {
+  color: #00C122;
+}

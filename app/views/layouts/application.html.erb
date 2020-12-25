@@ -13,8 +13,46 @@
 
   <body>
 
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <nav class="navbar fixed-top navbar-toggleable-md navbar-inverse bg-inverse header-color">
+      <div class="green">
+        <h4><%= link_to 'Go To Homepage', root_path, class: "green" %></h4>
+        <% if current_user %>
+          <h5><%= "Currently logged in as #{current_user.username}" %></h5>
+        <% end %>
+      </div>
+
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="green">More Info</span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <h5 class="row green">
+          <div class="column leftward-header-elements">
+            <%= link_to "Profile page", "#", class: "green" %>
+            <div>Email:</div>
+            andystrube64@gmail.com
+          </div>
+          <div class="column">
+            <%= link_to 'https://github.com/Learningstuff98/chess' do %>
+              <div class="link green"> Github</div>
+            <% end %>
+            <%= link_to 'https://www.linkedin.com/in/andy-strube-6231ba152/' do %>
+              <div class="link green"> Linkedin</div>
+            <% end %>
+            <%= link_to 'https://docs.google.com/document/d/1qm4nBdIZfsx8zh4IwYvkVuQYclpOXUCVxnC9vV3_eBM/edit' do %>
+              <div class="link green"> Resume</div>
+            <% end %>
+          </div>
+        </h5>
+      </div>
+    </nav>
+
+    <br/><br/><br/><br/><br/>
+
+    <h4 class="green text-center">
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
+    </h4>
 
     <%= yield %>
   </body>
