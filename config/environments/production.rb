@@ -1,7 +1,7 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
-  config.action_mailer.default_url_options = { host: 'flixter-andy-strube.herokuapp.com', port: 3000 }
+  config.action_mailer.default_url_options = { host: 'chess-andy-strube.herokuapp.com' }
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
