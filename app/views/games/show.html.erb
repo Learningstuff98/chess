@@ -1,0 +1,8 @@
+<h3>
+  <%= link_to "End match",
+    game_path(@game),
+    method: :delete,
+    data: { confirm: "Are you sure?" },
+    class: "btn btn-primary"
+  %>
+</h3>

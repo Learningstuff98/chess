@@ -1,0 +1,10 @@
+<div class="container">
+  <div class="box text-center col-8">
+    <h2 class="green">Host A Match</h2>
+    <br/>
+    <%= simple_form_for @game, url: games_path do |f| %>
+      <h4 class="green"><%= f.input :host_as_white, as: :boolean %></h4>
+      <%= f.submit 'Start', class: 'btn btn-primary' %>
+    <% end %>
+  </div>
+</div>
