@@ -49,4 +49,21 @@ RSpec.describe GamesController, type: :controller do
       expect(response).to have_http_status(:success)
     end
   end
+
+  describe "destroy action" do
+    it "should authenticate the user" do
+      game = FactoryBot.create(:game)
+      delete :destroy, params: { id: game.id }
+      expect(response).to redirect_to new_user_session_path
+    end
+
+    it "should let players end games" do
+      user = FactoryBot.create(:user)
+      sign_in user
+      game = FactoryBot.create(:game)
+      delete :destroy, params: { id: game.id }
+      expect(response).to have_http_status(:found)
+      expect(Game.all.count).to eq 0
+    end
+  end
 end
