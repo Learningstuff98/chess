@@ -38,3 +38,17 @@ body {
 .cursor:hover {
   cursor: pointer;
 }
+
+.tile {
+  width: 40px;
+  height: 40px;
+  border: 2px solid;
+  border-color: rgb(19, 114, 36);
+  float: left;
+}
+
+.board-row:after {
+  clear: both;
+  content: "";
+  display: table;
+}
