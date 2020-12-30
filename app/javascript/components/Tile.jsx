@@ -1,7 +1,10 @@
 import React from 'react';
 
-function Tile() {
-  return <div className="tile"></div>
+function Tile(props) {
+  return <div className="green tile">
+    {props.rowNumber}
+    {props.columnNumber}
+  </div>
 }
 
 export default Tile;
