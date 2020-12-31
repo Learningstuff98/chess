@@ -5,6 +5,8 @@ function Tile(props) {
     {`x: ${props.x}`}
     <br/>
     {`y: ${props.y}`}
+    <br/>
+    {`L: ${props.letter}`}
   </div>
 }
 
