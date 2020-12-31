@@ -2,8 +2,9 @@ import React from 'react';
 
 function Tile(props) {
   return <div className="green tile">
-    {props.rowNumber}
-    {props.columnNumber}
+    {`x: ${props.x}`}
+    <br/>
+    {`y: ${props.y}`}
   </div>
 }
 

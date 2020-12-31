@@ -3,21 +3,19 @@ import Tile from './Tile';
 
 function Board() {
 
-  const tileNumbers = [0, 1, 2, 3, 4, 5, 6, 7];
-
-  const row = (rowNumber) => {
+  const row = (y) => {
     return <div className="board-row">
-      {tileNumbers.map((columnNumber) => {
+      {[1, 2, 3, 4, 5, 6, 7, 8].map(x => {
         return <Tile
-          rowNumber={rowNumber}
-          columnNumber={columnNumber}
+          x={x}
+          y={y}
         />
       })}
     </div>
   };
 
-  const rows = tileNumbers.map((rowNumber) => {
-    return row(rowNumber);
+  const rows = [8, 7, 6, 5, 4, 3, 2, 1].map(y => {
+    return row(y);
   });
 
   return rows;
