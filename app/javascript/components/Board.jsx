@@ -9,20 +9,24 @@ function Board() {
 
   const yValues = [8, 7, 6, 5, 4, 3, 2, 1];
 
-  const row = (y) => {
-    let tiles = [];
-    for(let valueIndex = 0; valueIndex < 8; valueIndex++) {
-      tiles.push(<Tile
-        x={xValues[valueIndex]}
+  const buildTile = (xValue, index, y) => {
+    return <div key={xValue}>
+      <Tile
+        x={xValue}
         y={y}
-        letter={letterValues[valueIndex]}
-      />);
-    }
-    return tiles;
+        letter={letterValues[index]}
+      />
+    </div>
+  };
+
+  const row = (y) => {
+    return xValues.map((xValue, index) => {
+      return buildTile(xValue, index, y);
+    });
   };
 
   const rows = yValues.map(y => {
-    return <div className="board-row">
+    return <div key={y} className="board-row">
       {row(y)}
     </div>
   });
