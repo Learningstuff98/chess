@@ -1,5 +1,6 @@
 import React from 'react';
 import Tile from './Tile';
+import LetterTile from './LetterTile';
 
 function Board() {
 
@@ -25,9 +26,18 @@ function Board() {
     });
   };
 
+  const buildLetterTile = (x, letterValues) => {
+    return < LetterTile
+      x={x}
+      letterValues={letterValues}
+    />
+  };
+
   const columns = xValues.map(x => {
-    return <div key={x} className="board-row">
+    return <div key={x}>
+      {buildLetterTile(x, letterValues)}
       {column(x)}
+      {buildLetterTile(x, letterValues)}
     </div>
   });
 
