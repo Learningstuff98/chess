@@ -9,25 +9,25 @@ function Board() {
 
   const yValues = [8, 7, 6, 5, 4, 3, 2, 1];
 
-  const buildTile = (xValue, index, y) => {
-    return <div key={xValue}>
+  const buildTile = (yValue, x) => {
+    return <div key={yValue}>
       <Tile
-        x={xValue}
-        y={y}
-        letter={letterValues[index]}
+        x={x}
+        y={yValue}
+        letter={letterValues[x - 1]}
       />
     </div>
   };
 
-  const row = (y) => {
-    return xValues.map((xValue, index) => {
-      return buildTile(xValue, index, y);
+  const row = (x) => {
+    return yValues.map((yValue) => {
+      return buildTile(yValue, x);
     });
   };
 
-  const rows = yValues.map(y => {
-    return <div key={y} className="board-row">
-      {row(y)}
+  const rows = xValues.map(x => { // fix it. It's all backwards
+    return <div key={x} className="board-row">
+      {row(x)}
     </div>
   });
 
