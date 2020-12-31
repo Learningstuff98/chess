@@ -19,19 +19,19 @@ function Board() {
     </div>
   };
 
-  const row = (x) => {
+  const column = (x) => {
     return yValues.map((yValue) => {
       return buildTile(yValue, x);
     });
   };
 
-  const rows = xValues.map(x => { // fix it. It's all backwards
+  const columns = xValues.map(x => {
     return <div key={x} className="board-row">
-      {row(x)}
+      {column(x)}
     </div>
   });
 
-  return rows;
+  return columns;
 }
 
 export default Board;
