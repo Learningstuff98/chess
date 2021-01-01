@@ -44,22 +44,15 @@ body {
 }
 
 .tile {
-  border: 2px solid;
-  border-color: rgb(19, 114, 36);
+  border: 1px solid;
+  border-color: rgb(27, 78, 39);
 }
 
-.letter-tile {
-  border: 2px solid;
+.edge-tile {
+  border: 1px solid;
   border-color: rgb(19, 114, 36);
   text-align: center;
-  color: #00C122;
-}
-
-.number-tile {
-  border: 2px solid;
-  border-color: rgb(19, 114, 36);
-  text-align: center;
-  color: #00C122; 
+  color: rgb(10, 153, 36);
 }
 
 @media screen and (min-width: 0px) {
@@ -106,4 +99,12 @@ body {
   .number-tile-value {
     margin-top: 25px;
   }
+}
+
+.dark {
+  background-color: rgb(15, 63, 23);
+}
+
+.light {
+  background-color: rgb(157, 202, 165);
 }

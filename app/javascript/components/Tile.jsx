@@ -1,12 +1,19 @@
 import React from 'react';
 
 function Tile(props) {
-  return <div className="green tile tile-dimensions">
-    {/* {`x: ${props.x}`}
-    <br/>
-    {`y: ${props.y}`}
-    <br/>
-    {`L: ${props.letter}`} */}
+
+  const handleColor = () => {
+    if(props.y % 2 !== 0 && props.x % 2 !== 0) {
+      return "dark";
+    }
+    if(props.y % 2 === 0 && props.x % 2 === 0) {
+      return "dark";
+    }
+    return "light";
+  };
+
+  return <div className={`tile tile-dimensions ${handleColor()}`}>
+
   </div>
 }
 
