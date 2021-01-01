@@ -1,8 +1,18 @@
-<h3>
-  <%= link_to "End match",
-    game_path(@game),
-    method: :delete,
-    data: { confirm: "Are you sure?" },
-    class: "btn btn-primary"
-  %>
-</h3>
+<div class="page-content">
+  <h1 class="green"><%= "Game id: #{@game.id}" %></h1>
+
+  <h3>
+    <%= link_to "End match",
+      game_path(@game),
+      method: :delete,
+      data: { confirm: "Are you sure?" },
+      class: "btn btn-primary"
+    %>
+  </h3>
+</div>
+
+<br/><br/><br/><br/>
+
+<%= react_component("Game") %>
+
+<br/><br/><br/><br/>
