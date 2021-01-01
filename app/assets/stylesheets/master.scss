@@ -58,6 +58,20 @@ body {
   color: #00C122;
 }
 
+.number-tile {
+  width: 5vw;
+  height: 10vw;
+  border: 2px solid;
+  border-color: rgb(19, 114, 36);
+  text-align: center;
+  font-size: 2.5vw;
+  color: #00C122; 
+}
+
+.number-tile-value {
+  margin-top: 2.5vw;
+}
+
 .page-content {
   margin-left: 20px;
 }

@@ -5,7 +5,7 @@ function Game() {
 
   const board = <Board/>
 
-  return <div className="container">
+  return <div>
     {board}
   </div>  
 }

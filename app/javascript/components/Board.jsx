@@ -1,6 +1,7 @@
 import React from 'react';
 import Tile from './Tile';
 import LetterTile from './LetterTile';
+import NumberTiles from './NumberTiles';
 
 function Board() {
 
@@ -26,8 +27,8 @@ function Board() {
     });
   };
 
-  const buildLetterTile = (x, letterValues) => {
-    return < LetterTile
+  const buildLetterTile = (x) => {
+    return <LetterTile
       x={x}
       letterValues={letterValues}
     />
@@ -35,13 +36,21 @@ function Board() {
 
   const columns = xValues.map(x => {
     return <div key={x}>
-      {buildLetterTile(x, letterValues)}
+      {buildLetterTile(x)}
       {column(x)}
-      {buildLetterTile(x, letterValues)}
+      {buildLetterTile(x)}
     </div>
   });
 
-  return columns;
+  const buildNumberTiles = <NumberTiles
+    yValues={yValues}
+  />
+
+  return <div className="container">
+    {buildNumberTiles}
+    {columns}
+    {buildNumberTiles}
+  </div>
 }
 
 export default Board;
