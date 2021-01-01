@@ -1,7 +1,7 @@
 import React from 'react';
 
 function Tile(props) {
-  return <div className="green tile">
+  return <div className="green tile tile-dimensions">
     {/* {`x: ${props.x}`}
     <br/>
     {`y: ${props.y}`}

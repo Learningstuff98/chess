@@ -16,6 +16,10 @@ body {
   color: #00C122;
 }
 
+.page-content {
+  margin-left: 20px;
+}
+
 .container {
   display: -webkit-flexbox;
   display: -ms-flexbox;
@@ -40,38 +44,66 @@ body {
 }
 
 .tile {
-  // width: 90px;
-  // height: 90px;
-  width: 10vw;
-  height: 10vw;
   border: 2px solid;
   border-color: rgb(19, 114, 36);
 }
 
 .letter-tile {
-  width: 10vw;
-  max-height: 5vw;
   border: 2px solid;
   border-color: rgb(19, 114, 36);
   text-align: center;
-  font-size: 2.5vw;
   color: #00C122;
 }
 
 .number-tile {
-  width: 5vw;
-  height: 10vw;
   border: 2px solid;
   border-color: rgb(19, 114, 36);
   text-align: center;
-  font-size: 2.5vw;
   color: #00C122; 
 }
 
-.number-tile-value {
-  margin-top: 2.5vw;
+@media screen and (min-width: 0px) {
+  .tile-dimensions {
+    width: 10vw;
+    height: 10vw;
+  }
+
+  .letter-tile-dimensions {
+    width: 10vw;
+    max-height: 5vw;
+    font-size: 2.5vw;
+  }
+
+  .number-tile-dimensions {
+    width: 5vw;
+    height: 10vw;
+    font-size: 2.5vw;
+  }
+
+  .number-tile-value {
+    margin-top: 2.5vw;
+  }
 }
 
-.page-content {
-  margin-left: 20px;
+@media screen and (min-width: 1000px) {
+  .tile-dimensions {
+    width: 100px;
+    height: 100px;
+  }
+
+  .letter-tile-dimensions {
+    width: 100px;
+    max-height: 50px;
+    font-size: 25px;
+  }
+
+  .number-tile-dimensions {
+    width: 50px;
+    height: 100px;
+    font-size: 25px;
+  }
+
+  .number-tile-value {
+    margin-top: 25px;
+  }
 }
