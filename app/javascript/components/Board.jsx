@@ -3,7 +3,7 @@ import Tile from './Tile';
 import LetterTile from './LetterTile';
 import NumberTiles from './NumberTiles';
 
-function Board() {
+function Board(props) {
 
   const letterValues = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
 
@@ -17,8 +17,17 @@ function Board() {
         x={x}
         y={yValue}
         letter={letterValues[x - 1]}
+        piece={findPiece(yValue, x)}
       />
     </div>
+  };
+
+  const findPiece = (y, x) => {
+    for(const piece of props.pieces) {
+      if(piece.x === x && piece.y === y) {
+        return piece;
+      }
+    }
   };
 
   const column = (x) => {

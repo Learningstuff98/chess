@@ -7,6 +7,7 @@ class GamesController < ApplicationController
 
   def create
     @game = current_user.games.create(game_params)
+    @game.make_pieces
     redirect_to game_path(@game)
   end
 
