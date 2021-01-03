@@ -17,6 +17,7 @@ class GamesController < ApplicationController
 
   def destroy
     game = Game.find(params[:id])
+    game.pieces.destroy_all
     game.destroy
     redirect_to root_path
   end

@@ -61,9 +61,11 @@ RSpec.describe GamesController, type: :controller do
       user = FactoryBot.create(:user)
       sign_in user
       game = FactoryBot.create(:game)
+      game.make_pieces
       delete :destroy, params: { id: game.id }
       expect(response).to have_http_status(:found)
       expect(Game.all.count).to eq 0
+      expect(Piece.all.count).to eq 0
     end
   end
 end
