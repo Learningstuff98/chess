@@ -43,10 +43,18 @@ body {
   cursor: pointer;
 }
 
-// .tile { // might need this later
-//   border: 1px solid;
-//   border-color: rgb(27, 78, 39);
-// }
+.tile {
+  text-align: center;
+}
+
+.white-icon {
+  color: rgb(121, 121, 121);
+}
+
+.black-icon {
+  color: rgb(0, 0, 0);
+  font-weight: bold;
+}
 
 .edge-tile {
   border: 1px solid;
@@ -76,6 +84,10 @@ body {
   .number-tile-value {
     margin-top: 2.5vw;
   }
+
+  .icon-size {
+    font-size: 7.5vw;
+  }
 }
 
 @media screen and (min-width: 1000px) {
@@ -98,6 +110,10 @@ body {
 
   .number-tile-value {
     margin-top: 25px;
+  }
+
+  .icon-size {
+    font-size: 75px;
   }
 }
 

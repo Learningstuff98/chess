@@ -7,6 +7,7 @@ class GamesController < ApplicationController
 
   def create
     @game = current_user.games.create(game_params)
+    @game.make_pieces
     redirect_to game_path(@game)
   end
 
@@ -16,6 +17,7 @@ class GamesController < ApplicationController
 
   def destroy
     game = Game.find(params[:id])
+    game.pieces.destroy_all
     game.destroy
     redirect_to root_path
   end
