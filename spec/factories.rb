@@ -1,8 +1,4 @@
 FactoryBot.define do
-  factory :piece do
-    
-  end
-
   factory :user do
     sequence :email do |n|
       "dummyEmail#{n}@gmail.com"
@@ -17,5 +13,14 @@ FactoryBot.define do
   factory :game do
     host_as_white { true }
     association :user
+  end
+
+  factory :piece do
+    piece_type { "pawn" }
+    color { "white" }
+    x { 1 }
+    y { 2 }
+    icon { "♙" }
+    association :game
   end
 end
