@@ -18,6 +18,9 @@ function Board(props) {
         y={yValue}
         letter={letterValues[x - 1]}
         piece={findPiece(yValue, x)}
+        selectedPiece={props.selectedPiece}
+        setSelectedPiece={props.setSelectedPiece}
+        root_url={props.root_url}
       />
     </div>
   };
