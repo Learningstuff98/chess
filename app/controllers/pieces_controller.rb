@@ -9,6 +9,7 @@ class PiecesController < ApplicationController
       piece.destination_x,
       piece.destination_y
     )
+    SendGameAndPiecesJob.perform_later(piece.game)
   end
 
   private
