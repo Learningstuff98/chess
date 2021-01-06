@@ -16,11 +16,11 @@ FactoryBot.define do
   end
 
   factory :piece do
-    piece_type { "pawn" }
-    color { "white" }
-    x { 1 }
-    y { 2 }
-    icon { "♙" }
+    piece_type { "queen" }
+    color { "black" }
+    x { 5 }
+    y { 5 }
+    icon { "♛" }
     association :game
   end
 end
