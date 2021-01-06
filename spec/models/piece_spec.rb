@@ -32,5 +32,14 @@ RSpec.describe Piece, type: :model do
       expect(game.pieces.first.in_play).to eq true
       expect(game.pieces.first.x).to eq 1
     end
+
+    it "should not capture itself" do
+      game = FactoryBot.create(:game)
+      piece = FactoryBot.create(:piece)
+      game.pieces.push(piece)
+      piece.capture_piece
+      expect(game.pieces.first.in_play).to eq true
+      expect(game.pieces.first.x).to eq 5
+    end
   end
 end
