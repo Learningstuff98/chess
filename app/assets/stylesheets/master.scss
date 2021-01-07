@@ -88,6 +88,15 @@ body {
   .icon-size {
     font-size: 7.5vw;
   }
+
+  .capture-box-dimensions {
+    width: 90vw;
+    height: 10vw;
+  }
+
+  .captured-pieces {
+    font-size: 4vw;
+  }
 }
 
 @media screen and (min-width: 1000px) {
@@ -115,6 +124,15 @@ body {
   .icon-size {
     font-size: 75px;
   }
+
+  .capture-box-dimensions {
+    width: 900px;
+    height: 100px;
+  }
+
+  .captured-pieces {
+    font-size: 40px;
+  }
 }
 
 .dark {
@@ -127,4 +145,11 @@ body {
 
 .has-selected-piece {
   background-color: rgb(7, 79, 138);
+}
+
+.capture-box {
+  padding: 10px;
+  border: 2px solid;
+  border-color: rgb(87, 163, 101);
+  background-color: rgb(15, 63, 23);
 }
