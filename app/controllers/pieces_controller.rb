@@ -9,6 +9,7 @@ class PiecesController < ApplicationController
       piece.destination_x,
       piece.destination_y
     )
+    piece.capture_piece
     SendGameAndPiecesJob.perform_later(piece.game)
   end
 

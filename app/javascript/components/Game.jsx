@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import consumer from "channels/consumer";
 import Board from './Board';
+import CapturedPieces from './CapturedPieces';
 
 function Game(props) {
   const [game, setGame] = useState(props.game);
@@ -28,8 +29,22 @@ function Game(props) {
     root_url={props.root_url}
   />
 
+  const capturedBlackPieces = <CapturedPieces
+    pieces={pieces}
+    color={"black"}
+  />
+
+  const capturedWhitePieces = <CapturedPieces
+    pieces={pieces}
+    color={"white"}
+  />
+
   return <div>
+    {capturedWhitePieces}
+    <br/>
     {board}
+    <br/>
+    {capturedBlackPieces}
   </div>  
 }
 
