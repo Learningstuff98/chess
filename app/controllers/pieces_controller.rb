@@ -5,10 +5,7 @@ class PiecesController < ApplicationController
   def update
     piece = Piece.find(params[:id])
     piece.update(piece_params)
-    piece.update_x_and_y(
-      piece.destination_x,
-      piece.destination_y
-    )
+    piece.valid_move?
     piece.capture_piece
     SendGameAndPiecesJob.perform_later(piece.game)
   end

@@ -42,4 +42,36 @@ RSpec.describe Piece, type: :model do
       expect(game.pieces.first.x).to eq 5
     end
   end
+
+  describe "horizontal_move? function" do
+    it "should return true if the starting and ending coordinates are horizontal" do
+      piece = FactoryBot.create(:piece)
+      piece.update_attribute(:destination_x, 8)
+      piece.update_attribute(:destination_y, 5)
+      expect(piece.horizontal_move?).to eq true
+    end
+
+    it "should return false if the starting and ending coordinates are not directly horizontal" do
+      piece = FactoryBot.create(:piece)
+      piece.update_attribute(:destination_x, 8)
+      piece.update_attribute(:destination_y, 7)
+      expect(piece.horizontal_move?).to eq false
+    end
+  end
+
+  describe "verticle_move? function" do
+    it "should return true if the starting and ending coordinates are verticle" do
+      piece = FactoryBot.create(:piece)
+      piece.update_attribute(:destination_x, 5)
+      piece.update_attribute(:destination_y, 8)
+      expect(piece.verticle_move?).to eq true
+    end
+
+    it "should return false if the starting and ending coordinates are not directly verticle" do
+      piece = FactoryBot.create(:piece)
+      piece.update_attribute(:destination_x, 7)
+      piece.update_attribute(:destination_y, 8)
+      expect(piece.verticle_move?).to eq false
+    end
+  end
 end
