@@ -40,6 +40,11 @@ class Piece < ApplicationRecord
         self.update_x_and_y(self.destination_x, self.destination_y)
       end
     end
+    if self.piece_type == "queen"
+      if self.horizontal_move? || self.verticle_move? || self.diagonal_move?
+        self.update_x_and_y(self.destination_x, self.destination_y)
+      end
+    end
     # self.update_x_and_y(self.destination_x, self.destination_y)
   end
 
