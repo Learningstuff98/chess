@@ -25,14 +25,22 @@ class Piece < ApplicationRecord
     self.destination_y != self.y && self.destination_x == self.x
   end
 
+  def diagonal_move?
+    (self.x - self.destination_x).abs == (self.y - self.destination_y).abs
+  end
+
   def valid_move?
     if self.piece_type == "rook"
       if self.horizontal_move? || self.verticle_move?
         self.update_x_and_y(self.destination_x, self.destination_y)
       end
-    else
-      self.update_x_and_y(self.destination_x, self.destination_y)
     end
+    if self.piece_type == "bishop" 
+      if self.diagonal_move?
+        self.update_x_and_y(self.destination_x, self.destination_y)
+      end
+    end
+    # self.update_x_and_y(self.destination_x, self.destination_y)
   end
 
 end
