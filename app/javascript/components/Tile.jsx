@@ -23,7 +23,7 @@ function Tile(props) {
 
   const handlePieceIcon = () => {
     if(props.piece) {
-      return <div className={`${props.piece.color}-icon icon-size cursor`}>
+      return <div className={`${props.piece.color}-icon icon-size cursor no-highlights`}>
         {props.piece.icon}
       </div>
     }
