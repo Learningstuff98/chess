@@ -169,4 +169,56 @@ RSpec.describe Piece, type: :model do
       expect(piece.king_move?).not_to eq true
     end
   end
+
+  describe "knight_move? function" do
+    it "should return true if the move being requested is that of a knight" do
+      piece = FactoryBot.create(:piece)
+      piece.update_attribute(:destination_x, 3)
+      piece.update_attribute(:destination_y, 6)
+      expect(piece.knight_move?).to eq true
+      piece.update_attribute(:destination_x, 4)
+      piece.update_attribute(:destination_y, 7)
+      expect(piece.knight_move?).to eq true
+      piece.update_attribute(:destination_x, 6)
+      piece.update_attribute(:destination_y, 7)
+      expect(piece.knight_move?).to eq true
+      piece.update_attribute(:destination_x, 7)
+      piece.update_attribute(:destination_y, 6)
+      expect(piece.knight_move?).to eq true
+      piece.update_attribute(:destination_x, 7)
+      piece.update_attribute(:destination_y, 4)
+      expect(piece.knight_move?).to eq true
+      piece.update_attribute(:destination_x, 6)
+      piece.update_attribute(:destination_y, 3)
+      expect(piece.knight_move?).to eq true
+      piece.update_attribute(:destination_x, 4)
+      piece.update_attribute(:destination_y, 3)
+      expect(piece.knight_move?).to eq true
+      piece.update_attribute(:destination_x, 3)
+      piece.update_attribute(:destination_y, 4)
+      expect(piece.knight_move?).to eq true
+    end
+
+    it "should not return true if the move being requested is not that of a knight" do
+      piece = FactoryBot.create(:piece)
+      piece.update_attribute(:destination_x, 8)
+      piece.update_attribute(:destination_y, 8)
+      expect(piece.knight_move?).not_to eq true
+      piece.update_attribute(:destination_x, 1)
+      piece.update_attribute(:destination_y, 1)
+      expect(piece.knight_move?).not_to eq true
+      piece.update_attribute(:destination_x, 6)
+      piece.update_attribute(:destination_y, 5)
+      expect(piece.knight_move?).not_to eq true
+      piece.update_attribute(:destination_x, 8)
+      piece.update_attribute(:destination_y, 1)
+      expect(piece.knight_move?).not_to eq true
+      piece.update_attribute(:destination_x, 1)
+      piece.update_attribute(:destination_y, 8)
+      expect(piece.knight_move?).not_to eq true
+      piece.update_attribute(:destination_x, 2)
+      piece.update_attribute(:destination_y, 3)
+      expect(piece.knight_move?).not_to eq true
+    end
+  end
 end
