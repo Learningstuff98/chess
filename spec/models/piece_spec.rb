@@ -120,4 +120,53 @@ RSpec.describe Piece, type: :model do
       expect(piece.diagonal_move?).to eq false
     end
   end
+
+  describe "king_move? function" do
+    it "should return true if the ending coordinates directly border the king" do
+      piece = FactoryBot.create(:piece)
+      piece.update_attribute(:destination_x, 5)
+      piece.update_attribute(:destination_y, 4)
+      expect(piece.king_move?).to eq true
+      piece.update_attribute(:destination_x, 6)
+      piece.update_attribute(:destination_y, 4)
+      expect(piece.king_move?).to eq true
+      piece.update_attribute(:destination_x, 6)
+      piece.update_attribute(:destination_y, 5)
+      expect(piece.king_move?).to eq true
+      piece.update_attribute(:destination_x, 6)
+      piece.update_attribute(:destination_y, 6)
+      expect(piece.king_move?).to eq true
+      piece.update_attribute(:destination_x, 5)
+      piece.update_attribute(:destination_y, 6)
+      expect(piece.king_move?).to eq true
+      piece.update_attribute(:destination_x, 4)
+      piece.update_attribute(:destination_y, 6)
+      expect(piece.king_move?).to eq true
+      piece.update_attribute(:destination_x, 4)
+      piece.update_attribute(:destination_y, 5)
+      expect(piece.king_move?).to eq true
+      piece.update_attribute(:destination_x, 4)
+      piece.update_attribute(:destination_y, 4)
+      expect(piece.king_move?).to eq true
+    end
+
+    it "should not return true if the ending coordinates do not directly border the king" do
+      piece = FactoryBot.create(:piece)
+      piece.update_attribute(:destination_x, 8)
+      piece.update_attribute(:destination_y, 8)
+      expect(piece.king_move?).not_to eq true
+      piece.update_attribute(:destination_x, 1)
+      piece.update_attribute(:destination_y, 1)
+      expect(piece.king_move?).not_to eq true
+      piece.update_attribute(:destination_x, 1)
+      piece.update_attribute(:destination_y, 8)
+      expect(piece.king_move?).not_to eq true
+      piece.update_attribute(:destination_x, 8)
+      piece.update_attribute(:destination_y, 1)
+      expect(piece.king_move?).not_to eq true
+      piece.update_attribute(:destination_x, 7)
+      piece.update_attribute(:destination_y, 5)
+      expect(piece.king_move?).not_to eq true
+    end
+  end
 end
