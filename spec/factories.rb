@@ -20,6 +20,8 @@ FactoryBot.define do
     color { "black" }
     x { 5 }
     y { 5 }
+    destination_x { 4 }
+    destination_y { 4 }
     icon { "♛" }
     association :game
   end

@@ -1,9 +1,9 @@
 class Piece < ApplicationRecord
   belongs_to :game
 
-  def update_x_and_y(destination_x, destination_y)
-    self.update_attribute(:x, destination_x)
-    self.update_attribute(:y, destination_y)
+  def update_x_and_y
+    self.update_attribute(:x, self.destination_x)
+    self.update_attribute(:y, self.destination_y)
   end
 
   def capture_piece
@@ -58,30 +58,30 @@ class Piece < ApplicationRecord
   def valid_move?
     if self.piece_type == "rook"
       if self.horizontal_move? || self.verticle_move?
-        self.update_x_and_y(self.destination_x, self.destination_y)
+        self.update_x_and_y
       end
     end
     if self.piece_type == "bishop" 
       if self.diagonal_move?
-        self.update_x_and_y(self.destination_x, self.destination_y)
+        self.update_x_and_y
       end
     end
     if self.piece_type == "queen"
       if self.horizontal_move? || self.verticle_move? || self.diagonal_move?
-        self.update_x_and_y(self.destination_x, self.destination_y)
+        self.update_x_and_y
       end
     end
     if self.piece_type == "king"
       if self.king_move?
-        self.update_x_and_y(self.destination_x, self.destination_y)
+        self.update_x_and_y
       end
     end
     if self.piece_type == "knight"
       if self.knight_move?
-        self.update_x_and_y(self.destination_x, self.destination_y)
+        self.update_x_and_y
       end
     end
-    # self.update_x_and_y(self.destination_x, self.destination_y)
+    # self.update_x_and_y
   end
 
 end
