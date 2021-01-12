@@ -29,6 +29,21 @@ class Piece < ApplicationRecord
     (self.x - self.destination_x).abs == (self.y - self.destination_y).abs
   end
 
+  def king_move?
+    distance_of_x = (self.destination_x - self.x).abs
+    distance_of_y = (self.destination_y - self.y).abs
+    if distance_of_y == 1
+      if [0, 1].include?(distance_of_x)
+        return true
+      end
+    end
+    if distance_of_y.zero?
+      if distance_of_x == 1
+        return true
+      end
+    end
+  end
+
   def valid_move?
     if self.piece_type == "rook"
       if self.horizontal_move? || self.verticle_move?
@@ -42,6 +57,11 @@ class Piece < ApplicationRecord
     end
     if self.piece_type == "queen"
       if self.horizontal_move? || self.verticle_move? || self.diagonal_move?
+        self.update_x_and_y(self.destination_x, self.destination_y)
+      end
+    end
+    if self.piece_type == "king"
+      if self.king_move?
         self.update_x_and_y(self.destination_x, self.destination_y)
       end
     end
