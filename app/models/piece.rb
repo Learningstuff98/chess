@@ -43,9 +43,41 @@ class Piece < ApplicationRecord
     return distance_of_y == 2 if distance_of_x == 1
   end
 
+  def get_horizontal_or_verticle_path
+    coordinates = []
+    if self.y == self.destination_y
+      if self.destination_x > self.x
+        starting_point = self.x
+        ending_point = self.destination_x
+      else
+        starting_point = self.destination_x
+        ending_point = self.x
+      end
+    end
+    if self.x == self.destination_x
+      if self.destination_y > self.y
+        starting_point = self.y
+        ending_point = self.destination_y
+      else
+        starting_point = self.destination_y
+        ending_point = self.y
+      end
+    end
+    ((starting_point + 1)...ending_point).each do |value|
+      if self.x == self.destination_x
+        coordinates.push([self.destination_x, value])
+      else
+        coordinates.push([value, self.destination_y])
+      end
+    end
+    puts coordinates.inspect
+    coordinates
+  end
+
   def valid_move?
     if self.piece_type == "rook"
       if self.horizontal_move? || self.verticle_move?
+        self.get_horizontal_or_verticle_path
         self.update_x_and_y
       end
     end
@@ -69,7 +101,9 @@ class Piece < ApplicationRecord
         self.update_x_and_y
       end
     end
-    # self.update_x_and_y
+    if self.piece_type == "pawn"
+      self.update_x_and_y
+    end
   end
 
 end
