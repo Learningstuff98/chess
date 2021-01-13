@@ -1,9 +1,9 @@
 class Piece < ApplicationRecord
   belongs_to :game
 
-  def update_x_and_y(destination_x, destination_y)
-    self.update_attribute(:x, destination_x)
-    self.update_attribute(:y, destination_y)
+  def update_x_and_y
+    self.update_attribute(:x, self.destination_x)
+    self.update_attribute(:y, self.destination_y)
   end
 
   def capture_piece
@@ -32,56 +32,44 @@ class Piece < ApplicationRecord
   def king_move?
     distance_of_x = (self.destination_x - self.x).abs
     distance_of_y = (self.destination_y - self.y).abs
-    if distance_of_y == 1
-      if [0, 1].include?(distance_of_x)
-        return true
-      end
-    end
-    if distance_of_y.zero?
-      if distance_of_x == 1
-        return true
-      end
-    end
+    return [0, 1].include?(distance_of_x) if distance_of_y == 1
+    return distance_of_x == 1 if distance_of_y.zero?
   end
 
   def knight_move?
     distance_of_x = (self.destination_x - self.x).abs
     distance_of_y = (self.destination_y - self.y).abs
-    if distance_of_x == 2
-      return distance_of_y == 1
-    end
-    if distance_of_x == 1
-      return distance_of_y == 2
-    end
+    return distance_of_y == 1 if distance_of_x == 2
+    return distance_of_y == 2 if distance_of_x == 1
   end
 
   def valid_move?
     if self.piece_type == "rook"
       if self.horizontal_move? || self.verticle_move?
-        self.update_x_and_y(self.destination_x, self.destination_y)
+        self.update_x_and_y
       end
     end
     if self.piece_type == "bishop" 
       if self.diagonal_move?
-        self.update_x_and_y(self.destination_x, self.destination_y)
+        self.update_x_and_y
       end
     end
     if self.piece_type == "queen"
       if self.horizontal_move? || self.verticle_move? || self.diagonal_move?
-        self.update_x_and_y(self.destination_x, self.destination_y)
+        self.update_x_and_y
       end
     end
     if self.piece_type == "king"
       if self.king_move?
-        self.update_x_and_y(self.destination_x, self.destination_y)
+        self.update_x_and_y
       end
     end
     if self.piece_type == "knight"
       if self.knight_move?
-        self.update_x_and_y(self.destination_x, self.destination_y)
+        self.update_x_and_y
       end
     end
-    # self.update_x_and_y(self.destination_x, self.destination_y)
+    # self.update_x_and_y
   end
 
 end
