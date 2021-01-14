@@ -70,15 +70,26 @@ class Piece < ApplicationRecord
         coordinates.push([value, self.destination_y])
       end
     end
-    puts coordinates.inspect
     coordinates
+  end
+
+  def path_clear?(path)
+    path.each do |coord_pair|
+      self.game.pieces.each do |piece|
+        if piece.x == coord_pair[0] && piece.y == coord_pair[1]
+          return false
+        end
+      end
+    end
+    true
   end
 
   def valid_move?
     if self.piece_type == "rook"
       if self.horizontal_move? || self.verticle_move?
-        self.get_horizontal_or_verticle_path
-        self.update_x_and_y
+        if self.path_clear?(self.get_horizontal_or_verticle_path)
+          self.update_x_and_y
+        end
       end
     end
     if self.piece_type == "bishop" 

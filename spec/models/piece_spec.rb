@@ -81,6 +81,22 @@ RSpec.describe Piece, type: :model do
     end
   end
 
+  describe "path_clear? function" do
+    it "should return false if any piece coordinates match any of the given path coordinates" do
+      game = FactoryBot.create(:game)
+      piece = FactoryBot.create(:piece)
+      game.pieces.push(piece)
+      expect(game.pieces.first.path_clear?([[5, 4], [5, 5], [5, 6]])).to eq false
+    end
+
+    it "should return true if no piece coordinates match any of the given path coordinates" do
+      game = FactoryBot.create(:game)
+      piece = FactoryBot.create(:piece)
+      game.pieces.push(piece)
+      expect(game.pieces.first.path_clear?([[1, 4], [1, 5], [1, 6]])).to eq true
+    end
+  end
+
   describe "horizontal_move? function" do
     it "should return true if the starting and ending coordinates are horizontal" do
       piece = FactoryBot.create(:piece)
