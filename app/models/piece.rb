@@ -43,7 +43,7 @@ class Piece < ApplicationRecord
     return distance_of_y == 2 if distance_of_x == 1
   end
 
-  def get_horizontal_or_verticle_path
+  def get_horizontal_or_verticle_path # refactor this
     coordinates = []
     if self.y == self.destination_y
       if self.destination_x > self.x
@@ -73,6 +73,32 @@ class Piece < ApplicationRecord
     coordinates
   end
 
+  def get_diagonal_path
+    coordinates = []
+    if self.destination_x > self.x
+      x_value = self.x + 1
+      y_value = self.y + 1 if self.destination_y > self.y
+      y_value = self.y - 1 if self.destination_y < self.y
+      while x_value < self.destination_x
+        coordinates.push([x_value, y_value])
+        x_value += 1
+        y_value += 1 if self.destination_y > self.y
+        y_value -= 1 if self.destination_y < self.y
+      end
+    else
+      x_value = self.x - 1
+      y_value = self.y - 1 if self.destination_y < self.y
+      y_value = self.y + 1 if self.destination_y > self.y
+      while x_value > self.destination_x
+        coordinates.push([x_value, y_value])
+        x_value -= 1
+        y_value -= 1 if self.destination_y < self.y
+        y_value += 1 if self.destination_y > self.y
+      end
+    end
+    coordinates
+  end
+
   def path_clear?(path)
     path.each do |coord_pair|
       self.game.pieces.each do |piece|
@@ -94,6 +120,7 @@ class Piece < ApplicationRecord
     end
     if self.piece_type == "bishop" 
       if self.diagonal_move?
+        self.get_diagonal_path
         self.update_x_and_y
       end
     end

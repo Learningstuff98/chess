@@ -81,6 +81,44 @@ RSpec.describe Piece, type: :model do
     end
   end
 
+  describe "get_diagonal_path function" do
+    it "should collect a list of coordinates when going north west" do
+      piece = FactoryBot.create(:piece)
+      piece.update_attribute(:x, 8)
+      piece.update_attribute(:y, 1)
+      piece.update_attribute(:destination_x, 1)
+      piece.update_attribute(:destination_y, 8)
+      expect(piece.get_diagonal_path).to eq [[7, 2], [6, 3], [5, 4], [4, 5], [3, 6], [2, 7]]
+    end
+
+    it "should collect a list of coordinates when going south east" do
+      piece = FactoryBot.create(:piece)
+      piece.update_attribute(:x, 1)
+      piece.update_attribute(:y, 8)
+      piece.update_attribute(:destination_x, 8)
+      piece.update_attribute(:destination_y, 1)
+      expect(piece.get_diagonal_path).to eq [[2, 7], [3, 6], [4, 5], [5, 4], [6, 3], [7, 2]]
+    end
+
+    it "should collect a list of coordinates when going north east" do
+      piece = FactoryBot.create(:piece)
+      piece.update_attribute(:x, 1)
+      piece.update_attribute(:y, 1)
+      piece.update_attribute(:destination_x, 8)
+      piece.update_attribute(:destination_y, 8)
+      expect(piece.get_diagonal_path).to eq [[2, 2], [3, 3], [4, 4], [5, 5], [6, 6], [7, 7]]
+    end
+
+    it "should collect a list of coordinates when going south west" do
+      piece = FactoryBot.create(:piece)
+      piece.update_attribute(:x, 8)
+      piece.update_attribute(:y, 8)
+      piece.update_attribute(:destination_x, 1)
+      piece.update_attribute(:destination_y, 1)
+      expect(piece.get_diagonal_path).to eq [[7, 7], [6, 6], [5, 5], [4, 4], [3, 3], [2, 2]]
+    end
+  end
+
   describe "path_clear? function" do
     it "should return false if any piece coordinates match any of the given path coordinates" do
       game = FactoryBot.create(:game)
