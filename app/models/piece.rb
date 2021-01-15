@@ -43,31 +43,23 @@ class Piece < ApplicationRecord
     return distance_of_y == 2 if distance_of_x == 1
   end
 
-  def get_horizontal_or_verticle_path # refactor this
+  def get_horizontal_or_verticle_path
     coordinates = []
-    if self.y == self.destination_y
-      if self.destination_x > self.x
-        starting_point = self.x
-        ending_point = self.destination_x
-      else
-        starting_point = self.destination_x
-        ending_point = self.x
+    if self.destination_x != self.x
+      x_value = self.x + 1 if self.destination_x > self.x
+      x_value = self.x - 1 if self.destination_x < self.x
+      while x_value != self.destination_x
+        coordinates.push([x_value, self.y])
+        x_value += 1 if self.destination_x > self.x
+        x_value -= 1 if self.destination_x < self.x
       end
-    end
-    if self.x == self.destination_x
-      if self.destination_y > self.y
-        starting_point = self.y
-        ending_point = self.destination_y
-      else
-        starting_point = self.destination_y
-        ending_point = self.y
-      end
-    end
-    ((starting_point + 1)...ending_point).each do |value|
-      if self.x == self.destination_x
-        coordinates.push([self.destination_x, value])
-      else
-        coordinates.push([value, self.destination_y])
+    else
+      y_value = self.y + 1 if self.destination_y > self.y
+      y_value = self.y - 1 if self.destination_y < self.y
+      while y_value != self.destination_y
+        coordinates.push([self.x, y_value])
+        y_value += 1 if self.destination_y > self.y
+        y_value -= 1 if self.destination_y < self.y
       end
     end
     coordinates
@@ -144,5 +136,4 @@ class Piece < ApplicationRecord
       self.update_x_and_y
     end
   end
-
 end

@@ -59,7 +59,7 @@ RSpec.describe Piece, type: :model do
       piece.update_attribute(:y, 4)
       piece.update_attribute(:destination_x, 1)
       piece.update_attribute(:destination_y, 4)
-      expect(piece.get_horizontal_or_verticle_path).to eq [[2, 4], [3, 4], [4, 4], [5, 4], [6, 4], [7, 4]]
+      expect(piece.get_horizontal_or_verticle_path).to eq [[7, 4], [6, 4], [5, 4], [4, 4], [3, 4], [2, 4]]
     end
 
     it "should collect a list of coordinates when going south to north" do
@@ -77,7 +77,7 @@ RSpec.describe Piece, type: :model do
       piece.update_attribute(:y, 8)
       piece.update_attribute(:destination_x, 1)
       piece.update_attribute(:destination_y, 1)
-      expect(piece.get_horizontal_or_verticle_path).to eq [[1, 2], [1, 3], [1, 4], [1, 5], [1, 6], [1, 7]]
+      expect(piece.get_horizontal_or_verticle_path).to eq [[1, 7], [1, 6], [1, 5], [1, 4], [1, 3], [1, 2]]
     end
   end
 
