@@ -118,8 +118,15 @@ class Piece < ApplicationRecord
       end
     end
     if self.piece_type == "queen"
-      if self.horizontal_move? || self.verticle_move? || self.diagonal_move?
-        self.update_x_and_y
+      if self.horizontal_move? || self.verticle_move?
+        if self.path_clear?(self.get_horizontal_or_verticle_path)
+          self.update_x_and_y
+        end
+      end
+      if self.diagonal_move?
+        if self.path_clear?(self.get_diagonal_path)
+          self.update_x_and_y
+        end
       end
     end
     if self.piece_type == "king"
