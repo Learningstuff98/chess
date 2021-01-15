@@ -120,8 +120,9 @@ class Piece < ApplicationRecord
     end
     if self.piece_type == "bishop" 
       if self.diagonal_move?
-        self.get_diagonal_path
-        self.update_x_and_y
+        if self.path_clear?(self.get_diagonal_path)
+          self.update_x_and_y
+        end
       end
     end
     if self.piece_type == "queen"
