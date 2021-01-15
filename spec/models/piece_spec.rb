@@ -43,6 +43,98 @@ RSpec.describe Piece, type: :model do
     end
   end
 
+  describe "get_horizontal_or_verticle_path function" do
+    it "should collect a list of coordinates when going west to east" do
+      piece = FactoryBot.create(:piece)
+      piece.update_attribute(:x, 1)
+      piece.update_attribute(:y, 4)
+      piece.update_attribute(:destination_x, 8)
+      piece.update_attribute(:destination_y, 4)
+      expect(piece.get_horizontal_or_verticle_path).to eq [[2, 4], [3, 4], [4, 4], [5, 4], [6, 4], [7, 4]]
+    end
+
+    it "should collect a list of coordinates when going east to west" do
+      piece = FactoryBot.create(:piece)
+      piece.update_attribute(:x, 8)
+      piece.update_attribute(:y, 4)
+      piece.update_attribute(:destination_x, 1)
+      piece.update_attribute(:destination_y, 4)
+      expect(piece.get_horizontal_or_verticle_path).to eq [[7, 4], [6, 4], [5, 4], [4, 4], [3, 4], [2, 4]]
+    end
+
+    it "should collect a list of coordinates when going south to north" do
+      piece = FactoryBot.create(:piece)
+      piece.update_attribute(:x, 1)
+      piece.update_attribute(:y, 1)
+      piece.update_attribute(:destination_x, 1)
+      piece.update_attribute(:destination_y, 8)
+      expect(piece.get_horizontal_or_verticle_path).to eq [[1, 2], [1, 3], [1, 4], [1, 5], [1, 6], [1, 7]]
+    end
+
+    it "should collect a list of coordinates when going north to south" do
+      piece = FactoryBot.create(:piece)
+      piece.update_attribute(:x, 1)
+      piece.update_attribute(:y, 8)
+      piece.update_attribute(:destination_x, 1)
+      piece.update_attribute(:destination_y, 1)
+      expect(piece.get_horizontal_or_verticle_path).to eq [[1, 7], [1, 6], [1, 5], [1, 4], [1, 3], [1, 2]]
+    end
+  end
+
+  describe "get_diagonal_path function" do
+    it "should collect a list of coordinates when going north west" do
+      piece = FactoryBot.create(:piece)
+      piece.update_attribute(:x, 8)
+      piece.update_attribute(:y, 1)
+      piece.update_attribute(:destination_x, 1)
+      piece.update_attribute(:destination_y, 8)
+      expect(piece.get_diagonal_path).to eq [[7, 2], [6, 3], [5, 4], [4, 5], [3, 6], [2, 7]]
+    end
+
+    it "should collect a list of coordinates when going south east" do
+      piece = FactoryBot.create(:piece)
+      piece.update_attribute(:x, 1)
+      piece.update_attribute(:y, 8)
+      piece.update_attribute(:destination_x, 8)
+      piece.update_attribute(:destination_y, 1)
+      expect(piece.get_diagonal_path).to eq [[2, 7], [3, 6], [4, 5], [5, 4], [6, 3], [7, 2]]
+    end
+
+    it "should collect a list of coordinates when going north east" do
+      piece = FactoryBot.create(:piece)
+      piece.update_attribute(:x, 1)
+      piece.update_attribute(:y, 1)
+      piece.update_attribute(:destination_x, 8)
+      piece.update_attribute(:destination_y, 8)
+      expect(piece.get_diagonal_path).to eq [[2, 2], [3, 3], [4, 4], [5, 5], [6, 6], [7, 7]]
+    end
+
+    it "should collect a list of coordinates when going south west" do
+      piece = FactoryBot.create(:piece)
+      piece.update_attribute(:x, 8)
+      piece.update_attribute(:y, 8)
+      piece.update_attribute(:destination_x, 1)
+      piece.update_attribute(:destination_y, 1)
+      expect(piece.get_diagonal_path).to eq [[7, 7], [6, 6], [5, 5], [4, 4], [3, 3], [2, 2]]
+    end
+  end
+
+  describe "path_clear? function" do
+    it "should return false if any piece coordinates match any of the given path coordinates" do
+      game = FactoryBot.create(:game)
+      piece = FactoryBot.create(:piece)
+      game.pieces.push(piece)
+      expect(game.pieces.first.path_clear?([[5, 4], [5, 5], [5, 6]])).to eq false
+    end
+
+    it "should return true if no piece coordinates match any of the given path coordinates" do
+      game = FactoryBot.create(:game)
+      piece = FactoryBot.create(:piece)
+      game.pieces.push(piece)
+      expect(game.pieces.first.path_clear?([[1, 4], [1, 5], [1, 6]])).to eq true
+    end
+  end
+
   describe "horizontal_move? function" do
     it "should return true if the starting and ending coordinates are horizontal" do
       piece = FactoryBot.create(:piece)
