@@ -102,45 +102,56 @@ class Piece < ApplicationRecord
     true
   end
 
+  def friendly_capture?
+    self.game.pieces.each do |piece|
+      if piece.x == self.destination_x && piece.y == self.destination_y
+        return piece.color == self.color
+      end
+    end
+    false
+  end
+
   def valid_move?
-    if self.piece_type == "rook"
-      if self.horizontal_move? || self.verticle_move?
-        if self.path_clear?(self.get_horizontal_or_verticle_path)
+    if !self.friendly_capture?
+      if self.piece_type == "rook"
+        if self.horizontal_move? || self.verticle_move?
+          if self.path_clear?(self.get_horizontal_or_verticle_path)
+            self.update_x_and_y
+          end
+        end
+      end
+      if self.piece_type == "bishop" 
+        if self.diagonal_move?
+          if self.path_clear?(self.get_diagonal_path)
+            self.update_x_and_y
+          end
+        end
+      end
+      if self.piece_type == "queen"
+        if self.horizontal_move? || self.verticle_move?
+          if self.path_clear?(self.get_horizontal_or_verticle_path)
+            self.update_x_and_y
+          end
+        end
+        if self.diagonal_move?
+          if self.path_clear?(self.get_diagonal_path)
+            self.update_x_and_y
+          end
+        end
+      end
+      if self.piece_type == "king"
+        if self.king_move?
           self.update_x_and_y
         end
       end
-    end
-    if self.piece_type == "bishop" 
-      if self.diagonal_move?
-        if self.path_clear?(self.get_diagonal_path)
+      if self.piece_type == "knight"
+        if self.knight_move?
           self.update_x_and_y
         end
       end
-    end
-    if self.piece_type == "queen"
-      if self.horizontal_move? || self.verticle_move?
-        if self.path_clear?(self.get_horizontal_or_verticle_path)
-          self.update_x_and_y
-        end
-      end
-      if self.diagonal_move?
-        if self.path_clear?(self.get_diagonal_path)
-          self.update_x_and_y
-        end
-      end
-    end
-    if self.piece_type == "king"
-      if self.king_move?
+      if self.piece_type == "pawn"
         self.update_x_and_y
       end
-    end
-    if self.piece_type == "knight"
-      if self.knight_move?
-        self.update_x_and_y
-      end
-    end
-    if self.piece_type == "pawn"
-      self.update_x_and_y
     end
   end
 end

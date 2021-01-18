@@ -313,4 +313,29 @@ RSpec.describe Piece, type: :model do
       expect(piece.knight_move?).not_to eq true
     end
   end
+
+  describe "friendly_capture? function" do
+    it "should return true if a piece's destination is occupied by a friendly piece" do
+      game = FactoryBot.create(:game)
+      game.pieces.create(x: 4, y: 4, color: "black")
+      piece = FactoryBot.create(:piece)
+      game.pieces.push(piece)
+      expect(piece.friendly_capture?).to eq true
+    end
+
+    it "should return false if a piece's destination is occupied by an opposing piece" do
+      game = FactoryBot.create(:game)
+      game.pieces.create(x: 4, y: 4, color: "white")
+      piece = FactoryBot.create(:piece)
+      game.pieces.push(piece)
+      expect(piece.friendly_capture?).to eq false
+    end
+
+    it "should return false if a piece's destination isn't occupied at all" do
+      game = FactoryBot.create(:game)
+      piece = FactoryBot.create(:piece)
+      game.pieces.push(piece)
+      expect(piece.friendly_capture?).to eq false
+    end
+  end
 end
