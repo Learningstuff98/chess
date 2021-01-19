@@ -111,7 +111,7 @@ class Piece < ApplicationRecord
     false
   end
 
-  def has_piece?(destination_x, destination_y) # review and test
+  def has_piece?(destination_x, destination_y) # test
     self.game.pieces.each do |piece|
       if piece.x == destination_x && piece.y == destination_y
         return true
@@ -120,25 +120,36 @@ class Piece < ApplicationRecord
     false
   end
 
-  def pawn_move?(operation, starting_y) # review and test 
-    if self.destination_x == self.x
-      if self.y == starting_y
-        if self.destination_y == self.y.send(operation, 1)
-          return !self.has_piece?(self.destination_x, self.destination_y)
-        end
-        if self.destination_y == self.y.send(operation, 2)
-          !self.has_piece?(self.destination_x, self.destination_y) &&
-          !self.has_piece?(self.destination_x, self.y.send(operation, 1))
-        end
-      else
-        if self.destination_y == self.y.send(operation, 1)
-          !self.has_piece?(self.destination_x, self.destination_y)
-        end
-      end
-    elsif self.destination_x == self.x + 1 || self.destination_x == self.x - 1
+  def pawn_move_to_capture?(operation) # review
+    if self.destination_x == self.x + 1 || self.destination_x == self.x - 1
       if self.has_piece?(self.destination_x, self.destination_y)
         self.destination_y == self.y.send(operation, 1)
       end
+    end
+  end
+
+  def standard_forward_move?(operation) # review
+    if self.destination_y == self.y.send(operation, 1)
+      !self.has_piece?(self.destination_x, self.destination_y)
+    end
+  end
+
+  def double_jump?(operation) # review
+    if self.destination_y == self.y.send(operation, 2)
+      !self.has_piece?(self.destination_x, self.destination_y) &&
+      !self.has_piece?(self.destination_x, self.y.send(operation, 1))
+    end
+  end
+
+  def pawn_move?(operation, starting_y) # review
+    if self.destination_x == self.x
+      if self.y == starting_y
+        self.double_jump?(operation) || self.standard_forward_move?(operation)
+      else
+        self.standard_forward_move?(operation)
+      end
+    else
+      self.pawn_move_to_capture?(operation)
     end
   end
 
