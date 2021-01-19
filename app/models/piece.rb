@@ -111,6 +111,37 @@ class Piece < ApplicationRecord
     false
   end
 
+  def has_piece?(destination_x, destination_y) # review and test
+    self.game.pieces.each do |piece|
+      if piece.x == destination_x && piece.y == destination_y
+        return true
+      end
+    end
+    false
+  end
+
+  def pawn_move?(operation, starting_y) # review and test 
+    if self.destination_x == self.x
+      if self.y == starting_y
+        if self.destination_y == self.y.send(operation, 1)
+          return !self.has_piece?(self.destination_x, self.destination_y)
+        end
+        if self.destination_y == self.y.send(operation, 2)
+          !self.has_piece?(self.destination_x, self.destination_y) &&
+          !self.has_piece?(self.destination_x, self.y.send(operation, 1))
+        end
+      else
+        if self.destination_y == self.y.send(operation, 1)
+          !self.has_piece?(self.destination_x, self.destination_y)
+        end
+      end
+    elsif self.destination_x == self.x + 1 || self.destination_x == self.x - 1
+      if self.has_piece?(self.destination_x, self.destination_y)
+        self.destination_y == self.y.send(operation, 1)
+      end
+    end
+  end
+
   def valid_move?
     if !self.friendly_capture?
       if self.piece_type == "rook"
@@ -150,7 +181,11 @@ class Piece < ApplicationRecord
         end
       end
       if self.piece_type == "pawn"
-        self.update_x_and_y
+        if self.color == "white"
+          self.update_x_and_y if self.pawn_move?(:+, 2)
+        else
+          self.update_x_and_y if self.pawn_move?(:-, 7)
+        end
       end
     end
   end
