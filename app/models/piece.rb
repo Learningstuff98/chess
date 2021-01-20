@@ -120,7 +120,7 @@ class Piece < ApplicationRecord
     false
   end
 
-  def forward_pawn_move?(operation) # test
+  def forward_pawn_move?(operation)
     if self.x == self.destination_x
       if self.destination_y == self.y.send(operation, 1)
         !self.has_piece?(self.destination_x, self.destination_y)

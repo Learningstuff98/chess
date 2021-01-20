@@ -338,4 +338,39 @@ RSpec.describe Piece, type: :model do
       expect(piece.friendly_capture?).to eq false
     end
   end
+
+  describe "forward_pawn_move? function" do
+    it "should return true if the piece advances by one tile" do
+      piece = FactoryBot.create(:piece)
+      piece.update_attribute(:destination_x, 5)
+      piece.update_attribute(:destination_y, 6)
+      expect(piece.forward_pawn_move?(:+)).to eq true
+    end
+
+    it "should return nil if the piece doesn't advance forward by just one tile" do
+      piece = FactoryBot.create(:piece)
+      piece.update_attribute(:destination_x, 5)
+      piece.update_attribute(:destination_y, 3)
+      expect(piece.forward_pawn_move?(:-)).to eq nil
+      piece.update_attribute(:destination_x, 1)
+      piece.update_attribute(:destination_y, 1)
+      expect(piece.forward_pawn_move?(:-)).to eq nil
+      piece.update_attribute(:destination_x, 8)
+      piece.update_attribute(:destination_y, 8)
+      expect(piece.forward_pawn_move?(:-)).to eq nil
+      piece.update_attribute(:destination_x, 5)
+      piece.update_attribute(:destination_y, 6)
+      expect(piece.forward_pawn_move?(:-)).to eq nil
+    end
+
+    it "should return false if there is a piece in the way" do
+      game = FactoryBot.create(:game)
+      game.pieces.create(x: 5, y: 6)
+      piece = FactoryBot.create(:piece)
+      piece.update_attribute(:destination_x, 5)
+      piece.update_attribute(:destination_y, 6)
+      game.pieces.push(piece)
+      expect(piece.forward_pawn_move?(:+)).to eq false
+    end
+  end
 end
