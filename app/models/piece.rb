@@ -120,36 +120,30 @@ class Piece < ApplicationRecord
     false
   end
 
-  def pawn_move_to_capture?(operation) # review
-    if self.destination_x == self.x + 1 || self.destination_x == self.x - 1
-      if self.has_piece?(self.destination_x, self.destination_y)
-        self.destination_y == self.y.send(operation, 1)
+  def forward_pawn_move?(operation) # test
+    if self.x == self.destination_x
+      if self.destination_y == self.y.send(operation, 1)
+        !self.has_piece?(self.destination_x, self.destination_y)
       end
     end
   end
 
-  def standard_forward_move?(operation) # review
-    if self.destination_y == self.y.send(operation, 1)
-      !self.has_piece?(self.destination_x, self.destination_y)
-    end
-  end
-
-  def double_jump?(operation) # review
-    if self.destination_y == self.y.send(operation, 2)
-      !self.has_piece?(self.destination_x, self.destination_y) &&
-      !self.has_piece?(self.destination_x, self.y.send(operation, 1))
-    end
-  end
-
-  def pawn_move?(operation, starting_y) # review
-    if self.destination_x == self.x
+  def double_jump?(operation, starting_y) # test
+    if self.x == self.destination_x
       if self.y == starting_y
-        self.double_jump?(operation) || self.standard_forward_move?(operation)
-      else
-        self.standard_forward_move?(operation)
+        if self.destination_y == starting_y.send(operation, 2)
+          !self.has_piece?(self.destination_x, self.destination_y) &&
+          !self.has_piece?(self.destination_x, self.y.send(operation, 1))
+        end
       end
-    else
-      self.pawn_move_to_capture?(operation)
+    end
+  end
+
+  def pawn_capturing?(operation) # test
+    if self.destination_y == self.y.send(operation, 1)
+      if [self.x + 1, self.x - 1].include?(self.destination_x)
+        self.has_piece?(self.destination_x, self.destination_y)
+      end
     end
   end
 
@@ -193,9 +187,13 @@ class Piece < ApplicationRecord
       end
       if self.piece_type == "pawn"
         if self.color == "white"
-          self.update_x_and_y if self.pawn_move?(:+, 2)
+          self.update_x_and_y if self.forward_pawn_move?(:+)
+          self.update_x_and_y if self.double_jump?(:+, 2)
+          self.update_x_and_y if self.pawn_capturing?(:+)
         else
-          self.update_x_and_y if self.pawn_move?(:-, 7)
+          self.update_x_and_y if self.forward_pawn_move?(:-)
+          self.update_x_and_y if self.double_jump?(:-, 7)
+          self.update_x_and_y if self.pawn_capturing?(:-)
         end
       end
     end
