@@ -487,4 +487,20 @@ RSpec.describe Piece, type: :model do
       expect(piece.pawn_capturing?(:-)).to eq nil
     end
   end
+
+  describe "tile_has_piece? function" do
+    it "should return true if a given tile is occupied" do
+      piece = FactoryBot.create(:piece)
+      game = FactoryBot.create(:game)
+      game.pieces.push(piece)
+      expect(piece.tile_has_piece?(5, 5)).to eq true
+    end
+
+    it "should return false if a given tile is not occupied" do
+      piece = FactoryBot.create(:piece)
+      game = FactoryBot.create(:game)
+      game.pieces.push(piece)
+      expect(piece.tile_has_piece?(3, 3)).to eq false
+    end
+  end
 end

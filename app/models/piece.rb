@@ -111,9 +111,9 @@ class Piece < ApplicationRecord
     false
   end
 
-  def has_piece?(destination_x, destination_y) # test
+  def tile_has_piece?(tile_x, tile_y)
     self.game.pieces.each do |piece|
-      if piece.x == destination_x && piece.y == destination_y
+      if piece.x == tile_x && piece.y == tile_y
         return true
       end
     end
@@ -123,7 +123,7 @@ class Piece < ApplicationRecord
   def forward_pawn_move?(operation)
     if self.x == self.destination_x
       if self.destination_y == self.y.send(operation, 1)
-        !self.has_piece?(self.destination_x, self.destination_y)
+        !self.tile_has_piece?(self.destination_x, self.destination_y)
       end
     end
   end
@@ -132,8 +132,8 @@ class Piece < ApplicationRecord
     if self.x == self.destination_x
       if self.y == starting_y
         if self.destination_y == starting_y.send(operation, 2)
-          !self.has_piece?(self.destination_x, self.destination_y) &&
-          !self.has_piece?(self.destination_x, self.y.send(operation, 1))
+          !self.tile_has_piece?(self.destination_x, self.destination_y) &&
+          !self.tile_has_piece?(self.destination_x, self.y.send(operation, 1))
         end
       end
     end
@@ -142,7 +142,7 @@ class Piece < ApplicationRecord
   def pawn_capturing?(operation)
     if self.destination_y == self.y.send(operation, 1)
       if [self.x + 1, self.x - 1].include?(self.destination_x)
-        self.has_piece?(self.destination_x, self.destination_y)
+        self.tile_has_piece?(self.destination_x, self.destination_y)
       end
     end
   end
