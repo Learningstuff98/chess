@@ -429,4 +429,62 @@ RSpec.describe Piece, type: :model do
       expect(piece.double_jump?(:+, 2)).to eq nil
     end
   end
+
+  describe "pawn_capturing? function" do
+    it "should return true if the piece goes for a capture to it's right" do
+      game = FactoryBot.create(:game)
+      game.pieces.create(x: 6, y: 6)
+      piece = FactoryBot.create(:piece)
+      piece.update_attribute(:destination_x, 6)
+      piece.update_attribute(:destination_y, 6)
+      game.pieces.push(piece)
+      expect(piece.pawn_capturing?(:+)).to eq true
+    end
+
+    it "should return true if the piece goes for a capture to it's left" do
+      game = FactoryBot.create(:game)
+      game.pieces.create(x: 4, y: 4)
+      piece = FactoryBot.create(:piece)
+      piece.update_attribute(:destination_x, 4)
+      piece.update_attribute(:destination_y, 4)
+      game.pieces.push(piece)
+      expect(piece.pawn_capturing?(:-)).to eq true
+    end
+
+    it "should return false if the piece goes for a capture to it's left, but there's no piece to capture" do
+      game = FactoryBot.create(:game)
+      piece = FactoryBot.create(:piece)
+      piece.update_attribute(:destination_x, 4)
+      piece.update_attribute(:destination_y, 6)
+      game.pieces.push(piece)
+      expect(piece.pawn_capturing?(:+)).to eq false
+    end
+
+    it "should return false if the piece goes for a capture to it's right, but there's no piece to capture" do
+      game = FactoryBot.create(:game)
+      piece = FactoryBot.create(:piece)
+      piece.update_attribute(:destination_x, 6)
+      piece.update_attribute(:destination_y, 4)
+      game.pieces.push(piece)
+      expect(piece.pawn_capturing?(:-)).to eq false
+    end
+
+    it "should return nil if the piece goes for a capture that's not directly to it's left or right" do
+      game = FactoryBot.create(:game)
+      piece = FactoryBot.create(:piece)
+      game.pieces.push(piece)
+      game.pieces.create(x: 8, y: 8)
+      piece.update_attribute(:destination_x, 8)
+      piece.update_attribute(:destination_y, 8)
+      expect(piece.pawn_capturing?(:-)).to eq nil
+      game.pieces.create(x: 1, y: 1)
+      piece.update_attribute(:destination_x, 1)
+      piece.update_attribute(:destination_y, 1)
+      expect(piece.pawn_capturing?(:-)).to eq nil
+      game.pieces.create(x: 1, y: 8)
+      piece.update_attribute(:destination_x, 1)
+      piece.update_attribute(:destination_y, 8)
+      expect(piece.pawn_capturing?(:-)).to eq nil
+    end
+  end
 end

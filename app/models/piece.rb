@@ -139,7 +139,7 @@ class Piece < ApplicationRecord
     end
   end
 
-  def pawn_capturing?(operation) # test
+  def pawn_capturing?(operation)
     if self.destination_y == self.y.send(operation, 1)
       if [self.x + 1, self.x - 1].include?(self.destination_x)
         self.has_piece?(self.destination_x, self.destination_y)
