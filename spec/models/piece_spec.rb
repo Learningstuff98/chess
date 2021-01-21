@@ -373,4 +373,60 @@ RSpec.describe Piece, type: :model do
       expect(piece.forward_pawn_move?(:+)).to eq false
     end
   end
+
+  describe "double_jump? function" do
+    it "should return true if the piece advances by two tiles from the starting point" do
+      piece = FactoryBot.create(:piece)
+      piece.update_attribute(:x, 1)
+      piece.update_attribute(:y, 7)
+      piece.update_attribute(:destination_x, 1)
+      piece.update_attribute(:destination_y, 5)
+      expect(piece.double_jump?(:-, 7)).to eq true
+    end
+
+    it "should return false if there is a piece directly in the way" do
+      game = FactoryBot.create(:game)
+      game.pieces.create(x: 1, y: 6)
+      piece = FactoryBot.create(:piece)
+      piece.update_attribute(:x, 1)
+      piece.update_attribute(:y, 7)
+      piece.update_attribute(:destination_x, 1)
+      piece.update_attribute(:destination_y, 5)
+      game.pieces.push(piece)
+      expect(piece.double_jump?(:-, 7)).to eq false
+    end
+
+    it "should return false if there is a piece at the destination" do
+      game = FactoryBot.create(:game)
+      game.pieces.create(x: 1, y: 5)
+      piece = FactoryBot.create(:piece)
+      piece.update_attribute(:x, 1)
+      piece.update_attribute(:y, 7)
+      piece.update_attribute(:destination_x, 1)
+      piece.update_attribute(:destination_y, 5)
+      game.pieces.push(piece)
+      expect(piece.double_jump?(:-, 7)).to eq false
+    end
+
+    it "should return nil if the piece isn't trying to move forward by two tiles" do
+      piece = FactoryBot.create(:piece)
+      piece.update_attribute(:x, 1)
+      piece.update_attribute(:y, 2)
+      piece.update_attribute(:destination_x, 1)
+      piece.update_attribute(:destination_y, 5)
+      expect(piece.double_jump?(:+, 2)).to eq nil
+      piece.update_attribute(:destination_x, 1)
+      piece.update_attribute(:destination_y, 1)
+      expect(piece.double_jump?(:+, 2)).to eq nil
+      piece.update_attribute(:destination_x, 8)
+      piece.update_attribute(:destination_y, 8)
+      expect(piece.double_jump?(:+, 2)).to eq nil
+      piece.update_attribute(:destination_x, 1)
+      piece.update_attribute(:destination_y, 8)
+      expect(piece.double_jump?(:+, 2)).to eq nil
+      piece.update_attribute(:destination_x, 4)
+      piece.update_attribute(:destination_y, 4)
+      expect(piece.double_jump?(:+, 2)).to eq nil
+    end
+  end
 end

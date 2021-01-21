@@ -128,7 +128,7 @@ class Piece < ApplicationRecord
     end
   end
 
-  def double_jump?(operation, starting_y) # test
+  def double_jump?(operation, starting_y)
     if self.x == self.destination_x
       if self.y == starting_y
         if self.destination_y == starting_y.send(operation, 2)
