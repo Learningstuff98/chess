@@ -338,4 +338,169 @@ RSpec.describe Piece, type: :model do
       expect(piece.friendly_capture?).to eq false
     end
   end
+
+  describe "forward_pawn_move? function" do
+    it "should return true if the piece advances by one tile" do
+      piece = FactoryBot.create(:piece)
+      piece.update_attribute(:destination_x, 5)
+      piece.update_attribute(:destination_y, 6)
+      expect(piece.forward_pawn_move?(:+)).to eq true
+    end
+
+    it "should return nil if the piece doesn't advance forward by just one tile" do
+      piece = FactoryBot.create(:piece)
+      piece.update_attribute(:destination_x, 5)
+      piece.update_attribute(:destination_y, 3)
+      expect(piece.forward_pawn_move?(:-)).to eq nil
+      piece.update_attribute(:destination_x, 1)
+      piece.update_attribute(:destination_y, 1)
+      expect(piece.forward_pawn_move?(:-)).to eq nil
+      piece.update_attribute(:destination_x, 8)
+      piece.update_attribute(:destination_y, 8)
+      expect(piece.forward_pawn_move?(:-)).to eq nil
+      piece.update_attribute(:destination_x, 5)
+      piece.update_attribute(:destination_y, 6)
+      expect(piece.forward_pawn_move?(:-)).to eq nil
+    end
+
+    it "should return false if there is a piece in the way" do
+      game = FactoryBot.create(:game)
+      game.pieces.create(x: 5, y: 6)
+      piece = FactoryBot.create(:piece)
+      piece.update_attribute(:destination_x, 5)
+      piece.update_attribute(:destination_y, 6)
+      game.pieces.push(piece)
+      expect(piece.forward_pawn_move?(:+)).to eq false
+    end
+  end
+
+  describe "double_jump? function" do
+    it "should return true if the piece advances by two tiles from the starting point" do
+      piece = FactoryBot.create(:piece)
+      piece.update_attribute(:x, 1)
+      piece.update_attribute(:y, 7)
+      piece.update_attribute(:destination_x, 1)
+      piece.update_attribute(:destination_y, 5)
+      expect(piece.double_jump?(:-, 7)).to eq true
+    end
+
+    it "should return false if there is a piece directly in the way" do
+      game = FactoryBot.create(:game)
+      game.pieces.create(x: 1, y: 6)
+      piece = FactoryBot.create(:piece)
+      piece.update_attribute(:x, 1)
+      piece.update_attribute(:y, 7)
+      piece.update_attribute(:destination_x, 1)
+      piece.update_attribute(:destination_y, 5)
+      game.pieces.push(piece)
+      expect(piece.double_jump?(:-, 7)).to eq false
+    end
+
+    it "should return false if there is a piece at the destination" do
+      game = FactoryBot.create(:game)
+      game.pieces.create(x: 1, y: 5)
+      piece = FactoryBot.create(:piece)
+      piece.update_attribute(:x, 1)
+      piece.update_attribute(:y, 7)
+      piece.update_attribute(:destination_x, 1)
+      piece.update_attribute(:destination_y, 5)
+      game.pieces.push(piece)
+      expect(piece.double_jump?(:-, 7)).to eq false
+    end
+
+    it "should return nil if the piece isn't trying to move forward by two tiles" do
+      piece = FactoryBot.create(:piece)
+      piece.update_attribute(:x, 1)
+      piece.update_attribute(:y, 2)
+      piece.update_attribute(:destination_x, 1)
+      piece.update_attribute(:destination_y, 5)
+      expect(piece.double_jump?(:+, 2)).to eq nil
+      piece.update_attribute(:destination_x, 1)
+      piece.update_attribute(:destination_y, 1)
+      expect(piece.double_jump?(:+, 2)).to eq nil
+      piece.update_attribute(:destination_x, 8)
+      piece.update_attribute(:destination_y, 8)
+      expect(piece.double_jump?(:+, 2)).to eq nil
+      piece.update_attribute(:destination_x, 1)
+      piece.update_attribute(:destination_y, 8)
+      expect(piece.double_jump?(:+, 2)).to eq nil
+      piece.update_attribute(:destination_x, 4)
+      piece.update_attribute(:destination_y, 4)
+      expect(piece.double_jump?(:+, 2)).to eq nil
+    end
+  end
+
+  describe "pawn_capturing? function" do
+    it "should return true if the piece goes for a capture to it's right" do
+      game = FactoryBot.create(:game)
+      game.pieces.create(x: 6, y: 6)
+      piece = FactoryBot.create(:piece)
+      piece.update_attribute(:destination_x, 6)
+      piece.update_attribute(:destination_y, 6)
+      game.pieces.push(piece)
+      expect(piece.pawn_capturing?(:+)).to eq true
+    end
+
+    it "should return true if the piece goes for a capture to it's left" do
+      game = FactoryBot.create(:game)
+      game.pieces.create(x: 4, y: 4)
+      piece = FactoryBot.create(:piece)
+      piece.update_attribute(:destination_x, 4)
+      piece.update_attribute(:destination_y, 4)
+      game.pieces.push(piece)
+      expect(piece.pawn_capturing?(:-)).to eq true
+    end
+
+    it "should return false if the piece goes for a capture to it's left, but there's no piece to capture" do
+      game = FactoryBot.create(:game)
+      piece = FactoryBot.create(:piece)
+      piece.update_attribute(:destination_x, 4)
+      piece.update_attribute(:destination_y, 6)
+      game.pieces.push(piece)
+      expect(piece.pawn_capturing?(:+)).to eq false
+    end
+
+    it "should return false if the piece goes for a capture to it's right, but there's no piece to capture" do
+      game = FactoryBot.create(:game)
+      piece = FactoryBot.create(:piece)
+      piece.update_attribute(:destination_x, 6)
+      piece.update_attribute(:destination_y, 4)
+      game.pieces.push(piece)
+      expect(piece.pawn_capturing?(:-)).to eq false
+    end
+
+    it "should return nil if the piece goes for a capture that's not directly to it's left or right" do
+      game = FactoryBot.create(:game)
+      piece = FactoryBot.create(:piece)
+      game.pieces.push(piece)
+      game.pieces.create(x: 8, y: 8)
+      piece.update_attribute(:destination_x, 8)
+      piece.update_attribute(:destination_y, 8)
+      expect(piece.pawn_capturing?(:-)).to eq nil
+      game.pieces.create(x: 1, y: 1)
+      piece.update_attribute(:destination_x, 1)
+      piece.update_attribute(:destination_y, 1)
+      expect(piece.pawn_capturing?(:-)).to eq nil
+      game.pieces.create(x: 1, y: 8)
+      piece.update_attribute(:destination_x, 1)
+      piece.update_attribute(:destination_y, 8)
+      expect(piece.pawn_capturing?(:-)).to eq nil
+    end
+  end
+
+  describe "tile_has_piece? function" do
+    it "should return true if a given tile is occupied" do
+      piece = FactoryBot.create(:piece)
+      game = FactoryBot.create(:game)
+      game.pieces.push(piece)
+      expect(piece.tile_has_piece?(5, 5)).to eq true
+    end
+
+    it "should return false if a given tile is not occupied" do
+      piece = FactoryBot.create(:piece)
+      game = FactoryBot.create(:game)
+      game.pieces.push(piece)
+      expect(piece.tile_has_piece?(3, 3)).to eq false
+    end
+  end
 end

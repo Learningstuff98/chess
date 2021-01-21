@@ -111,6 +111,42 @@ class Piece < ApplicationRecord
     false
   end
 
+  def tile_has_piece?(tile_x, tile_y)
+    self.game.pieces.each do |piece|
+      if piece.x == tile_x && piece.y == tile_y
+        return true
+      end
+    end
+    false
+  end
+
+  def forward_pawn_move?(operation)
+    if self.x == self.destination_x
+      if self.destination_y == self.y.send(operation, 1)
+        !self.tile_has_piece?(self.destination_x, self.destination_y)
+      end
+    end
+  end
+
+  def double_jump?(operation, starting_y)
+    if self.x == self.destination_x
+      if self.y == starting_y
+        if self.destination_y == starting_y.send(operation, 2)
+          !self.tile_has_piece?(self.destination_x, self.destination_y) &&
+          !self.tile_has_piece?(self.destination_x, self.y.send(operation, 1))
+        end
+      end
+    end
+  end
+
+  def pawn_capturing?(operation)
+    if self.destination_y == self.y.send(operation, 1)
+      if [self.x + 1, self.x - 1].include?(self.destination_x)
+        self.tile_has_piece?(self.destination_x, self.destination_y)
+      end
+    end
+  end
+
   def valid_move?
     if !self.friendly_capture?
       if self.piece_type == "rook"
@@ -150,7 +186,15 @@ class Piece < ApplicationRecord
         end
       end
       if self.piece_type == "pawn"
-        self.update_x_and_y
+        if self.color == "white"
+          self.update_x_and_y if self.forward_pawn_move?(:+)
+          self.update_x_and_y if self.double_jump?(:+, 2)
+          self.update_x_and_y if self.pawn_capturing?(:+)
+        else
+          self.update_x_and_y if self.forward_pawn_move?(:-)
+          self.update_x_and_y if self.double_jump?(:-, 7)
+          self.update_x_and_y if self.pawn_capturing?(:-)
+        end
       end
     end
   end
