@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import consumer from "channels/consumer";
 import Board from './Board';
 import CapturedPieces from './CapturedPieces';
+import PawnPromotionMenu from './PawnPromotionMenu';
 
 function Game(props) {
   const [game, setGame] = useState(props.game);
@@ -39,7 +40,13 @@ function Game(props) {
     color={"white"}
   />
 
+  const pawnPromotionMenu = <PawnPromotionMenu
+    pieces={pieces}
+    root_url={props.root_url}
+  />
+
   return <div>
+    {pawnPromotionMenu}
     {capturedWhitePieces}
     <br/>
     {board}
