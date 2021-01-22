@@ -107,6 +107,10 @@ body {
   .captured-pieces {
     font-size: 4vw;
   }
+
+  .promotion-option {
+    margin-left: 7vw;
+  }
 }
 
 @media screen and (min-width: 1000px) {
@@ -143,6 +147,10 @@ body {
   .captured-pieces {
     font-size: 40px;
   }
+
+  .promotion-option {
+    margin-left: 70px;
+  }
 }
 
 .dark {
@@ -164,8 +172,6 @@ body {
   background-color: rgb(15, 63, 23);
 }
 
-.pawn-promotion-menu-box {
-  border: 2px solid;
-  border-color: rgb(87, 163, 101);
-  background-color: rgb(15, 63, 23);
+.promotion-options {
+  display: flex;
 }

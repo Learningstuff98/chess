@@ -30,10 +30,10 @@ function PawnPromotionMenu(props) {
     setPiece(null);
   };
 
-  const handleSelection = () => {
+  const handleSelection = (pieceType, icon) => {
     axios.patch(`${props.root_url}pieces/${piece.id}`, {
-      piece_type: "queen",
-      icon: "♛"
+      piece_type: pieceType,
+      icon: icon
     })
     .catch((err) => console.log(err.response.data));
   };
@@ -44,14 +44,14 @@ function PawnPromotionMenu(props) {
       <div className="modal-dialog">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title" id="staticBackdropLabel">Modal title</h5>
+            <h5 className="modal-title green" id="staticBackdropLabel">You have a pawn that's eligible for promotion. Please make a selection.</h5>
           </div>
-          <div className="modal-body">
-            ...
-          </div>
-          <div className="modal-footer">
-            <button onClick={() => handleSelection()} type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-          </div>
+          <h1 className="promotion-options green">
+            <div className="promotion-option" onClick={() => handleSelection("queen", "♛")} type="button" data-dismiss="modal">♛</div>
+            <div className="promotion-option" onClick={() => handleSelection("rook", "♜")} type="button" data-dismiss="modal">♜</div>
+            <div className="promotion-option" onClick={() => handleSelection("bishop", "♝")} type="button" data-dismiss="modal">♝</div>
+            <div className="promotion-option" onClick={() => handleSelection("knight", "♞")} type="button" data-dismiss="modal">♞</div>
+          </h1>
         </div>
       </div>
     </div>
