@@ -5,6 +5,15 @@ function PawnPromotionMenu(props) {
   const [menuShowStatus, setMenuShowStatus] = useState(false);
   const [piece, setPiece] = useState(null);
 
+  useEffect(() => {
+    detectPawn();
+    if(menuShowStatus) {
+      $('#staticBackdrop').modal('show')
+    } else {
+      $('#staticBackdrop').modal('hide')
+    }
+  });
+
   const detectPawn = () => {
     for(const piece of props.pieces) {
       if(piece.piece_type === "pawn") {
@@ -20,15 +29,6 @@ function PawnPromotionMenu(props) {
     setMenuShowStatus(false);
     setPiece(null);
   };
-
-  useEffect(() => {
-    detectPawn();
-    if(menuShowStatus) {
-      $('#staticBackdrop').modal('show')
-    } else {
-      $('#staticBackdrop').modal('hide')
-    }
-  });
 
   const handleSelection = () => {
     axios.patch(`${props.root_url}pieces/${piece.id}`, {
@@ -48,7 +48,7 @@ function PawnPromotionMenu(props) {
           </div>
           <div className="modal-body">
             ...
-      </div>
+          </div>
           <div className="modal-footer">
             <button onClick={() => handleSelection()} type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
           </div>
@@ -60,5 +60,3 @@ function PawnPromotionMenu(props) {
 }
 
 export default PawnPromotionMenu;
-
-// https://getbootstrap.com/docs/4.5/components/modal/
