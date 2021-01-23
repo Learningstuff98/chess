@@ -107,6 +107,11 @@ body {
   .captured-pieces {
     font-size: 4vw;
   }
+
+  .promotion-option {
+    margin-left: 5.2vw;
+    font-size: 50px;
+  }
 }
 
 @media screen and (min-width: 1000px) {
@@ -143,6 +148,11 @@ body {
   .captured-pieces {
     font-size: 40px;
   }
+
+  .promotion-option {
+    margin-left: 52px;
+    font-size: 60px;
+  }
 }
 
 .dark {
@@ -162,4 +172,18 @@ body {
   border: 2px solid;
   border-color: rgb(87, 163, 101);
   background-color: rgb(15, 63, 23);
+}
+
+.promotion-options {
+  display: flex;
+}
+
+.modal-content {
+  background-color: rgb(0, 0, 0);
+  border: 2px solid;
+  border-color: #00C122;
+}
+
+.modal-header {
+  border-bottom: 1px solid #000000;
 }

@@ -13,7 +13,7 @@ class PiecesController < ApplicationController
   private
 
   def piece_params
-    params.require(:piece).permit(:destination_x, :destination_y)
+    params.require(:piece).permit(:destination_x, :destination_y, :piece_type, :icon)
   end
 
 end
