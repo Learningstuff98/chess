@@ -47,10 +47,10 @@ function PawnPromotionMenu(props) {
             <h5 className="modal-title green" id="staticBackdropLabel">You have a pawn that's eligible for promotion. Please make a selection.</h5>
           </div>
           <div className="promotion-options green">
-            <div className="promotion-option" onClick={() => handleSelection("queen", "♛")} type="button" data-dismiss="modal">♕</div>
-            <div className="promotion-option" onClick={() => handleSelection("rook", "♜")} type="button" data-dismiss="modal">♖</div>
-            <div className="promotion-option" onClick={() => handleSelection("bishop", "♝")} type="button" data-dismiss="modal">♗</div>
-            <div className="promotion-option" onClick={() => handleSelection("knight", "♞")} type="button" data-dismiss="modal">♘</div>
+            <div className="promotion-option cursor" onClick={() => handleSelection("queen", "♛")} data-dismiss="modal">♕</div>
+            <div className="promotion-option cursor" onClick={() => handleSelection("rook", "♜")} data-dismiss="modal">♖</div>
+            <div className="promotion-option cursor" onClick={() => handleSelection("bishop", "♝")} data-dismiss="modal">♗</div>
+            <div className="promotion-option cursor" onClick={() => handleSelection("knight", "♞")} data-dismiss="modal">♘</div>
           </div>
         </div>
       </div>
