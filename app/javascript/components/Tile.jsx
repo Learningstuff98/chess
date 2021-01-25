@@ -4,7 +4,7 @@ import axios from "axios";
 function Tile(props) {
 
   const handlePiece = () => {
-    if(props.piece && !props.selectedPiece) {
+    if(props.piece && !props.selectedPiece && !props.promotionPiece) {
       props.setSelectedPiece(props.piece);
     }
     if(props.selectedPiece) {

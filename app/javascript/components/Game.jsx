@@ -8,6 +8,7 @@ function Game(props) {
   const [game, setGame] = useState(props.game);
   const [pieces, setPieces] = useState(props.pieces);
   const [selectedPiece, setSelectedPiece] = useState(null);
+  const [promotionPiece, setPromotionPiece] = useState(null);
 
   useEffect(() => {
     handleWebSocketUpdates();
@@ -28,6 +29,7 @@ function Game(props) {
     selectedPiece={selectedPiece}
     setSelectedPiece={setSelectedPiece}
     root_url={props.root_url}
+    promotionPiece={promotionPiece}
   />
 
   const capturedBlackPieces = <CapturedPieces
@@ -43,6 +45,8 @@ function Game(props) {
   const pawnPromotionMenu = <PawnPromotionMenu
     pieces={pieces}
     root_url={props.root_url}
+    promotionPiece={promotionPiece}
+    setPromotionPiece={setPromotionPiece}
   />
 
   return <div>
