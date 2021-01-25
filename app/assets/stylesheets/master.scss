@@ -109,8 +109,12 @@ body {
   }
 
   .promotion-option {
-    margin-left: 5.2vw;
-    font-size: 50px;
+    font-size: 6vw;
+    padding: 1.5vw;
+  }
+
+  .promotion-menu-placement {
+    margin-top: 50vw;
   }
 }
 
@@ -150,8 +154,12 @@ body {
   }
 
   .promotion-option {
-    margin-left: 52px;
     font-size: 60px;
+    padding: 15px;
+  }
+
+  .promotion-menu-placement {
+    margin-top: 500px;
   }
 }
 
@@ -178,12 +186,15 @@ body {
   display: flex;
 }
 
-.modal-content {
-  background-color: rgb(0, 0, 0);
+.promotion-menu {
   border: 2px solid;
   border-color: #00C122;
+  background-color: rgba(0, 0, 0, 0.9);
+  z-index: 2;
+  position: absolute;
 }
 
-.modal-header {
-  border-bottom: 1px solid #000000;
+.promotion-menu-container {
+  display: flex;
+  justify-content: center;
 }

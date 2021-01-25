@@ -7,11 +7,6 @@ function PawnPromotionMenu(props) {
 
   useEffect(() => {
     detectPawn();
-    if(menuShowStatus) {
-      $('#staticBackdrop').modal('show')
-    } else {
-      $('#staticBackdrop').modal('hide')
-    }
   });
 
   const detectPawn = () => {
@@ -38,25 +33,20 @@ function PawnPromotionMenu(props) {
     .catch((err) => console.log(err.response.data));
   };
 
-  return <div>
-
-    <div className="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-      <div className="modal-dialog">
-        <div className="modal-content">
-          <div className="modal-header">
-            <h5 className="modal-title green" id="staticBackdropLabel">You have a pawn that's eligible for promotion. Please make a selection.</h5>
-          </div>
-          <div className="promotion-options green">
-            <div className="promotion-option cursor" onClick={() => handleSelection("queen", "♛")} data-dismiss="modal">♕</div>
-            <div className="promotion-option cursor" onClick={() => handleSelection("rook", "♜")} data-dismiss="modal">♖</div>
-            <div className="promotion-option cursor" onClick={() => handleSelection("bishop", "♝")} data-dismiss="modal">♗</div>
-            <div className="promotion-option cursor" onClick={() => handleSelection("knight", "♞")} data-dismiss="modal">♘</div>
-          </div>
+  if(menuShowStatus) {
+    return <div className="promotion-menu-container">
+      <div className="promotion-menu promotion-menu-placement">
+        <div className="promotion-options green">
+          <div className="promotion-option cursor" onClick={() => handleSelection("queen", "♛")} data-dismiss="modal">♕</div>
+          <div className="promotion-option cursor" onClick={() => handleSelection("rook", "♜")} data-dismiss="modal">♖</div>
+          <div className="promotion-option cursor" onClick={() => handleSelection("bishop", "♝")} data-dismiss="modal">♗</div>
+          <div className="promotion-option cursor" onClick={() => handleSelection("knight", "♞")} data-dismiss="modal">♘</div>
         </div>
       </div>
     </div>
+  }
 
-  </div>
+  return null;
 }
 
 export default PawnPromotionMenu;
