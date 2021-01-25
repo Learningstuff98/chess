@@ -3,7 +3,6 @@ import axios from 'axios';
 
 function PawnPromotionMenu(props) {
   const [menuShowStatus, setMenuShowStatus] = useState(false);
-  const [piece, setPiece] = useState(null);
 
   useEffect(() => {
     detectPawn();
@@ -15,18 +14,18 @@ function PawnPromotionMenu(props) {
         if(piece.y === 8 || piece.y === 1) {
           if(piece.in_play) {
             setMenuShowStatus(true);
-            setPiece(piece);
+            props.setPromotionPiece(piece);
             return;
           }
         }
       }
     }
     setMenuShowStatus(false);
-    setPiece(null);
+    props.setPromotionPiece(null);
   };
 
   const handleSelection = (pieceType, icon) => {
-    axios.patch(`${props.root_url}pieces/${piece.id}`, {
+    axios.patch(`${props.root_url}pieces/${props.promotionPiece.id}`, {
       piece_type: pieceType,
       icon: icon
     })
