@@ -20,6 +20,7 @@ function Game(props) {
       received(data) {
         if(game.id === data.game.id) {
           setPieces(data.pieces);
+          setGame(data.game);
         }
       }
     });
@@ -52,13 +53,13 @@ function Game(props) {
 
   const asBlack = <DisplayPlayer
     current_user={props.current_user}
-    game={props.game}
+    game={game}
     color={"black"}
   />
 
   const asWhite = <DisplayPlayer
     current_user={props.current_user}
-    game={props.game}
+    game={game}
     color={"white"}
   />
 

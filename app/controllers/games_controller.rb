@@ -7,12 +7,15 @@ class GamesController < ApplicationController
 
   def create
     @game = current_user.games.create(game_params)
+    @game.assign_host(current_user)
     @game.make_pieces
     redirect_to game_path(@game)
   end
 
   def show
     @game = Game.find(params[:id])
+    @game.assign_guest(current_user)
+    SendGameAndPiecesJob.perform_later(@game)
   end
 
   def destroy

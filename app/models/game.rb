@@ -2,6 +2,24 @@ class Game < ApplicationRecord
   belongs_to :user
   has_many :pieces
 
+  def assign_host(current_user) # test
+    if self.host_as_white
+      self.update_attribute(:as_white, current_user.username)
+    else
+      self.update_attribute(:as_black, current_user.username)
+    end
+  end
+
+  def assign_guest(current_user) # test
+    if current_user != self.user 
+      if self.as_white
+        self.update_attribute(:as_black, current_user.username)
+      else
+        self.update_attribute(:as_white, current_user.username)
+      end
+    end
+  end
+
   def make_pieces
     self.make_piece("rook", "white", 1, 1, "♜")
     self.make_piece("rook", "white", 8, 1, "♜")
