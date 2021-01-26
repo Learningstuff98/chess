@@ -2,7 +2,7 @@ class Game < ApplicationRecord
   belongs_to :user
   has_many :pieces
 
-  def assign_host(current_user) # test
+  def assign_host(current_user)
     if self.host_as_white
       self.update_attribute(:as_white, current_user.username)
     else
@@ -10,7 +10,7 @@ class Game < ApplicationRecord
     end
   end
 
-  def assign_guest(current_user) # test
+  def assign_guest(current_user)
     if current_user != self.user 
       if self.as_white
         self.update_attribute(:as_black, current_user.username)
