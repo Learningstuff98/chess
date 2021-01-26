@@ -116,6 +116,11 @@ body {
   .promotion-menu-placement {
     margin-top: 50vw;
   }
+
+  .player-info {
+    font-size: 3vw;
+    margin-right: 50vw;
+  }
 }
 
 @media screen and (min-width: 1000px) {
@@ -160,6 +165,11 @@ body {
 
   .promotion-menu-placement {
     margin-top: 500px;
+  }
+
+  .player-info {
+    font-size: 30px;
+    margin-right: 500px;
   }
 }
 
