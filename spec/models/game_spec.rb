@@ -38,7 +38,7 @@ RSpec.describe Game, type: :model do
   end
 
   describe "assign_guest function" do
-    it "should assign a guest as black if as_white is assigned" do
+    it "should assign a guest as black if as_black is not assigned" do
       user = FactoryBot.create(:user)
       game = FactoryBot.create(:game)
       game.update_attribute(:as_white, "host_username")
