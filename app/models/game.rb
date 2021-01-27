@@ -20,6 +20,12 @@ class Game < ApplicationRecord
     end
   end
 
+  def handle_open_status
+    if self.as_white && self.as_black
+      self.update_attribute(:open, false)
+    end
+  end
+
   def make_pieces
     self.make_piece("rook", "white", 1, 1, "♜")
     self.make_piece("rook", "white", 8, 1, "♜")

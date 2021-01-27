@@ -15,6 +15,7 @@ class GamesController < ApplicationController
   def show
     @game = Game.find(params[:id])
     @game.assign_guest(current_user)
+    @game.handle_open_status
     SendGameAndPiecesJob.perform_later(@game)
   end
 

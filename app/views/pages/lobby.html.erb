@@ -7,10 +7,14 @@
     <h4>Nobody is hosting at this time</h4>
   <% else %>
     <% @games.each do |game| %>
-      <h4>
-        <%= link_to "Hosted by #{game.user.username}. Click to join.", game_path(game), class: "green" %>
-        <br/>
-      </h4>
+      <% if game.open %>
+        <h4>
+          <%= link_to "Hosted by #{game.user.username}. Click to join.", game_path(game), class: "green" %>
+          <br/>
+        </h4>
+      <% else %>
+        <h4 class="green">Nobody is hosting at this time</h4>
+      <% end %>
     <% end %>
   <% end %>
 

@@ -66,4 +66,21 @@ RSpec.describe Game, type: :model do
       expect(game.as_black).to eq nil
     end
   end
+
+  describe "handle_open_status function" do
+    it "should set the open status to false if there are two players" do
+      game = FactoryBot.create(:game)
+      game.update_attribute(:as_white, "player_1")
+      game.update_attribute(:as_black, "player_2")
+      game.handle_open_status
+      expect(game.open).to eq false
+    end
+
+    it "should keep the open status set to true if there is one player" do
+      game = FactoryBot.create(:game)
+      game.update_attribute(:as_white, "player_1")
+      game.handle_open_status
+      expect(game.open).to eq true
+    end
+  end
 end
