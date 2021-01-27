@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-export default function TripleDot({ message }) {
+function TripleDot({ message }) {
   const [dots, setDots] = useState("");
 
   useEffect(() => {
@@ -22,3 +22,5 @@ export default function TripleDot({ message }) {
     {message}{dots}
   </div>  
 }
+
+export default TripleDot;

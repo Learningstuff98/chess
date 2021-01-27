@@ -3,19 +3,6 @@
 
   <br/><br/>
 
-  <% if @games.count.zero? %>
-    <h4>Nobody is hosting at this time</h4>
-  <% else %>
-    <% @games.each do |game| %>
-      <% if game.open %>
-        <h4>
-          <%= link_to "Hosted by #{game.user.username}. Click to join.", game_path(game), class: "green" %>
-          <br/>
-        </h4>
-      <% else %>
-        <h4 class="green">Nobody is hosting at this time</h4>
-      <% end %>
-    <% end %>
-  <% end %>
+  <%= react_component("Lobby", games: @games, root_url: root_url) %>
 
 </div>
