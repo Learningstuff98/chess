@@ -95,8 +95,30 @@ RSpec.describe Game, type: :model do
   end
 
   describe "manage_token function" do
-    it "" do
-      
+    it "should delete the game's lobby token if the game is full" do
+      game = FactoryBot.create(:game)
+      lobby_token = FactoryBot.create(:lobby_token)
+      game.lobby_tokens.push(lobby_token)
+      game.update_attribute(:as_white, "a_username")
+      game.update_attribute(:as_black, "a_username")
+      game.manage_token
+      expect(LobbyToken.all.count).to eq 0
+    end
+
+    it "should not delete the game's lobby token if the game isn't full" do
+      game = FactoryBot.create(:game)
+      lobby_token = FactoryBot.create(:lobby_token)
+      game.lobby_tokens.push(lobby_token)
+
+      game.update_attribute(:as_white, "a_username")
+      game.update_attribute(:as_black, nil)
+      game.manage_token
+      expect(LobbyToken.all.count).to eq 1
+
+      game.update_attribute(:as_white, nil)
+      game.update_attribute(:as_black, "a_username")
+      game.manage_token
+      expect(LobbyToken.all.count).to eq 1
     end
   end
 end

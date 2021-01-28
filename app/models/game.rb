@@ -34,7 +34,7 @@ class Game < ApplicationRecord
     end
   end
 
-  def manage_token # test
+  def manage_token
     if self.as_white && self.as_black
       self.lobby_tokens.destroy_all
     end
