@@ -5,7 +5,7 @@ class PagesController < ApplicationController
   end
 
   def lobby
-    @games = Game.all
+    @lobbytokens = LobbyToken.all
   end
 
 end

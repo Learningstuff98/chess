@@ -3,25 +3,11 @@ import TripleDot from './TripleDot';
 
 function Lobby(props) {
 
-  const buildUrl = (game) => {
-    return `${props.root_url}games/${game.id}`;
+  const buildUrl = (lobbytoken) => {
+    return `${props.root_url}games/${lobbytoken.game_id}`;
   };
 
-  const getHostingColor = (game) => {
-    if(game.host_as_white) {
-      return 'white';
-    }
-    return 'black';
-  };
-
-  const getHostUserName = (game) => {
-    if(game.as_white) {
-      return game.as_white;
-    }
-    return game.as_black;
-  };
-
-  if(props.games.length === 0) {
+  if(props.lobbytokens.length === 0) {
     return <h4 className="green">
       <TripleDot
         message={"Waiting for someone to host a match"}
@@ -29,18 +15,14 @@ function Lobby(props) {
     </h4>
   }
 
-  return props.games.map((game) => {
-    if(game.open) {
-      return <h4 key={game.id}>
-        <a className="green" href={buildUrl(game)}>
-          {`${getHostUserName(game)} is hosting as ${getHostingColor(game)}.`}
-          <br/>
-          Click to join.
-        </a>
-      </h4>
-    } else {
-      return <h4 className="green">Closed</h4>
-    }
+  return props.lobbytokens.map((lobbytoken) => {
+    return <h4 key={lobbytoken.id}>
+      <a className="green" href={buildUrl(lobbytoken)}>
+        {`Hosted by ${lobbytoken.host_username} as ${lobbytoken.host_color}.`}
+        <br/>
+        Click to join.
+      </a>
+    </h4>
   });
 }
 
