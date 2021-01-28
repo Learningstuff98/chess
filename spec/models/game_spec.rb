@@ -67,23 +67,6 @@ RSpec.describe Game, type: :model do
     end
   end
 
-  describe "handle_open_status function" do
-    it "should set the open status to false if there are two players" do
-      game = FactoryBot.create(:game)
-      game.update_attribute(:as_white, "player_1")
-      game.update_attribute(:as_black, "player_2")
-      game.handle_open_status
-      expect(game.open).to eq false
-    end
-
-    it "should keep the open status set to true if there is one player" do
-      game = FactoryBot.create(:game)
-      game.update_attribute(:as_white, "player_1")
-      game.handle_open_status
-      expect(game.open).to eq true
-    end
-  end
-
   describe "get_host_color function" do
     it "should return white if the game is being hosted as white" do
       game = FactoryBot.create(:game)
@@ -108,6 +91,12 @@ RSpec.describe Game, type: :model do
       expect(LobbyToken.all.last.game_id).to eq game.id
       expect(LobbyToken.all.last.host_username).to eq user.username
       expect(LobbyToken.all.last.host_color).to eq "white"
+    end
+  end
+
+  describe "manage_token function" do
+    it "" do
+      
     end
   end
 end

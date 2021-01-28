@@ -16,7 +16,7 @@ class GamesController < ApplicationController
   def show
     @game = Game.find(params[:id])
     @game.assign_guest(current_user)
-    @game.handle_open_status
+    @game.manage_token
     SendGameAndPiecesJob.perform_later(@game)
   end
 
@@ -24,6 +24,7 @@ class GamesController < ApplicationController
     game = Game.find_by_id(params[:id])
     game.pieces.destroy_all if game
     game.destroy if game
+    game.lobby_tokens.destroy_all if game
     redirect_to root_path
   end
 

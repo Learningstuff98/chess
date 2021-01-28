@@ -34,9 +34,9 @@ class Game < ApplicationRecord
     end
   end
 
-  def handle_open_status
+  def manage_token # test
     if self.as_white && self.as_black
-      self.update_attribute(:open, false)
+      self.lobby_tokens.destroy_all
     end
   end
 
