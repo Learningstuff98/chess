@@ -1,13 +1,27 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import consumer from "channels/consumer";
 import TripleDot from './TripleDot';
 
 function Lobby(props) {
+  const [lobbytokens, setLobbyTokens] = useState(props.lobbytokens);
+
+  useEffect(() => {
+    handleWebSocketUpdates();
+  });
+
+  const handleWebSocketUpdates = () => {
+    consumer.subscriptions.create({channel: "LobbyChannel"}, {
+      received(data) {
+        setLobbyTokens(data.lobby_tokens);
+      }
+    });
+  };
 
   const buildUrl = (lobbytoken) => {
     return `${props.root_url}games/${lobbytoken.game_id}`;
   };
 
-  if(props.lobbytokens.length === 0) {
+  if(lobbytokens.length === 0) {
     return <h4 className="green">
       <TripleDot
         message={"Waiting for someone to host a match"}
@@ -15,7 +29,7 @@ function Lobby(props) {
     </h4>
   }
 
-  return props.lobbytokens.map((lobbytoken) => {
+  return lobbytokens.map((lobbytoken) => {
     return <h4 key={lobbytoken.id}>
       <a className="green" href={buildUrl(lobbytoken)}>
         {`Hosted by ${lobbytoken.host_username} as ${lobbytoken.host_color}.`}
