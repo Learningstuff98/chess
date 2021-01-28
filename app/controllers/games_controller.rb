@@ -9,6 +9,7 @@ class GamesController < ApplicationController
     @game = current_user.games.create(game_params)
     @game.assign_host(current_user)
     @game.make_pieces
+    @game.create_lobby_token(current_user)
     redirect_to game_path(@game)
   end
 

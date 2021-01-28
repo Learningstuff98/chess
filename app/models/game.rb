@@ -1,6 +1,19 @@
 class Game < ApplicationRecord
   belongs_to :user
   has_many :pieces
+  has_many :lobby_tokens
+
+  def create_lobby_token(current_user)
+    self.lobby_tokens.create(
+      host_username: current_user.username,
+      host_color: self.get_host_color
+    )
+  end
+
+  def get_host_color
+    return "white" if self.host_as_white
+    "black"
+  end
 
   def assign_host(current_user)
     if self.host_as_white
