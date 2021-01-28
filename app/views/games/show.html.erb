@@ -13,6 +13,11 @@
 
 <br/><br/><br/><br/>
 
-<%= react_component("Game", { game: @game, pieces: @game.pieces, root_url: root_url }) %>
+<%= react_component("Game", {
+  game: @game,
+  pieces: @game.pieces,
+  root_url: root_url,
+  current_user: current_user
+}) %>
 
 <br/><br/><br/><br/>

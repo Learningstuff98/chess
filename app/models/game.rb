@@ -1,6 +1,44 @@
 class Game < ApplicationRecord
   belongs_to :user
   has_many :pieces
+  has_many :lobby_tokens
+
+  def create_lobby_token(current_user)
+    self.lobby_tokens.create(
+      host_username: current_user.username,
+      host_color: self.get_host_color
+    )
+  end
+
+  def get_host_color
+    return "white" if self.host_as_white
+    "black"
+  end
+
+  def assign_host(current_user)
+    if self.host_as_white
+      self.update_attribute(:as_white, current_user.username)
+    else
+      self.update_attribute(:as_black, current_user.username)
+    end
+  end
+
+  def assign_guest(current_user)
+    if current_user != self.user 
+      if !self.as_white
+        self.update_attribute(:as_white, current_user.username)
+      end
+      if !self.as_black
+        self.update_attribute(:as_black, current_user.username)
+      end
+    end
+  end
+
+  def manage_token
+    if self.as_white && self.as_black
+      self.lobby_tokens.destroy_all
+    end
+  end
 
   def make_pieces
     self.make_piece("rook", "white", 1, 1, "♜")

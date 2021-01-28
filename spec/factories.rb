@@ -15,6 +15,10 @@ FactoryBot.define do
     association :user
   end
 
+  factory :lobby_token do
+    association :game
+  end
+
   factory :piece do
     piece_type { "queen" }
     color { "black" }
