@@ -121,6 +121,13 @@ body {
     font-size: 3vw;
     margin-right: 50vw;
   }
+
+  .victory-statement-dimensions {
+    margin-top: 53vw;
+    height: 20vw;
+    width: 80vw;
+    font-size: 3vw; 
+  }
 }
 
 @media screen and (min-width: 1000px) {
@@ -171,6 +178,13 @@ body {
     font-size: 30px;
     margin-right: 500px;
   }
+
+  .victory-statement-dimensions {
+    margin-top: 530px;
+    height: 200px;
+    width: 800px;
+    font-size: 30px; 
+  }
 }
 
 .dark {
@@ -207,4 +221,23 @@ body {
 .promotion-menu-container {
   display: flex;
   justify-content: center;
+}
+
+.victory-statement-box {
+  border: 2px solid;
+  border-color: #00C122;
+  background-color: rgba(0, 0, 0, 0.9);
+  z-index: 3;
+  position: absolute;
+}
+
+.victory-statement-container {
+  display: flex;
+  justify-content: center;
+}
+
+.center-winner-username {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

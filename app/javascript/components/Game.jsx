@@ -4,6 +4,7 @@ import Board from './Board';
 import CapturedPieces from './CapturedPieces';
 import PawnPromotionMenu from './PawnPromotionMenu';
 import DisplayPlayer from './DisplayPlayer';
+import VictoryStatement from './VictoryStatement';
 
 function Game(props) {
   const [game, setGame] = useState(props.game);
@@ -32,6 +33,7 @@ function Game(props) {
     setSelectedPiece={setSelectedPiece}
     root_url={props.root_url}
     promotionPiece={promotionPiece}
+    game={game}
   />
 
   const capturedBlackPieces = <CapturedPieces
@@ -63,8 +65,13 @@ function Game(props) {
     color={"white"}
   />
 
+  const victoryStatement = <VictoryStatement
+    game={game}
+  />
+
   return <div>
     {pawnPromotionMenu}
+    {victoryStatement}
     {capturedWhitePieces}
     <br/>
     {asBlack}

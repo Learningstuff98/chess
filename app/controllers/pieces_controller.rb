@@ -7,6 +7,7 @@ class PiecesController < ApplicationController
     piece.update(piece_params)
     piece.valid_move?
     piece.capture_piece
+    piece.game.victory?
     SendGameAndPiecesJob.perform_later(piece.game)
   end
 

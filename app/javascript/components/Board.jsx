@@ -22,6 +22,7 @@ function Board(props) {
         setSelectedPiece={props.setSelectedPiece}
         root_url={props.root_url}
         promotionPiece={props.promotionPiece}
+        game={props.game}
       />
     </div>
   };

@@ -5,7 +5,9 @@ function Tile(props) {
 
   const handlePiece = () => {
     if(props.piece && !props.selectedPiece && !props.promotionPiece) {
-      props.setSelectedPiece(props.piece);
+      if(!props.game.winner_username) {
+        props.setSelectedPiece(props.piece);
+      }
     }
     if(props.selectedPiece) {
       movePiece();

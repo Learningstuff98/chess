@@ -121,4 +121,48 @@ RSpec.describe Game, type: :model do
       expect(LobbyToken.all.count).to eq 1
     end
   end
+
+  describe "victory? function" do
+    it "should set white as the winner if the black king is captured" do
+      game = FactoryBot.create(:game)
+      game.pieces.create(
+        piece_type: "king",
+        color: "black",
+        in_play: false
+      )
+      game.update_attribute(:as_white, "a_username")
+      game.victory?
+      expect(game.winner_username).to eq "a_username"
+    end
+
+    it "should set black as the winner if the white king is captured" do
+      game = FactoryBot.create(:game)
+      game.pieces.create(
+        piece_type: "king",
+        color: "white",
+        in_play: false
+      )
+      game.update_attribute(:as_black, "a_username")
+      game.victory?
+      expect(game.winner_username).to eq "a_username"
+    end
+
+    it "should not set either player as the winner if no kings are captured" do
+      game = FactoryBot.create(:game)
+      game.pieces.create(
+        piece_type: "king",
+        color: "white",
+        in_play: true
+      )
+      game.pieces.create(
+        piece_type: "king",
+        color: "black",
+        in_play: true
+      )
+      game.update_attribute(:as_white, "a_username")
+      game.update_attribute(:as_black, "a_username2")
+      game.victory?
+      expect(game.winner_username).to eq nil
+    end
+  end
 end
