@@ -125,8 +125,9 @@ body {
   .victory-statement-dimensions {
     margin-top: 53vw;
     height: 20vw;
-    width: 80vw;
-    font-size: 3vw; 
+    width: 30vw;
+    font-size: 3vw;
+    border: 0.2vw solid;
   }
 }
 
@@ -182,8 +183,9 @@ body {
   .victory-statement-dimensions {
     margin-top: 530px;
     height: 200px;
-    width: 800px;
-    font-size: 30px; 
+    width: 300px;
+    font-size: 30px;
+    border: 2px solid;
   }
 }
 
@@ -224,7 +226,6 @@ body {
 }
 
 .victory-statement-box {
-  border: 2px solid;
   border-color: #00C122;
   background-color: rgba(0, 0, 0, 0.9);
   z-index: 3;
