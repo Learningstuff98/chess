@@ -3,6 +3,18 @@ class Game < ApplicationRecord
   has_many :pieces
   has_many :lobby_tokens
 
+  def victory?
+    self.pieces.each do |piece|
+      if piece.piece_type == "king" && !piece.in_play
+        if piece.color == "black"
+          self.update_attribute(:winner_username, self.as_white)
+        else
+          self.update_attribute(:winner_username, self.as_black)
+        end
+      end
+    end
+  end
+
   def create_lobby_token(current_user)
     self.lobby_tokens.create(
       host_username: current_user.username,
