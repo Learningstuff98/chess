@@ -123,11 +123,16 @@ body {
   }
 
   .victory-statement-dimensions {
-    margin-top: 53vw;
+    margin-top: 65vw;
     height: 20vw;
     width: 30vw;
     font-size: 3vw;
     border: 0.2vw solid;
+  }
+
+  .turn-info {
+    font-size: 3vw;
+    margin-right: 35vw;
   }
 }
 
@@ -181,11 +186,16 @@ body {
   }
 
   .victory-statement-dimensions {
-    margin-top: 530px;
+    margin-top: 600px;
     height: 200px;
     width: 300px;
     font-size: 30px;
     border: 2px solid;
+  }
+
+  .turn-info {
+    font-size: 30px;
+    margin-right: 350px;
   }
 }
 

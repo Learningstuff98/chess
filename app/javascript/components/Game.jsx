@@ -5,6 +5,7 @@ import CapturedPieces from './CapturedPieces';
 import PawnPromotionMenu from './PawnPromotionMenu';
 import DisplayPlayer from './DisplayPlayer';
 import VictoryStatement from './VictoryStatement';
+import CurrentTurn from './CurrentTurn';
 
 function Game(props) {
   const [game, setGame] = useState(props.game);
@@ -69,6 +70,10 @@ function Game(props) {
     game={game}
   />
 
+  const currentTurn = <CurrentTurn
+    game={game}
+  />
+
   return <div>
     {pawnPromotionMenu}
     {victoryStatement}
@@ -76,7 +81,11 @@ function Game(props) {
     <br/>
     {asBlack}
     <br/>
+    {currentTurn}
+    <br/>
     {board}
+    <br/>
+    {currentTurn}
     <br/>
     {asWhite}
     <br/>
