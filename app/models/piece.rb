@@ -153,6 +153,7 @@ class Piece < ApplicationRecord
         if self.horizontal_move? || self.verticle_move?
           if self.path_clear?(self.get_horizontal_or_verticle_path)
             self.update_x_and_y
+            self.game.invert_turn
           end
         end
       end
@@ -160,42 +161,62 @@ class Piece < ApplicationRecord
         if self.diagonal_move?
           if self.path_clear?(self.get_diagonal_path)
             self.update_x_and_y
+            self.game.invert_turn
           end
         end
       end
       if self.piece_type == "queen"
-        if self.horizontal_move? || self.verticle_move?
-          if self.path_clear?(self.get_horizontal_or_verticle_path)
-            self.update_x_and_y
-          end
-        end
         if self.diagonal_move?
           if self.path_clear?(self.get_diagonal_path)
             self.update_x_and_y
+            self.game.invert_turn
+          end
+        end
+        if self.horizontal_move? || self.verticle_move?
+          if self.path_clear?(self.get_horizontal_or_verticle_path)
+            self.update_x_and_y
+            self.game.invert_turn
           end
         end
       end
       if self.piece_type == "king"
         if self.king_move?
           self.update_x_and_y
+          self.game.invert_turn
         end
       end
       if self.piece_type == "knight"
         if self.knight_move?
           self.update_x_and_y
+          self.game.invert_turn
         end
       end
       if self.piece_type == "pawn"
         if self.color == "white"
-          self.update_x_and_y if self.forward_pawn_move?(:+)
-          self.update_x_and_y if self.double_jump?(:+, 2)
-          self.update_x_and_y if self.pawn_capturing?(:+)
+          if self.forward_pawn_move?(:+) || self.pawn_capturing?(:+)
+            self.update_x_and_y
+            if self.destination_y < 8
+              self.game.invert_turn
+            end
+          end
+          if self.double_jump?(:+, 2)
+            self.update_x_and_y
+            self.game.invert_turn
+          end 
         else
-          self.update_x_and_y if self.forward_pawn_move?(:-)
-          self.update_x_and_y if self.double_jump?(:-, 7)
-          self.update_x_and_y if self.pawn_capturing?(:-)
+          if self.forward_pawn_move?(:-) || self.pawn_capturing?(:-)
+            self.update_x_and_y
+            if self.destination_y > 1
+              self.game.invert_turn
+            end
+          end
+          if self.double_jump?(:-, 7)
+            self.update_x_and_y
+            self.game.invert_turn
+          end
         end
       end
     end
   end
+
 end
