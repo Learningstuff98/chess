@@ -7,7 +7,7 @@ class PiecesController < ApplicationController
     origional_piece_type = piece.piece_type
     piece.update(piece_params)
     piece.valid_move?
-    if origional_piece_type != piece.piece_type # maybe abstract this to it's own function
+    if piece.promoted?(origional_piece_type)
       piece.game.invert_turn
     end
     piece.capture_piece

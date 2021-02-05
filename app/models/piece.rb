@@ -147,6 +147,10 @@ class Piece < ApplicationRecord
     end
   end
 
+  def promoted?(origional_piece_type)
+    origional_piece_type != self.piece_type
+  end
+
   def valid_move?
     if !self.friendly_capture?
       if self.piece_type == "rook"
