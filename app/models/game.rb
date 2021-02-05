@@ -3,7 +3,7 @@ class Game < ApplicationRecord
   has_many :pieces
   has_many :lobby_tokens
 
-  def invert_turn # test
+  def invert_turn
     self.update_attribute(:whites_turn, !self.whites_turn)
   end
 
