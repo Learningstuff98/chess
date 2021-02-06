@@ -151,6 +151,10 @@ class Piece < ApplicationRecord
     origional_piece_type != self.piece_type
   end
 
+  def on_row?(promotion_row)
+    self.y == promotion_row
+  end
+
   def valid_move?
     if !self.friendly_capture?
       if self.piece_type == "rook"
@@ -199,7 +203,7 @@ class Piece < ApplicationRecord
         if self.color == "white"
           if self.forward_pawn_move?(:+) || self.pawn_capturing?(:+)
             self.update_x_and_y
-            if self.destination_y < 8 # maybe abstract this to it's own function
+            if !self.on_row?(8)
               self.game.invert_turn
             end
           end
@@ -210,7 +214,7 @@ class Piece < ApplicationRecord
         else
           if self.forward_pawn_move?(:-) || self.pawn_capturing?(:-)
             self.update_x_and_y
-            if self.destination_y > 1 # maybe abstract this to it's own function
+            if !self.on_row?(1)
               self.game.invert_turn
             end
           end
