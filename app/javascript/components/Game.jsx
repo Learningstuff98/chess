@@ -52,6 +52,8 @@ function Game(props) {
     root_url={props.root_url}
     promotionPiece={promotionPiece}
     setPromotionPiece={setPromotionPiece}
+    game={game}
+    current_user={props.current_user}
   />
 
   const asBlack = <DisplayPlayer
