@@ -165,4 +165,20 @@ RSpec.describe Game, type: :model do
       expect(game.winner_username).to eq nil
     end
   end
+
+  describe "invert_turn function" do
+    it "should change the turn from white to black if the turn starts as white" do
+      game = FactoryBot.create(:game)
+      game.update_attribute(:whites_turn, true)
+      game.invert_turn
+      expect(game.whites_turn).to eq false
+    end
+
+    it "should change the turn from black to white if the turn starts as black" do
+      game = FactoryBot.create(:game)
+      game.update_attribute(:whites_turn, false)
+      game.invert_turn
+      expect(game.whites_turn).to eq true
+    end
+  end
 end

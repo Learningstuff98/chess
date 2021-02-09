@@ -4,8 +4,12 @@ class PiecesController < ApplicationController
 
   def update
     piece = Piece.find(params[:id])
+    origional_piece_type = piece.piece_type
     piece.update(piece_params)
-    piece.valid_move?
+    piece.valid_move?(current_user)
+    if piece.promoted?(origional_piece_type)
+      piece.game.invert_turn
+    end
     piece.capture_piece
     piece.game.victory?
     SendGameAndPiecesJob.perform_later(piece.game)

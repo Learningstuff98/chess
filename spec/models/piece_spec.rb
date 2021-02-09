@@ -503,4 +503,29 @@ RSpec.describe Piece, type: :model do
       expect(piece.tile_has_piece?(3, 3)).to eq false
     end
   end
+
+  describe "promoted? function" do
+    it "should return true if a given piece type isn't equal to a piece's type" do
+      piece = FactoryBot.create(:piece)
+      expect(piece.promoted?("pawn")).to eq true
+    end
+
+    it "should return false if a given piece type is equal to a piece's type" do
+      piece = FactoryBot.create(:piece)
+      piece.update_attribute(:piece_type, "pawn")
+      expect(piece.promoted?("pawn")).to eq false
+    end
+  end
+
+  describe "on_row? function" do
+    it "should return true if a piece is on a given row" do
+      piece = FactoryBot.create(:piece)
+      expect(piece.on_row?(5)).to eq true
+    end
+
+    it "should return false if a piece isn't on a given row" do
+      piece = FactoryBot.create(:piece)
+      expect(piece.on_row?(6)).to eq false
+    end
+  end
 end

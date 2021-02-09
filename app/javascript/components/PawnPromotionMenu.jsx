@@ -1,26 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import axios from 'axios';
 
 function PawnPromotionMenu(props) {
-  const [menuShowStatus, setMenuShowStatus] = useState(false);
 
   useEffect(() => {
-    detectPawn();
+    findPromotionPiece();
   });
 
-  const detectPawn = () => {
+  const findPromotionPiece = () => {
     for(const piece of props.pieces) {
       if(piece.piece_type === "pawn") {
         if(piece.y === 8 || piece.y === 1) {
-          if(piece.in_play) {
-            setMenuShowStatus(true);
-            props.setPromotionPiece(piece);
-            return;
-          }
+          props.setPromotionPiece(piece);
+          return;
         }
       }
     }
-    setMenuShowStatus(false);
     props.setPromotionPiece(null);
   };
 
@@ -32,7 +27,16 @@ function PawnPromotionMenu(props) {
     .catch((err) => console.log(err.response.data));
   };
 
-  if(menuShowStatus) {
+  const isCorrectPlayer = () => {
+    if(props.promotionPiece.color === "white") {
+      return props.current_user.username === props.game.as_white;
+    }
+    if(props.promotionPiece.color === "black") {
+      return props.current_user.username === props.game.as_black;
+    }
+  };
+
+  if(props.promotionPiece && isCorrectPlayer()) {
     return <div className="promotion-menu-container">
       <div className="promotion-menu promotion-menu-placement">
         <div className="promotion-options green">
