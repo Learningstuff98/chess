@@ -22,7 +22,7 @@ function Lobby(props) {
   };
 
   if(lobbytokens.length === 0) {
-    return <h4 className="green">
+    return <h4 className="green lobby-message">
       <TripleDot
         message={"Waiting for someone to host a match"}
       />
@@ -32,8 +32,7 @@ function Lobby(props) {
   return lobbytokens.map((lobbytoken) => {
     return <h4 key={lobbytoken.id}>
       <a className="green" href={buildUrl(lobbytoken)}>
-        {`Hosted by ${lobbytoken.host_username} as ${lobbytoken.host_color}.`}
-        <br/>
+        {`Hosted by ${lobbytoken.host_username} as ${lobbytoken.host_color}. `}
         Click to join.
       </a>
     </h4>
