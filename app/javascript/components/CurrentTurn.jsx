@@ -4,9 +4,15 @@ function CurrentTurn(props) {
 
   const turnHolder = () => {
     if(props.game.whites_turn) {
-      return props.game.as_white;
+      if(props.game.as_white) {
+        return props.game.as_white;
+      }
+      return "white";
     }
-    return props.game.as_black;
+    if(props.game.as_black) {
+      return props.game.as_black;
+    }
+    return "black";
   };
 
   return <div className="green container">
