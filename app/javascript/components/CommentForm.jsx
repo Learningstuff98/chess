@@ -19,7 +19,7 @@ function CommentForm(props) {
     return <input
       type="submit"
       value="Submit"
-      className="btn btn-primary green"
+      className="btn btn-primary"
     />
   };
 
@@ -28,20 +28,18 @@ function CommentForm(props) {
       type="text"
       placeholder="Add a comment"
       id="input-element"
-      size="50"
+      size="30"
       value={input}
       onChange={e => setInput(e.target.value)}
       className="field"
     />
   };
 
-  return <div className="comment-form-placement">
-    <form onSubmit={handleSubmit}>
-      {inputElement()}
-      <br/><br/>
-      {inputButton()}
-    </form>
-  </div>
+  return <form className="comment-form-placement" onSubmit={handleSubmit}>
+    {inputElement()}
+    <br/><br/>
+    {inputButton()}
+  </form>
 }
 
 export default CommentForm;
