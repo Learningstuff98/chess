@@ -2,6 +2,7 @@ class Game < ApplicationRecord
   belongs_to :user
   has_many :pieces
   has_many :lobby_tokens
+  has_many :comments
 
   def invert_turn
     self.update_attribute(:whites_turn, !self.whites_turn)

@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_29_221029) do
+ActiveRecord::Schema.define(version: 2021_03_23_003912) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "comments", force: :cascade do |t|
+    t.integer "game_id"
+    t.text "content"
+    t.string "username"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["game_id"], name: "index_comments_on_game_id"
+  end
 
   create_table "games", force: :cascade do |t|
     t.integer "user_id"
@@ -24,6 +33,7 @@ ActiveRecord::Schema.define(version: 2021_01_29_221029) do
     t.string "as_black"
     t.string "winner_username"
     t.boolean "whites_turn", default: true
+    t.boolean "resigned", default: false
   end
 
   create_table "lobby_tokens", force: :cascade do |t|

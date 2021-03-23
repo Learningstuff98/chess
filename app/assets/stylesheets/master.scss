@@ -104,6 +104,11 @@ body {
     height: 10vw;
   }
 
+  .chat-box-dimensions {
+    width: 90vw;
+    height: 30vw;
+  }
+
   .captured-pieces {
     font-size: 4vw;
   }
@@ -167,6 +172,11 @@ body {
     height: 100px;
   }
 
+  .chat-box-dimensions {
+    width: 900px;
+    height: 300px;
+  }
+
   .captured-pieces {
     font-size: 40px;
   }
@@ -197,6 +207,17 @@ body {
     font-size: 30px;
     margin-right: 350px;
   }
+
+  .comment-form-placement {
+    margin-top: 30px;
+  }
+}
+
+.chat-box {
+  padding: 10px;
+  border: 2px solid;
+  border-color: rgb(87, 163, 101);
+  background-color: rgba(85, 82, 83, 0.9);
 }
 
 .dark {

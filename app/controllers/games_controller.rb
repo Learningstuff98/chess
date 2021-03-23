@@ -17,6 +17,7 @@ class GamesController < ApplicationController
     @game = Game.find(params[:id])
     @game.assign_guest(current_user)
     @game.manage_token
+    @comments = @game.comments.all
     SendLobbyTokensJob.perform_later
     SendGameAndPiecesJob.perform_later(@game)
   end

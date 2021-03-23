@@ -18,4 +18,12 @@
   current_user: current_user
 }) %>
 
+<br/><br/>
+
+<%= react_component("Chat", {
+  game: @game,
+  comments: @comments,
+  root_url: root_url,
+}) %>
+
 <br/><br/><br/><br/>
