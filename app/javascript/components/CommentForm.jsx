@@ -11,8 +11,12 @@ function CommentForm(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    submitComment({ content: input });
-    setInput('');
+    if(input.length > 0) {
+      submitComment({ content: input });
+      setInput('');
+    } else {
+      alert("Comments can't be blank");
+    }
   };
 
   const inputButton = () => {
