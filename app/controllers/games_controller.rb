@@ -27,6 +27,7 @@ class GamesController < ApplicationController
     game.pieces.destroy_all if game
     game.destroy if game
     game.lobby_tokens.destroy_all if game
+    game.comments.destroy_all if game
     SendLobbyTokensJob.perform_later
     redirect_to root_path
   end
