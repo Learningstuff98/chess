@@ -6,6 +6,7 @@ class CommentsController < ApplicationController
     game = Game.find(params[:game_id])
     comment = game.comments.create(comment_params)
     comment.update_attribute(:username, current_user.username)
+    SendCommentJob.perform_later(game)
   end
 
   private

@@ -6,12 +6,14 @@ import PawnPromotionMenu from './PawnPromotionMenu';
 import DisplayPlayer from './DisplayPlayer';
 import VictoryStatement from './VictoryStatement';
 import CurrentTurn from './CurrentTurn';
+import Chat from './Chat';
 
 function Game(props) {
   const [game, setGame] = useState(props.game);
   const [pieces, setPieces] = useState(props.pieces);
   const [selectedPiece, setSelectedPiece] = useState(null);
   const [promotionPiece, setPromotionPiece] = useState(null);
+  const [comments, setComments] = useState(props.comments);
 
   useEffect(() => {
     handleWebSocketUpdates();
@@ -21,8 +23,15 @@ function Game(props) {
     consumer.subscriptions.create({channel: "GameChannel"}, {
       received(data) {
         if(game.id === data.game.id) {
-          setPieces(data.pieces);
-          setGame(data.game);
+          if(data.pieces) {
+            setPieces(data.pieces);
+          }
+          if(data.game) {
+            setGame(data.game);
+          }
+          if(data.comments) {
+            setComments(data.comments);
+          }
         }
       }
     });
@@ -76,6 +85,12 @@ function Game(props) {
     game={game}
   />
 
+  const chat = <Chat
+    game={game}
+    comments={comments}
+    root_url={props.root_url}
+  />
+
   return <div>
     {pawnPromotionMenu}
     {victoryStatement}
@@ -92,6 +107,8 @@ function Game(props) {
     {asWhite}
     <br/>
     {capturedBlackPieces}
+    <br/><br/>
+    {chat}
   </div>  
 }
 
