@@ -6,5 +6,5 @@ test:
 
 production:
   adapter: redis
-  url: redis://redistogo:4ac3910c9da085cb62298bc906ca84b2@scat.redistogo.com:9278/
+  url: redis://:pc5e2bbbfc090e04c394fcd703209adf0af148f59812b86d5e2efc4c96e30886c@ec2-54-161-54-48.compute-1.amazonaws.com:19169
   channel_prefix: chess_production
