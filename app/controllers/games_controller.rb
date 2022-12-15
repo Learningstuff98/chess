@@ -37,5 +37,4 @@ class GamesController < ApplicationController
   def game_params
     params.require(:game).permit(:host_as_white)
   end
-
 end
