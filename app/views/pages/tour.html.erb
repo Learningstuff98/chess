@@ -29,4 +29,25 @@
     not another piece is in the way and if a proposed capture is
     friendly/illegal.
   </h4>
+  <br/>
+  <h4>
+    When a piece is selected and a tile is clicked, this sends a patch
+    request to the back end. Pieces have x and y attributes along with
+    destination_x and destination_y attributes. The logic around piece
+    movement is based on the starting point (x and y attributes) and
+    the proposed destination (destination_x and destination_y attributes).
+    If a proposed move is legal then the x and y attributes are updated
+    and a broadcast is sent with action cable to the front end with the
+    game and its pieces.
+  </h4>
+  <br/>
+  <h4>
+    This project uses both Rspec and Factorybot for testing. I have tests
+    written for both models and controllers. The controller tests can be
+    found <%= link_to "here.", 'https://github.com/Learningstuff98/chess/tree/master/spec/controllers' %>
+    The model tests can be found
+    <%= link_to "here.", 'https://github.com/Learningstuff98/chess/tree/master/spec/models' %> 
+  </h4>
 </div>
+
+<br/><br/><br/><br/>
