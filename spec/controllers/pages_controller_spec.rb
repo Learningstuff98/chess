@@ -21,4 +21,11 @@ RSpec.describe PagesController, type: :controller do
       expect(response).to have_http_status(:success)
     end
   end
+
+  describe "tour page" do
+    it "should load the page" do
+      get :tour
+      expect(response).to have_http_status(:success)
+    end
+  end
 end
