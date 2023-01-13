@@ -1,4 +1,4 @@
-<div class="green page-content">
+<div class="green page-content col-8">
   <h1>Hello and welcome to my chess app!</h1>
   <br/>
   <h3>
@@ -11,10 +11,22 @@
   <h4>
     This is a rails 6 app that uses devise for user functionality.
     Users can start games and choose which color that they want to
-    play as,<br/>or they can join games in the lobby that are being
+    play as, or they can join games in the lobby that are being
     hosted by other users. The rules of chess are enforced on the
-    back end.<br/>The game is turn based, pieces can't jump over
+    back end. The game is turn based, pieces can't jump over
     eachother except for knights and a victor can be declared.
-    A real time chat box is<br/>included below the board.
+    A real time chat box is included below the board.
+  </h4>
+  <br/><br/>
+  <h2>Back end</h2>
+  <br/>
+  <h4>
+    Games belong to users. Pieces and comments belong to games.
+    Games contain functionality for things like creating the pieces
+    with their starting positions and determining the victor.
+    Pieces contain logic for things like how a piece is
+    allowed to move given what type of piece that it is, whether or
+    not another piece is in the way and if a proposed capture is
+    friendly/illegal.
   </h4>
 </div>
