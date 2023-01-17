@@ -1,5 +1,7 @@
 <div class="container">
   <div class="box text-center col-8">
+    <h3><%= link_to 'Info page. Does not require signing in.', tour_path, class: "green" %></h3>
+    <br/>
     <% if current_user %>
       <h3><%= link_to "Host a match", new_game_path, class: "green" %></h3>
       <br/>
@@ -10,6 +12,6 @@
       <h3><%= link_to "Log in", new_user_session_path, class: "green" %></h3>
       <br/>
       <h3><%= link_to "Sign up", new_user_registration_path, class: "green" %></h3>
-    <% end %>  
+    <% end %> 
   </div>
 </div>

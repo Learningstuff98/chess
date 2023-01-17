@@ -1,0 +1,82 @@
+<div class="green page-content col-8">
+  <h1>Hello and welcome to my chess app!</h1>
+  <br/>
+  <h3>
+    Here I want to provide a tour of this app and give a bird's eye
+    view of how it works.
+  </h3>
+  <br/><br/>
+  <h2>Overview</h2>
+  <br/>
+  <h4>
+    This is a rails 6 app that uses devise for user functionality.
+    Users can start games and choose which color that they want to
+    play as, or they can join games in the lobby that are being
+    hosted by other users. The rules of chess are enforced on the
+    back end. The game is turn based, pieces can't jump over
+    eachother except for knights and a victor can be declared.
+    A real time chat box is included below the board.
+  </h4>
+
+  <br/><br/>
+  <%= image_tag 'chessgif.gif', class: 'container gif-box' %>
+  <br/><br/>
+  <%= image_tag 'pawnpromotion.gif', class: 'container gif-box' %>
+  <br/><br/>
+
+  <h2>Back end</h2>
+  <br/>
+  <h4>
+    Games belong to users. Pieces and comments belong to games.
+    Games contain functionality for things like creating the pieces
+    with their starting positions and determining the victor.
+    Pieces contain logic for things like how a piece is
+    allowed to move given what type of piece that it is, whether or
+    not another piece is in the way and if a proposed capture is
+    friendly/illegal.
+  </h4>
+  <br/>
+  <h4>
+    When a piece is selected and a tile is clicked, this sends a patch
+    request to the back end. Pieces have x and y attributes along with
+    destination_x and destination_y attributes. The logic around piece
+    movement is based on the starting point (x and y attributes) and
+    the proposed destination (destination_x and destination_y attributes).
+    If a proposed move is legal then the x and y attributes are updated
+    and a broadcast is sent with action cable to the front end with the
+    game and its pieces.
+  </h4>
+  <br/>
+  <h4>
+    This project uses both Rspec and Factorybot for testing. I have tests
+    written for both models and controllers. The controller tests can be
+    found <%= link_to "here.", 'https://github.com/Learningstuff98/chess/tree/master/spec/controllers' %>
+    The model tests can be found
+    <%= link_to "here.", 'https://github.com/Learningstuff98/chess/tree/master/spec/models' %> 
+  </h4>
+  <br/><br/>
+  <h2>Front end</h2>
+  <br/>
+  <h4>
+    This app uses out of the box rails html.erb views along with React.js
+    when necessary thanks to the react rails gem. The chess board, chat and
+    the lobby all use react along with action cable to function. When a
+    broadcast from the back end is recieved, the data is then loaded into
+    state.
+
+    <br/><br/>
+    <div class="col-8">
+      <%= image_tag 'lobbygif.gif', class: 'container gif-box' %>
+    </div>
+    <br/><br/>
+
+    The chess board and chat box work for different screen sizes, shown
+    below.
+
+    <br/><br/>
+    <%= image_tag 'dynamicformattedchess.gif', class: 'container gif-box' %>
+    <br/><br/>
+  </h4>
+</div>
+
+<br/><br/><br/><br/>
