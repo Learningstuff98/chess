@@ -3,7 +3,7 @@
   <br/>
   <h3>
     Here I want to provide a tour of this app and give a bird's eye
-    view of how it works along with some of my thoughts.
+    view of how it works.
   </h3>
   <br/><br/>
   <h2>Overview</h2>
@@ -19,7 +19,9 @@
   </h4>
 
   <br/><br/>
-  <h4>Gif of the game here.</h4>
+  <%= image_tag 'chessgif.gif', class: 'container gif-box' %>
+  <br/><br/>
+  <%= image_tag 'pawnpromotion.gif', class: 'container gif-box' %>
   <br/><br/>
 
   <h2>Back end</h2>
@@ -63,18 +65,17 @@
     state.
 
     <br/><br/>
-    Gif of the lobby here.
-    <br/><br/>
-    Gif of the chat box here.
+    <div class="col-8">
+      <%= image_tag 'lobbygif.gif', class: 'container gif-box' %>
+    </div>
     <br/><br/>
 
     The chess board and chat box work for different screen sizes, shown
     below.
 
     <br/><br/>
-    Gif of the board using different screen sizes here.
+    <%= image_tag 'dynamicformattedchess.gif', class: 'container gif-box' %>
     <br/><br/>
-
   </h4>
 </div>
 
