@@ -17,7 +17,7 @@ Games belong to users. Pieces and comments belong to games. Games contain functi
 
 When a piece is selected and a tile is clicked, this sends a patch request to the back end. Pieces have x and y attributes along with destination_x and destination_y attributes. The logic around piece movement is based on the starting point (x and y attributes) and the proposed destination (destination_x and destination_y attributes). If a proposed move is legal then the x and y attributes are updated and a broadcast is sent with action cable to the front end with the game and its pieces.
 
-This project uses both Rspec and Factorybot for testing. I have tests written for both models and controllers. The controller tests can be found here. The model tests can be found here.
+This project uses both Rspec and Factorybot for testing. I have tests written for both models and controllers which can be found in the spec folder.
 
 
 Front end
