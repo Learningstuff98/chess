@@ -5,7 +5,7 @@ class PagesController < ApplicationController
   end
 
   def lobby
-    @lobbytokens = LobbyToken.all
+    @games = Game.vacant_games
   end
 
 end

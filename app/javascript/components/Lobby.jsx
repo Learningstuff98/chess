@@ -3,7 +3,7 @@ import consumer from "channels/consumer";
 import TripleDot from './TripleDot';
 
 function Lobby(props) {
-  const [lobbytokens, setLobbyTokens] = useState(props.lobbytokens);
+  const [games, setGames] = useState(props.games);
 
   useEffect(() => {
     handleWebSocketUpdates();
@@ -12,16 +12,16 @@ function Lobby(props) {
   const handleWebSocketUpdates = () => {
     consumer.subscriptions.create({channel: "LobbyChannel"}, {
       received(data) {
-        setLobbyTokens(data.lobby_tokens);
+        setGames(data.games);
       }
     });
   };
 
-  const buildUrl = (lobbytoken) => {
-    return `${props.root_url}games/${lobbytoken.game_id}`;
+  const buildUrl = (game) => {
+    return `${props.root_url}games/${game.id}`;
   };
 
-  if(lobbytokens.length === 0) {
+  if(games.length === 0) {
     return <h4 className="green lobby-message">
       <TripleDot
         message={"Waiting for someone to host a match"}
@@ -29,10 +29,18 @@ function Lobby(props) {
     </h4>
   }
 
-  return lobbytokens.map((lobbytoken) => {
-    return <h4 key={lobbytoken.id}>
-      <a className="green" href={buildUrl(lobbytoken)}>
-        {`Hosted by ${lobbytoken.host_username} as ${lobbytoken.host_color}. `}
+  const setLinkMessage = (game) => {
+    if(game.host_as_white) {
+      return `Hosted by ${game.as_white} as white. `
+    } else {
+      return `Hosted by ${game.as_black} as black. `
+    }
+  };
+
+  return games.map((game) => {
+    return <h4 key={game.id}>
+      <a className="green" href={buildUrl(game)}>
+        {setLinkMessage(game)}
         Click to join.
       </a>
     </h4>

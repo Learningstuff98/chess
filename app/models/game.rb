@@ -1,8 +1,11 @@
 class Game < ApplicationRecord
   belongs_to :user
   has_many :pieces
-  has_many :lobby_tokens
   has_many :comments
+
+  def self.vacant_games
+    Game.select { |game| !game.as_white || !game.as_black }
+  end
 
   def invert_turn
     self.update_attribute(:whites_turn, !self.whites_turn)
@@ -18,13 +21,6 @@ class Game < ApplicationRecord
         end
       end
     end
-  end
-
-  def create_lobby_token(current_user)
-    self.lobby_tokens.create(
-      host_username: current_user.username,
-      host_color: self.get_host_color
-    )
   end
 
   def get_host_color
@@ -48,12 +44,6 @@ class Game < ApplicationRecord
       if !self.as_black
         self.update_attribute(:as_black, current_user.username)
       end
-    end
-  end
-
-  def manage_token
-    if self.as_white && self.as_black
-      self.lobby_tokens.destroy_all
     end
   end
 

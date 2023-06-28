@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_23_003912) do
+ActiveRecord::Schema.define(version: 2023_06_28_181943) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,16 +33,6 @@ ActiveRecord::Schema.define(version: 2021_03_23_003912) do
     t.string "as_black"
     t.string "winner_username"
     t.boolean "whites_turn", default: true
-    t.boolean "resigned", default: false
-  end
-
-  create_table "lobby_tokens", force: :cascade do |t|
-    t.integer "game_id"
-    t.string "host_username"
-    t.string "host_color"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["game_id"], name: "index_lobby_tokens_on_game_id"
   end
 
   create_table "pieces", force: :cascade do |t|
