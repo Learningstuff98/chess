@@ -23,9 +23,7 @@ class GamesController < ApplicationController
 
   def destroy
     game = Game.find_by_id(params[:id])
-    game.pieces.destroy_all if game
-    game.destroy if game
-    game.comments.destroy_all if game
+    game&.destroy
     SendVacantGamesJob.perform_later
     redirect_to root_path
   end

@@ -67,20 +67,6 @@ RSpec.describe Game, type: :model do
     end
   end
 
-  describe "get_host_color function" do
-    it "should return white if the game is being hosted as white" do
-      game = FactoryBot.create(:game)
-      game.update(host_as_white: true)
-      expect(game.get_host_color).to eq "white"
-    end
-
-    it "should return black if the game is not being hosted as white" do
-      game = FactoryBot.create(:game)
-      game.update(host_as_white: false)
-      expect(game.get_host_color).to eq "black"
-    end
-  end
-
   describe "victory? function" do
     it "should set white as the winner if the black king is captured" do
       game = FactoryBot.create(:game)

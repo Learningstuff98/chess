@@ -7,9 +7,7 @@ class PiecesController < ApplicationController
     origional_piece_type = piece.piece_type
     piece.update(piece_params)
     piece.valid_move?(current_user)
-    if piece.promoted?(origional_piece_type)
-      piece.game.invert_turn
-    end
+    piece.game.invert_turn if piece.promoted?(origional_piece_type)
     piece.capture_piece
     piece.game.victory?
     SendGameAndPiecesJob.perform_later(piece.game)
@@ -20,5 +18,4 @@ class PiecesController < ApplicationController
   def piece_params
     params.require(:piece).permit(:destination_x, :destination_y, :piece_type, :icon)
   end
-
 end
