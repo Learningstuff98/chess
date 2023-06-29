@@ -22,7 +22,7 @@ class GamesController < ApplicationController
   end
 
   def destroy
-    game = Game.find_by_id(params[:id])
+    game = Game.find_by(id: params[:id])
     game&.destroy
     SendVacantGamesJob.perform_later
     redirect_to root_path
