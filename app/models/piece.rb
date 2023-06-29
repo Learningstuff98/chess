@@ -227,7 +227,7 @@ class Piece < ApplicationRecord
             if self.double_jump?(:+, 2)
               self.update_x_and_y
               self.game.invert_turn
-            end 
+            end
           else
             if self.forward_pawn_move?(:-) || self.pawn_capturing?(:-)
               self.update_x_and_y
@@ -244,5 +244,4 @@ class Piece < ApplicationRecord
       end
     end
   end
-
 end

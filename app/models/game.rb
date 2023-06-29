@@ -37,13 +37,9 @@ class Game < ApplicationRecord
   end
 
   def assign_guest(current_user)
-    if current_user != self.user 
-      if !self.as_white
-        self.update_attribute(:as_white, current_user.username)
-      end
-      if !self.as_black
-        self.update_attribute(:as_black, current_user.username)
-      end
+    if current_user != self.user
+      update(as_white: current_user.username) if !as_white
+      update(as_black: current_user.username) if !as_black
     end
   end
 
@@ -81,5 +77,4 @@ class Game < ApplicationRecord
       icon: icon
     )
   end
-
 end

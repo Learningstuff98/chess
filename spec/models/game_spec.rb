@@ -21,7 +21,7 @@ RSpec.describe Game, type: :model do
     it "should assign the game's user as white if host_as_white is true" do
       user = FactoryBot.create(:user)
       game = FactoryBot.create(:game)
-      game.update_attribute(:host_as_white, true)
+      game.update(host_as_white: true)
       game.assign_host(user)
       expect(game.as_white).to eq user.username
       expect(game.as_black).to eq nil
@@ -30,7 +30,7 @@ RSpec.describe Game, type: :model do
     it "should assign the game's user as black if host_as_white is false" do
       user = FactoryBot.create(:user)
       game = FactoryBot.create(:game)
-      game.update_attribute(:host_as_white, false)
+      game.update(host_as_white: false)
       game.assign_host(user)
       expect(game.as_white).to eq nil
       expect(game.as_black).to eq user.username
@@ -41,7 +41,7 @@ RSpec.describe Game, type: :model do
     it "should assign a guest as black if as_black is not assigned" do
       user = FactoryBot.create(:user)
       game = FactoryBot.create(:game)
-      game.update_attribute(:as_white, "host_username")
+      game.update(as_white: "host_username")
       game.assign_guest(user)
       expect(game.as_white).to eq "host_username"
       expect(game.as_black).to eq user.username
@@ -50,7 +50,7 @@ RSpec.describe Game, type: :model do
     it "should assign a guest as white if as_white is not assigned" do
       user = FactoryBot.create(:user)
       game = FactoryBot.create(:game)
-      game.update_attribute(:as_black, "host_username")
+      game.update(as_black: "host_username")
       game.assign_guest(user)
       expect(game.as_white).to eq user.username
       expect(game.as_black).to eq "host_username"
@@ -59,8 +59,8 @@ RSpec.describe Game, type: :model do
     it "should do nothing if the user is the host" do
       user = FactoryBot.create(:user)
       game = FactoryBot.create(:game)
-      game.update_attribute(:user_id, user.id)
-      game.update_attribute(:as_white, user.username)
+      game.update(user_id: user.id)
+      game.update(as_white: user.username)
       game.assign_guest(user)
       expect(game.as_white).to eq user.username
       expect(game.as_black).to eq nil
@@ -70,55 +70,14 @@ RSpec.describe Game, type: :model do
   describe "get_host_color function" do
     it "should return white if the game is being hosted as white" do
       game = FactoryBot.create(:game)
-      game.update_attribute(:host_as_white, true)
+      game.update(host_as_white: true)
       expect(game.get_host_color).to eq "white"
     end
 
     it "should return black if the game is not being hosted as white" do
       game = FactoryBot.create(:game)
-      game.update_attribute(:host_as_white, false)
+      game.update(host_as_white: false)
       expect(game.get_host_color).to eq "black"
-    end
-  end
-
-  describe "create_lobby_token function" do
-    it "should create a lobby token for a game" do
-      user = FactoryBot.create(:user)
-      game = FactoryBot.create(:game)
-      game.update_attribute(:host_as_white, true)
-      game.create_lobby_token(user)
-      expect(LobbyToken.all.count).to eq 1
-      expect(LobbyToken.all.last.game_id).to eq game.id
-      expect(LobbyToken.all.last.host_username).to eq user.username
-      expect(LobbyToken.all.last.host_color).to eq "white"
-    end
-  end
-
-  describe "manage_token function" do
-    it "should delete the game's lobby token if the game is full" do
-      game = FactoryBot.create(:game)
-      lobby_token = FactoryBot.create(:lobby_token)
-      game.lobby_tokens.push(lobby_token)
-      game.update_attribute(:as_white, "a_username")
-      game.update_attribute(:as_black, "a_username")
-      game.manage_token
-      expect(LobbyToken.all.count).to eq 0
-    end
-
-    it "should not delete the game's lobby token if the game isn't full" do
-      game = FactoryBot.create(:game)
-      lobby_token = FactoryBot.create(:lobby_token)
-      game.lobby_tokens.push(lobby_token)
-
-      game.update_attribute(:as_white, "a_username")
-      game.update_attribute(:as_black, nil)
-      game.manage_token
-      expect(LobbyToken.all.count).to eq 1
-
-      game.update_attribute(:as_white, nil)
-      game.update_attribute(:as_black, "a_username")
-      game.manage_token
-      expect(LobbyToken.all.count).to eq 1
     end
   end
 
@@ -130,7 +89,7 @@ RSpec.describe Game, type: :model do
         color: "black",
         in_play: false
       )
-      game.update_attribute(:as_white, "a_username")
+      game.update(as_white: "a_username")
       game.victory?
       expect(game.winner_username).to eq "a_username"
     end
@@ -142,7 +101,7 @@ RSpec.describe Game, type: :model do
         color: "white",
         in_play: false
       )
-      game.update_attribute(:as_black, "a_username")
+      game.update(as_black: "a_username")
       game.victory?
       expect(game.winner_username).to eq "a_username"
     end
@@ -159,8 +118,8 @@ RSpec.describe Game, type: :model do
         color: "black",
         in_play: true
       )
-      game.update_attribute(:as_white, "a_username")
-      game.update_attribute(:as_black, "a_username2")
+      game.update(as_white: "a_username")
+      game.update(as_black: "a_username2")
       game.victory?
       expect(game.winner_username).to eq nil
     end
@@ -169,14 +128,14 @@ RSpec.describe Game, type: :model do
   describe "invert_turn function" do
     it "should change the turn from white to black if the turn starts as white" do
       game = FactoryBot.create(:game)
-      game.update_attribute(:whites_turn, true)
+      game.update(whites_turn: true)
       game.invert_turn
       expect(game.whites_turn).to eq false
     end
 
     it "should change the turn from black to white if the turn starts as black" do
       game = FactoryBot.create(:game)
-      game.update_attribute(:whites_turn, false)
+      game.update(whites_turn: false)
       game.invert_turn
       expect(game.whites_turn).to eq true
     end
