@@ -13,7 +13,6 @@ class GamesController < ApplicationController
     redirect_to game_path(@game)
   end
 
-  # need the guest scenario too
   def show
     @game = Game.find(params[:id])
     @game.assign_guest(current_user)

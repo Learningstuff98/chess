@@ -31,7 +31,7 @@ RSpec.describe "Games", type: :request do
     end
 
     describe "games#show" do
-      it "should successfully load the page " do
+      it "should successfully load the page" do
         game = FactoryBot.create(:game)
         get game_path(game)
         expect(response).to be_successful
@@ -48,6 +48,25 @@ RSpec.describe "Games", type: :request do
         expect(Game.count).to eq 0
         expect(Piece.count).to eq 0
         expect(Comment.count).to eq 0
+      end
+    end
+  end
+
+  context "while logged in as a different user then the game host" do
+    before do
+      user = FactoryBot.create(:user)
+      @game = user.games.create(host_as_white: true)
+      @game.assign_host(user)
+      @guest = FactoryBot.create(:user)
+      sign_in @guest
+    end
+
+    describe "games#show" do
+      it "loads successfully and assigns the guest to the remaining color option", :aggregate_failures do
+        get game_path(@game)
+        expect(response).to be_successful
+        @game.reload
+        expect(@game.as_black).to eq @guest.username
       end
     end
   end
