@@ -70,4 +70,44 @@ RSpec.describe "Games", type: :request do
       end
     end
   end
+
+  context "while not logged in" do
+    describe "games#new" do
+      it "should redirect to the log in page" do
+        get new_game_path
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+
+    describe "games#create" do
+      it "should redirect to the log in page", :aggregate_failures do
+        post games_path(
+          {
+            game: {
+              host_as_white: true
+            }
+          }
+        )
+        expect(response).to redirect_to new_user_session_path
+        expect(Game.count).to eq 0
+      end
+    end
+
+    describe "games#show" do
+      it "should redirect to the log in page" do
+        game = FactoryBot.create(:game)
+        get game_path(game)
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+
+    describe "games#destroy" do
+      it "should redirect to the log in page", :aggregate_failures do
+        game = FactoryBot.create(:game)
+        delete game_path(game)
+        expect(response).to redirect_to new_user_session_path
+        expect(Game.count).to eq 1
+      end
+    end
+  end
 end
