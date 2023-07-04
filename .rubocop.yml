@@ -15,7 +15,6 @@ AllCops:
     - 'spec/factories.rb'
     - 'node_modules/**/*'
     - 'app/models/user.rb'
-    - 'app/models/piece.rb'
 
 Metrics/BlockLength:
   IgnoredMethods: ['describe', 'context', 'it']
