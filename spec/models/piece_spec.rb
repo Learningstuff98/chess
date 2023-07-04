@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Piece, type: :model do
   describe "update_x_and_y function" do
-    it "should update the x and y attributes" do
+    it "should update the x and y attributes", :aggregate_failures do
       piece = FactoryBot.create(:piece)
       piece.update_x_and_y
       expect(piece.x).to eq 4
@@ -11,35 +11,30 @@ RSpec.describe Piece, type: :model do
   end
 
   describe "capture_piece function" do
-    it "should remove any pieces that have matching coordinates from play" do
+    it "should remove any pieces that have matching coordinates from play", :aggregate_failures do
       game = FactoryBot.create(:game)
-      game.pieces.create(x: 1, y: 2)
-      piece = FactoryBot.create(:piece)
-      piece.update(x: 1)
-      piece.update(y: 2)
-      game.pieces.push(piece)
-      piece.capture_piece
-      expect(game.pieces.first.in_play).to eq false
-      expect(game.pieces.first.x).to eq 100
+      first_piece = game.pieces.create(x: 1, y: 2)
+      second_piece = game.pieces.create(x: 1, y: 2)
+      second_piece.capture_piece
+      expect(first_piece.in_play).to eq false
+      expect(first_piece.x).to eq 100
     end
 
-    it "should only capture pieces with matching coordinates" do
+    it "should only capture pieces with matching coordinates", :aggregate_failures do
       game = FactoryBot.create(:game)
-      game.pieces.create(x: 1, y: 2)
-      piece = FactoryBot.create(:piece)
-      game.pieces.push(piece)
-      piece.capture_piece
-      expect(game.pieces.first.in_play).to eq true
-      expect(game.pieces.first.x).to eq 1
+      first_piece = game.pieces.create(x: 1, y: 2)
+      second_piece = game.pieces.create(x: 5, y: 5)
+      second_piece.capture_piece
+      expect(first_piece.in_play).to eq true
+      expect(first_piece.x).to eq 1
     end
 
-    it "should not capture itself" do
-      game = FactoryBot.create(:game)
+    it "should not capture itself", :aggregate_failures do
+      FactoryBot.create(:game)
       piece = FactoryBot.create(:piece)
-      game.pieces.push(piece)
       piece.capture_piece
-      expect(game.pieces.first.in_play).to eq true
-      expect(game.pieces.first.x).to eq 5
+      expect(piece.in_play).to eq true
+      expect(piece.x).to eq 5
     end
   end
 

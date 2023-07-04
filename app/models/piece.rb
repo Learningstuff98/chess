@@ -2,18 +2,15 @@ class Piece < ApplicationRecord
   belongs_to :game
 
   def update_x_and_y
-    self.update_attribute(:x, self.destination_x)
-    self.update_attribute(:y, self.destination_y)
+    update(x: destination_x)
+    update(y: destination_y)
   end
 
   def capture_piece
-    self.game.pieces.each do |piece|
-      if self != piece
-        if piece.x == self.x && piece.y == self.y
-          piece.update_attribute(:x, 100)
-          piece.update_attribute(:in_play, false)
-        end
-      end
+    game.pieces.each do |piece|
+      next if self == piece
+
+      piece.update(x: 100, in_play: false) if piece.x == x && piece.y == y
     end
   end
 
@@ -182,7 +179,7 @@ class Piece < ApplicationRecord
             end
           end
         end
-        if self.piece_type == "bishop" 
+        if self.piece_type == "bishop"
           if self.diagonal_move?
             if self.path_clear?(self.get_diagonal_path)
               self.update_x_and_y
