@@ -258,7 +258,7 @@ RSpec.describe Piece, type: :model do
   end
 
   describe "knight_move? function" do
-    it "should return true if the move being requested is that of a knight" do
+    it "should return true if the move being requested is that of a knight", :aggregate_failures do
       piece = FactoryBot.create(:piece)
       piece.update(destination_x: 3)
       piece.update(destination_y: 6)
@@ -286,7 +286,7 @@ RSpec.describe Piece, type: :model do
       expect(piece.knight_move?).to eq true
     end
 
-    it "should not return true if the move being requested is not that of a knight" do
+    it "should not return true if the move being requested is not that of a knight", :aggregate_failures do
       piece = FactoryBot.create(:piece)
       piece.update(destination_x: 8)
       piece.update(destination_y: 8)

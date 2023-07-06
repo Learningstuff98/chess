@@ -35,10 +35,11 @@ class Piece < ApplicationRecord
   end
 
   def knight_move?
-    distance_of_x = (self.destination_x - self.x).abs
-    distance_of_y = (self.destination_y - self.y).abs
+    distance_of_x = (destination_x - x).abs
+    distance_of_y = (destination_y - y).abs
     return distance_of_y == 1 if distance_of_x == 2
-    return distance_of_y == 2 if distance_of_x == 1
+
+    distance_of_y == 2 if distance_of_x == 1
   end
 
   def get_horizontal_or_verticle_path
