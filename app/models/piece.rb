@@ -19,7 +19,7 @@ class Piece < ApplicationRecord
   end
 
   def verticle_move?
-    self.destination_y != self.y && self.destination_x == self.x
+    destination_y != y && destination_x == x
   end
 
   def diagonal_move?

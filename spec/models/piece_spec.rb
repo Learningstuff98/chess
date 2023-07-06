@@ -153,7 +153,7 @@ RSpec.describe Piece, type: :model do
   end
 
   describe "verticle_move? function" do
-    it "should return true if the starting and ending coordinates are verticle" do
+    it "should return true if the starting and ending coordinates are verticle", :aggregate_failures do
       piece = FactoryBot.create(:piece)
       piece.update(destination_x: 5)
       piece.update(destination_y: 8)
@@ -163,7 +163,7 @@ RSpec.describe Piece, type: :model do
       expect(piece.verticle_move?).to eq true
     end
 
-    it "should return false if the starting and ending coordinates are not directly verticle" do
+    it "should return false if the starting and ending coordinates are not verticle", :aggregate_failures do
       piece = FactoryBot.create(:piece)
       piece.update(destination_x: 7)
       piece.update(destination_y: 8)
