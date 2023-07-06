@@ -209,7 +209,7 @@ RSpec.describe Piece, type: :model do
   end
 
   describe "king_move? function" do
-    it "should return true if the ending coordinates directly border the king" do
+    it "should return true if the destination coordinates directly border the king", :aggregate_failures do
       piece = FactoryBot.create(:piece)
       piece.update(destination_x: 5)
       piece.update(destination_y: 4)
@@ -237,7 +237,7 @@ RSpec.describe Piece, type: :model do
       expect(piece.king_move?).to eq true
     end
 
-    it "should not return true if the ending coordinates do not directly border the king" do
+    it "should not return true if the destination coordinates do not border the king", :aggregate_failures do
       piece = FactoryBot.create(:piece)
       piece.update(destination_x: 8)
       piece.update(destination_y: 8)

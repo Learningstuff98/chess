@@ -27,10 +27,11 @@ class Piece < ApplicationRecord
   end
 
   def king_move?
-    distance_of_x = (self.destination_x - self.x).abs
-    distance_of_y = (self.destination_y - self.y).abs
+    distance_of_x = (destination_x - x).abs
+    distance_of_y = (destination_y - y).abs
     return [0, 1].include?(distance_of_x) if distance_of_y == 1
-    return distance_of_x == 1 if distance_of_y.zero?
+
+    distance_of_x == 1 if distance_of_y.zero?
   end
 
   def knight_move?
