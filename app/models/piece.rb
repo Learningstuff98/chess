@@ -23,7 +23,7 @@ class Piece < ApplicationRecord
   end
 
   def diagonal_move?
-    (self.x - self.destination_x).abs == (self.y - self.destination_y).abs
+    (x - destination_x).abs == (y - destination_y).abs
   end
 
   def king_move?

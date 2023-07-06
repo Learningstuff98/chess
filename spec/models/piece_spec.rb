@@ -175,7 +175,7 @@ RSpec.describe Piece, type: :model do
   end
 
   describe "diagonal_move? function" do
-    it "should return true if the starting and ending coordinates are diagonal" do
+    it "should return true if the starting and ending coordinates are diagonal", :aggregate_failures do
       piece = FactoryBot.create(:piece)
       piece.update(destination_x: 7)
       piece.update(destination_y: 7)
@@ -191,7 +191,7 @@ RSpec.describe Piece, type: :model do
       expect(piece.diagonal_move?).to eq true
     end
 
-    it "should return false if the starting and ending coordinates are not diagonal" do
+    it "should return false if the starting and ending coordinates are not diagonal", :aggregate_failures do
       piece = FactoryBot.create(:piece)
       piece.update(destination_x: 2)
       piece.update(destination_y: 1)
