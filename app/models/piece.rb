@@ -43,22 +43,66 @@ class Piece < ApplicationRecord
   end
 
   def horizontal_or_verticle_path
+    return horizontal_path if destination_x != x
+
+    vertical_path
+  end
+
+  def vertical_path
+    return upward_path if destination_y > y
+
+    downward_path
+  end
+
+  def upward_path
     coordinates = []
-    if destination_x != x
-      x_value = x + 1 if destination_x > x
-      x_value = x - 1 if destination_x < x
-      while x_value != destination_x
-        coordinates.push([x_value, y])
-        x_value += 1 if destination_x > x
-        x_value -= 1 if destination_x < x
-      end
-    else
-      y_value = y + 1 if destination_y > y
-      y_value = y - 1 if destination_y < y
+    if destination_y > y
+      y_value = y + 1
       while y_value != destination_y
         coordinates.push([x, y_value])
-        y_value += 1 if destination_y > y
-        y_value -= 1 if destination_y < y
+        y_value += 1
+      end
+    end
+    coordinates
+  end
+
+  def downward_path
+    coordinates = []
+    if destination_y < y
+      y_value = y - 1
+      while y_value != destination_y
+        coordinates.push([x, y_value])
+        y_value -= 1
+      end
+    end
+    coordinates
+  end
+
+  def horizontal_path
+    return rightward_path if destination_x > x
+
+    leftward_path
+  end
+
+  def leftward_path
+    coordinates = []
+    if destination_x < x
+      x_value = x - 1
+      while x_value != destination_x
+        coordinates.push([x_value, y])
+        x_value -= 1
+      end
+    end
+    coordinates
+  end
+
+  def rightward_path
+    coordinates = []
+    if destination_x > x
+      x_value = x + 1
+      while x_value != destination_x
+        coordinates.push([x_value, y])
+        x_value += 1
       end
     end
     coordinates
