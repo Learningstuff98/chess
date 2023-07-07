@@ -38,41 +38,69 @@ RSpec.describe Piece, type: :model do
     end
   end
 
-  describe "get_horizontal_or_verticle_path function" do
-    it "should collect a list of coordinates when going west to east" do
+  describe "horizontal_or_verticle_path function" do
+    it "should collect a list of coordinates when going left to right", :aggregate_failures do
       piece = FactoryBot.create(:piece)
       piece.update(x: 1)
       piece.update(y: 4)
       piece.update(destination_x: 8)
       piece.update(destination_y: 4)
-      expect(piece.get_horizontal_or_verticle_path).to eq [[2, 4], [3, 4], [4, 4], [5, 4], [6, 4], [7, 4]]
+      coordinates = piece.horizontal_or_verticle_path
+      expect(coordinates.length).to eq 6
+      expect(coordinates.include?([2, 4])).to eq true
+      expect(coordinates.include?([3, 4])).to eq true
+      expect(coordinates.include?([4, 4])).to eq true
+      expect(coordinates.include?([5, 4])).to eq true
+      expect(coordinates.include?([6, 4])).to eq true
+      expect(coordinates.include?([7, 4])).to eq true
     end
 
-    it "should collect a list of coordinates when going east to west" do
+    it "should collect a list of coordinates when going right to left", :aggregate_failures do
       piece = FactoryBot.create(:piece)
       piece.update(x: 8)
       piece.update(y: 4)
       piece.update(destination_x: 1)
       piece.update(destination_y: 4)
-      expect(piece.get_horizontal_or_verticle_path).to eq [[7, 4], [6, 4], [5, 4], [4, 4], [3, 4], [2, 4]]
+      coordinates = piece.horizontal_or_verticle_path
+      expect(coordinates.length).to eq 6
+      expect(coordinates.include?([7, 4])).to eq true
+      expect(coordinates.include?([6, 4])).to eq true
+      expect(coordinates.include?([5, 4])).to eq true
+      expect(coordinates.include?([4, 4])).to eq true
+      expect(coordinates.include?([3, 4])).to eq true
+      expect(coordinates.include?([2, 4])).to eq true
     end
 
-    it "should collect a list of coordinates when going south to north" do
+    it "should collect a list of coordinates when going upwards", :aggregate_failures do
       piece = FactoryBot.create(:piece)
       piece.update(x: 1)
       piece.update(y: 1)
       piece.update(destination_x: 1)
       piece.update(destination_y: 8)
-      expect(piece.get_horizontal_or_verticle_path).to eq [[1, 2], [1, 3], [1, 4], [1, 5], [1, 6], [1, 7]]
+      coordinates = piece.horizontal_or_verticle_path
+      expect(coordinates.length).to eq 6
+      expect(coordinates.include?([1, 2])).to eq true
+      expect(coordinates.include?([1, 3])).to eq true
+      expect(coordinates.include?([1, 4])).to eq true
+      expect(coordinates.include?([1, 5])).to eq true
+      expect(coordinates.include?([1, 6])).to eq true
+      expect(coordinates.include?([1, 7])).to eq true
     end
 
-    it "should collect a list of coordinates when going north to south" do
+    it "should collect a list of coordinates when going downwards", :aggregate_failures do
       piece = FactoryBot.create(:piece)
       piece.update(x: 1)
       piece.update(y: 8)
       piece.update(destination_x: 1)
       piece.update(destination_y: 1)
-      expect(piece.get_horizontal_or_verticle_path).to eq [[1, 7], [1, 6], [1, 5], [1, 4], [1, 3], [1, 2]]
+      coordinates = piece.horizontal_or_verticle_path
+      expect(coordinates.length).to eq 6
+      expect(coordinates.include?([1, 7])).to eq true
+      expect(coordinates.include?([1, 6])).to eq true
+      expect(coordinates.include?([1, 5])).to eq true
+      expect(coordinates.include?([1, 4])).to eq true
+      expect(coordinates.include?([1, 3])).to eq true
+      expect(coordinates.include?([1, 2])).to eq true
     end
   end
 

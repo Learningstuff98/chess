@@ -42,23 +42,23 @@ class Piece < ApplicationRecord
     distance_of_y == 2 if distance_of_x == 1
   end
 
-  def get_horizontal_or_verticle_path
+  def horizontal_or_verticle_path
     coordinates = []
-    if self.destination_x != self.x
-      x_value = self.x + 1 if self.destination_x > self.x
-      x_value = self.x - 1 if self.destination_x < self.x
-      while x_value != self.destination_x
-        coordinates.push([x_value, self.y])
-        x_value += 1 if self.destination_x > self.x
-        x_value -= 1 if self.destination_x < self.x
+    if destination_x != x
+      x_value = x + 1 if destination_x > x
+      x_value = x - 1 if destination_x < x
+      while x_value != destination_x
+        coordinates.push([x_value, y])
+        x_value += 1 if destination_x > x
+        x_value -= 1 if destination_x < x
       end
     else
-      y_value = self.y + 1 if self.destination_y > self.y
-      y_value = self.y - 1 if self.destination_y < self.y
-      while y_value != self.destination_y
-        coordinates.push([self.x, y_value])
-        y_value += 1 if self.destination_y > self.y
-        y_value -= 1 if self.destination_y < self.y
+      y_value = y + 1 if destination_y > y
+      y_value = y - 1 if destination_y < y
+      while y_value != destination_y
+        coordinates.push([x, y_value])
+        y_value += 1 if destination_y > y
+        y_value -= 1 if destination_y < y
       end
     end
     coordinates
@@ -175,7 +175,7 @@ class Piece < ApplicationRecord
       if !self.friendly_capture? && self.current_turn?(current_user)
         if self.piece_type == "rook"
           if self.horizontal_move? || self.verticle_move?
-            if self.path_clear?(self.get_horizontal_or_verticle_path)
+            if self.path_clear?(self.horizontal_or_verticle_path)
               self.update_x_and_y
               self.game.invert_turn
             end
@@ -197,7 +197,7 @@ class Piece < ApplicationRecord
             end
           end
           if self.horizontal_move? || self.verticle_move?
-            if self.path_clear?(self.get_horizontal_or_verticle_path)
+            if self.path_clear?(self.horizontal_or_verticle_path)
               self.update_x_and_y
               self.game.invert_turn
             end
