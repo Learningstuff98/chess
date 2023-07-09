@@ -2,8 +2,7 @@ class Piece < ApplicationRecord
   belongs_to :game
 
   def update_x_and_y
-    update(x: destination_x)
-    update(y: destination_y)
+    update(x: destination_x, y: destination_y)
   end
 
   def capture_piece
@@ -50,24 +49,22 @@ class Piece < ApplicationRecord
     end
   end
 
+  def range(value, destination_value)
+    if destination_value > value
+      ((value + 1)..(destination_value - 1)).to_a
+    else
+      ((destination_value + 1)..(value - 1)).to_a
+    end
+  end
+
   def horizontal_path
-    range = if destination_x > x
-              ((x + 1)..(destination_x - 1))
-            else
-              ((destination_x + 1)..(x - 1))
-            end
-    range.to_a.map do |x_value|
+    range(x, destination_x).map do |x_value|
       [x_value, y]
     end
   end
 
   def verticle_path
-    range = if destination_y > y
-              ((y + 1)..(destination_y - 1))
-            else
-              ((destination_y + 1)..(y - 1))
-            end
-    range.to_a.map do |y_value|
+    range(y, destination_y).map do |y_value|
       [x, y_value]
     end
   end
