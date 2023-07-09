@@ -43,69 +43,33 @@ class Piece < ApplicationRecord
   end
 
   def horizontal_or_verticle_path
-    return horizontal_path if destination_x != x
-
-    vertical_path
-  end
-
-  def vertical_path
-    return upward_path if destination_y > y
-
-    downward_path
-  end
-
-  def upward_path
-    coordinates = []
-    if destination_y > y
-      y_value = y + 1
-      while y_value != destination_y
-        coordinates.push([x, y_value])
-        y_value += 1
-      end
+    if x != destination_x
+      horizontal_path
+    else
+      verticle_path
     end
-    coordinates
-  end
-
-  def downward_path
-    coordinates = []
-    if destination_y < y
-      y_value = y - 1
-      while y_value != destination_y
-        coordinates.push([x, y_value])
-        y_value -= 1
-      end
-    end
-    coordinates
   end
 
   def horizontal_path
-    return rightward_path if destination_x > x
-
-    leftward_path
+    range = if destination_x > x
+              ((x + 1)..(destination_x - 1))
+            else
+              ((destination_x + 1)..(x - 1))
+            end
+    range.to_a.map do |x_value|
+      [x_value, y]
+    end
   end
 
-  def leftward_path
-    coordinates = []
-    if destination_x < x
-      x_value = x - 1
-      while x_value != destination_x
-        coordinates.push([x_value, y])
-        x_value -= 1
-      end
+  def verticle_path
+    range = if destination_y > y
+              ((y + 1)..(destination_y - 1))
+            else
+              ((destination_y + 1)..(y - 1))
+            end
+    range.to_a.map do |y_value|
+      [x, y_value]
     end
-    coordinates
-  end
-
-  def rightward_path
-    coordinates = []
-    if destination_x > x
-      x_value = x + 1
-      while x_value != destination_x
-        coordinates.push([x_value, y])
-        x_value += 1
-      end
-    end
-    coordinates
   end
 
   def get_diagonal_path
