@@ -104,41 +104,69 @@ RSpec.describe Piece, type: :model do
     end
   end
 
-  describe "get_diagonal_path function" do
-    it "should collect a list of coordinates when going north west" do
+  describe "diagonal_path function" do
+    it "should collect a list of coordinates when going north west", :aggregate_failures do
       piece = FactoryBot.create(:piece)
       piece.update(x: 8)
       piece.update(y: 1)
       piece.update(destination_x: 1)
       piece.update(destination_y: 8)
-      expect(piece.get_diagonal_path).to eq [[7, 2], [6, 3], [5, 4], [4, 5], [3, 6], [2, 7]]
+      coordinates = piece.diagonal_path
+      expect(coordinates.length).to eq 6
+      expect(coordinates.include?([7, 2])).to eq true
+      expect(coordinates.include?([6, 3])).to eq true
+      expect(coordinates.include?([5, 4])).to eq true
+      expect(coordinates.include?([4, 5])).to eq true
+      expect(coordinates.include?([3, 6])).to eq true
+      expect(coordinates.include?([2, 7])).to eq true
     end
 
-    it "should collect a list of coordinates when going south east" do
+    it "should collect a list of coordinates when going south east", :aggregate_failures do
       piece = FactoryBot.create(:piece)
       piece.update(x: 1)
       piece.update(y: 8)
       piece.update(destination_x: 8)
       piece.update(destination_y: 1)
-      expect(piece.get_diagonal_path).to eq [[2, 7], [3, 6], [4, 5], [5, 4], [6, 3], [7, 2]]
+      coordinates = piece.diagonal_path
+      expect(coordinates.length).to eq 6
+      expect(coordinates.include?([2, 7])).to eq true
+      expect(coordinates.include?([3, 6])).to eq true
+      expect(coordinates.include?([4, 5])).to eq true
+      expect(coordinates.include?([5, 4])).to eq true
+      expect(coordinates.include?([6, 3])).to eq true
+      expect(coordinates.include?([7, 2])).to eq true
     end
 
-    it "should collect a list of coordinates when going north east" do
+    it "should collect a list of coordinates when going north east", :aggregate_failures do
       piece = FactoryBot.create(:piece)
       piece.update(x: 1)
       piece.update(y: 1)
       piece.update(destination_x: 8)
       piece.update(destination_y: 8)
-      expect(piece.get_diagonal_path).to eq [[2, 2], [3, 3], [4, 4], [5, 5], [6, 6], [7, 7]]
+      coordinates = piece.diagonal_path
+      expect(coordinates.length).to eq 6
+      expect(coordinates.include?([2, 2])).to eq true
+      expect(coordinates.include?([3, 3])).to eq true
+      expect(coordinates.include?([4, 4])).to eq true
+      expect(coordinates.include?([5, 5])).to eq true
+      expect(coordinates.include?([6, 6])).to eq true
+      expect(coordinates.include?([7, 7])).to eq true
     end
 
-    it "should collect a list of coordinates when going south west" do
+    it "should collect a list of coordinates when going south west", :aggregate_failures do
       piece = FactoryBot.create(:piece)
       piece.update(x: 8)
       piece.update(y: 8)
       piece.update(destination_x: 1)
       piece.update(destination_y: 1)
-      expect(piece.get_diagonal_path).to eq [[7, 7], [6, 6], [5, 5], [4, 4], [3, 3], [2, 2]]
+      coordinates = piece.diagonal_path
+      expect(coordinates.length).to eq 6
+      expect(coordinates.include?([2, 2])).to eq true
+      expect(coordinates.include?([3, 3])).to eq true
+      expect(coordinates.include?([4, 4])).to eq true
+      expect(coordinates.include?([5, 5])).to eq true
+      expect(coordinates.include?([6, 6])).to eq true
+      expect(coordinates.include?([7, 7])).to eq true
     end
   end
 

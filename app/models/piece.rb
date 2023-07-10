@@ -69,7 +69,7 @@ class Piece < ApplicationRecord
     end
   end
 
-  def get_diagonal_path
+  def diagonal_path
     coordinates = []
     if self.destination_x > self.x
       x_value = self.x + 1
@@ -188,7 +188,7 @@ class Piece < ApplicationRecord
         end
         if self.piece_type == "bishop"
           if self.diagonal_move?
-            if self.path_clear?(self.get_diagonal_path)
+            if self.path_clear?(self.diagonal_path)
               self.update_x_and_y
               self.game.invert_turn
             end
@@ -196,7 +196,7 @@ class Piece < ApplicationRecord
         end
         if self.piece_type == "queen"
           if self.diagonal_move?
-            if self.path_clear?(self.get_diagonal_path)
+            if self.path_clear?(self.diagonal_path)
               self.update_x_and_y
               self.game.invert_turn
             end
