@@ -70,29 +70,20 @@ class Piece < ApplicationRecord
   end
 
   def diagonal_path
-    coordinates = []
-    if self.destination_x > self.x
-      x_value = self.x + 1
-      y_value = self.y + 1 if self.destination_y > self.y
-      y_value = self.y - 1 if self.destination_y < self.y
-      while x_value < self.destination_x
-        coordinates.push([x_value, y_value])
-        x_value += 1
-        y_value += 1 if self.destination_y > self.y
-        y_value -= 1 if self.destination_y < self.y
-      end
-    else
-      x_value = self.x - 1
-      y_value = self.y - 1 if self.destination_y < self.y
-      y_value = self.y + 1 if self.destination_y > self.y
-      while x_value > self.destination_x
-        coordinates.push([x_value, y_value])
-        x_value -= 1
-        y_value -= 1 if self.destination_y < self.y
-        y_value += 1 if self.destination_y > self.y
-      end
+    y_values = diagonal_y_values
+    range(x, destination_x).map.with_index do |x_value, index|
+      [x_value, y_values[index]]
     end
-    coordinates
+  end
+
+  def diagonal_y_values
+    y_values = range(y, destination_y)
+    if destination_x > x
+      y_values = y_values.reverse if destination_y < y
+    elsif destination_y > y
+      y_values = y_values.reverse
+    end
+    y_values
   end
 
   def path_clear?(path)
