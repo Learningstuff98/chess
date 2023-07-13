@@ -96,10 +96,8 @@ class Piece < ApplicationRecord
   end
 
   def friendly_capture?
-    self.game.pieces.each do |piece|
-      if piece.x == self.destination_x && piece.y == self.destination_y
-        return piece.color == self.color
-      end
+    game.pieces.each do |piece|
+      return piece.color == color if piece.x == destination_x && piece.y == destination_y
     end
     false
   end
