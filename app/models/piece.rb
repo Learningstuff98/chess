@@ -88,10 +88,8 @@ class Piece < ApplicationRecord
 
   def path_clear?(path)
     path.each do |coord_pair|
-      self.game.pieces.each do |piece|
-        if piece.x == coord_pair[0] && piece.y == coord_pair[1]
-          return false
-        end
+      game.pieces.each do |piece|
+        return false if piece.x == coord_pair.first && piece.y == coord_pair.last
       end
     end
     true
