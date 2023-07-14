@@ -103,10 +103,8 @@ class Piece < ApplicationRecord
   end
 
   def tile_has_piece?(tile_x, tile_y)
-    self.game.pieces.each do |piece|
-      if piece.x == tile_x && piece.y == tile_y
-        return true
-      end
+    game.pieces.each do |piece|
+      return true if piece.x == tile_x && piece.y == tile_y
     end
     false
   end

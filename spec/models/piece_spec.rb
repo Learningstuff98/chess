@@ -536,16 +536,14 @@ RSpec.describe Piece, type: :model do
 
   describe "tile_has_piece? function" do
     it "should return true if a given tile is occupied" do
-      piece = FactoryBot.create(:piece)
       game = FactoryBot.create(:game)
-      game.pieces.push(piece)
+      piece = FactoryBot.create(:piece, game_id: game.id)
       expect(piece.tile_has_piece?(5, 5)).to eq true
     end
 
     it "should return false if a given tile is not occupied" do
-      piece = FactoryBot.create(:piece)
       game = FactoryBot.create(:game)
-      game.pieces.push(piece)
+      piece = FactoryBot.create(:piece, game_id: game.id)
       expect(piece.tile_has_piece?(3, 3)).to eq false
     end
   end
