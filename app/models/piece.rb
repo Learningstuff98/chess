@@ -124,11 +124,9 @@ class Piece < ApplicationRecord
   end
 
   def pawn_capturing?(operation)
-    if self.destination_y == self.y.send(operation, 1)
-      if [self.x + 1, self.x - 1].include?(self.destination_x)
-        self.tile_has_piece?(self.destination_x, self.destination_y)
-      end
-    end
+    destination_y == y.send(operation, 1) &&
+      [x + 1, x - 1].include?(destination_x) &&
+      tile_has_piece?(destination_x, destination_y)
   end
 
   def promoted?(origional_piece_type)
