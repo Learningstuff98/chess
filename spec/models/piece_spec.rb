@@ -386,37 +386,34 @@ RSpec.describe Piece, type: :model do
   end
 
   describe "forward_pawn_move? function" do
-    it "should return true if the piece advances by one tile" do
+    it "should return true if the piece wants to advance by one tile" do
       piece = FactoryBot.create(:piece)
       piece.update(destination_x: 5)
       piece.update(destination_y: 6)
       expect(piece.forward_pawn_move?(:+)).to eq true
     end
 
-    it "should return nil if the piece doesn't advance forward by just one tile" do
+    it "should not return true if the piece doesn't want to advance forward by just one tile", :aggregate_failures do
       piece = FactoryBot.create(:piece)
       piece.update(destination_x: 5)
       piece.update(destination_y: 3)
-      expect(piece.forward_pawn_move?(:-)).to eq nil
+      expect(piece.forward_pawn_move?(:-)).not_to eq true
       piece.update(destination_x: 1)
       piece.update(destination_y: 1)
-      expect(piece.forward_pawn_move?(:-)).to eq nil
+      expect(piece.forward_pawn_move?(:-)).not_to eq true
       piece.update(destination_x: 8)
       piece.update(destination_y: 8)
-      expect(piece.forward_pawn_move?(:-)).to eq nil
+      expect(piece.forward_pawn_move?(:-)).not_to eq true
       piece.update(destination_x: 5)
       piece.update(destination_y: 6)
-      expect(piece.forward_pawn_move?(:-)).to eq nil
+      expect(piece.forward_pawn_move?(:-)).not_to eq true
     end
 
-    it "should return false if there is a piece in the way" do
+    it "should not return true if there is a piece in the way" do
       game = FactoryBot.create(:game)
       game.pieces.create(x: 5, y: 6)
-      piece = FactoryBot.create(:piece)
-      piece.update(destination_x: 5)
-      piece.update(destination_y: 6)
-      game.pieces.push(piece)
-      expect(piece.forward_pawn_move?(:+)).to eq false
+      piece = FactoryBot.create(:piece, game_id: game.id, destination_x: 5, destination_y: 6)
+      expect(piece.forward_pawn_move?(:+)).not_to eq true
     end
   end
 

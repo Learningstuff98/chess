@@ -110,11 +110,7 @@ class Piece < ApplicationRecord
   end
 
   def forward_pawn_move?(operation)
-    if self.x == self.destination_x
-      if self.destination_y == self.y.send(operation, 1)
-        !self.tile_has_piece?(self.destination_x, self.destination_y)
-      end
-    end
+    x == destination_x && destination_y == y.send(operation, 1) && !tile_has_piece?(destination_x, destination_y)
   end
 
   def double_jump?(operation, starting_y)
