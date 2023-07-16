@@ -116,14 +116,11 @@ class Piece < ApplicationRecord
   end
 
   def double_jump?(operation, starting_y)
-    if self.x == self.destination_x
-      if self.y == starting_y
-        if self.destination_y == starting_y.send(operation, 2)
-          !self.tile_has_piece?(self.destination_x, self.destination_y) &&
-          !self.tile_has_piece?(self.destination_x, self.y.send(operation, 1))
-        end
-      end
-    end
+    x == destination_x &&
+      y == starting_y &&
+      destination_y == starting_y.send(operation, 2) &&
+      !tile_has_piece?(destination_x, destination_y) &&
+      !tile_has_piece?(destination_x, y.send(operation, 1))
   end
 
   def pawn_capturing?(operation)
