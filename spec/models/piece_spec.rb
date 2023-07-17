@@ -561,4 +561,34 @@ RSpec.describe Piece, type: :model do
       expect(piece.on_row?(6)).to eq false
     end
   end
+
+  describe "current_turn? function" do
+    before do
+      @user = FactoryBot.create(:user)
+    end
+
+    it "should return true if the current user is white when it's white's turn" do
+      game = FactoryBot.create(:game, whites_turn: true, as_white: @user.username)
+      piece = FactoryBot.create(:piece, game_id: game.id)
+      expect(piece.current_turn?(@user)).to eq true
+    end
+
+    it "should return false if the current user is not white when it's white's turn" do
+      game = FactoryBot.create(:game, whites_turn: true, as_white: "someone else")
+      piece = FactoryBot.create(:piece, game_id: game.id)
+      expect(piece.current_turn?(@user)).to eq false
+    end
+
+    it "should return true if the current user is black when it's blacks's turn" do
+      game = FactoryBot.create(:game, whites_turn: false, as_black: @user.username)
+      piece = FactoryBot.create(:piece, game_id: game.id)
+      expect(piece.current_turn?(@user)).to eq true
+    end
+
+    it "should return false if the current user is not black when it's black's turn" do
+      game = FactoryBot.create(:game, whites_turn: false, as_black: "someone else")
+      piece = FactoryBot.create(:piece, game_id: game.id)
+      expect(piece.current_turn?(@user)).to eq false
+    end
+  end
 end
