@@ -134,7 +134,7 @@ class Piece < ApplicationRecord
   end
 
   def on_row?(promotion_row)
-    self.y == promotion_row
+    y == promotion_row
   end
 
   def current_turn?(current_user)
