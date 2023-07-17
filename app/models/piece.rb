@@ -130,7 +130,7 @@ class Piece < ApplicationRecord
   end
 
   def promoted?(origional_piece_type)
-    origional_piece_type != self.piece_type
+    origional_piece_type != piece_type
   end
 
   def on_row?(promotion_row)

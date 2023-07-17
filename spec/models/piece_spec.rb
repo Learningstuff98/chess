@@ -545,8 +545,7 @@ RSpec.describe Piece, type: :model do
     end
 
     it "should return false if a given piece type is equal to a piece's type" do
-      piece = FactoryBot.create(:piece)
-      piece.update(piece_type: "pawn")
+      piece = FactoryBot.create(:piece, piece_type: "pawn")
       expect(piece.promoted?("pawn")).to eq false
     end
   end
