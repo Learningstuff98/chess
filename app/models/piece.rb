@@ -138,11 +138,9 @@ class Piece < ApplicationRecord
   end
 
   def current_turn?(current_user)
-    if self.game.whites_turn
-      return current_user.username == self.game.as_white
-    else
-      current_user.username == self.game.as_black
-    end
+    return current_user.username == game.as_white if game.whites_turn
+
+    current_user.username == game.as_black
   end
 
   def correct_color?(current_user)
