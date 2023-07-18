@@ -150,73 +150,71 @@ class Piece < ApplicationRecord
   end
 
   def valid_move?(current_user)
-    if self.correct_color?(current_user)
-      if !self.friendly_capture? && self.current_turn?(current_user)
-        if self.piece_type == "rook"
-          if self.horizontal_move? || self.verticle_move?
-            if self.path_clear?(self.horizontal_or_verticle_path)
-              self.update_x_and_y
-              self.game.invert_turn
-            end
-          end
-        end
-        if self.piece_type == "bishop"
-          if self.diagonal_move?
-            if self.path_clear?(self.diagonal_path)
-              self.update_x_and_y
-              self.game.invert_turn
-            end
-          end
-        end
-        if self.piece_type == "queen"
-          if self.diagonal_move?
-            if self.path_clear?(self.diagonal_path)
-              self.update_x_and_y
-              self.game.invert_turn
-            end
-          end
-          if self.horizontal_move? || self.verticle_move?
-            if self.path_clear?(self.horizontal_or_verticle_path)
-              self.update_x_and_y
-              self.game.invert_turn
-            end
-          end
-        end
-        if self.piece_type == "king"
-          if self.king_move?
+    if correct_color?(current_user) && !friendly_capture? && current_turn?(current_user)
+      if piece_type == "rook"
+        if self.horizontal_move? || self.verticle_move?
+          if self.path_clear?(self.horizontal_or_verticle_path)
             self.update_x_and_y
             self.game.invert_turn
           end
         end
-        if self.piece_type == "knight"
-          if self.knight_move?
+      end
+      if self.piece_type == "bishop"
+        if self.diagonal_move?
+          if self.path_clear?(self.diagonal_path)
             self.update_x_and_y
             self.game.invert_turn
           end
         end
-        if self.piece_type == "pawn"
-          if self.color == "white"
-            if self.forward_pawn_move?(:+) || self.pawn_capturing?(:+)
-              self.update_x_and_y
-              if !self.on_row?(8)
-                self.game.invert_turn
-              end
-            end
-            if self.double_jump?(:+, 2)
-              self.update_x_and_y
+      end
+      if self.piece_type == "queen"
+        if self.diagonal_move?
+          if self.path_clear?(self.diagonal_path)
+            self.update_x_and_y
+            self.game.invert_turn
+          end
+        end
+        if self.horizontal_move? || self.verticle_move?
+          if self.path_clear?(self.horizontal_or_verticle_path)
+            self.update_x_and_y
+            self.game.invert_turn
+          end
+        end
+      end
+      if self.piece_type == "king"
+        if self.king_move?
+          self.update_x_and_y
+          self.game.invert_turn
+        end
+      end
+      if self.piece_type == "knight"
+        if self.knight_move?
+          self.update_x_and_y
+          self.game.invert_turn
+        end
+      end
+      if self.piece_type == "pawn"
+        if self.color == "white"
+          if self.forward_pawn_move?(:+) || self.pawn_capturing?(:+)
+            self.update_x_and_y
+            if !self.on_row?(8)
               self.game.invert_turn
             end
-          else
-            if self.forward_pawn_move?(:-) || self.pawn_capturing?(:-)
-              self.update_x_and_y
-              if !self.on_row?(1)
-                self.game.invert_turn
-              end
-            end
-            if self.double_jump?(:-, 7)
-              self.update_x_and_y
+          end
+          if self.double_jump?(:+, 2)
+            self.update_x_and_y
+            self.game.invert_turn
+          end
+        else
+          if self.forward_pawn_move?(:-) || self.pawn_capturing?(:-)
+            self.update_x_and_y
+            if !self.on_row?(1)
               self.game.invert_turn
             end
+          end
+          if self.double_jump?(:-, 7)
+            self.update_x_and_y
+            self.game.invert_turn
           end
         end
       end
