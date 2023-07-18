@@ -144,11 +144,9 @@ class Piece < ApplicationRecord
   end
 
   def correct_color?(current_user)
-    if self.color === "white"
-      return current_user.username == self.game.as_white
-    else
-      current_user.username == self.game.as_black
-    end
+    return current_user.username == game.as_white if color == "white"
+
+    current_user.username == game.as_black
   end
 
   def valid_move?(current_user)
