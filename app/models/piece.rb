@@ -155,17 +155,16 @@ class Piece < ApplicationRecord
     update_x_and_y && game.invert_turn if path_clear?(horizontal_or_verticle_path)
   end
 
+  def move_bishop
+    return unless diagonal_move?
+
+    update_x_and_y && game.invert_turn if path_clear?(diagonal_path)
+  end
+
   def valid_move?(current_user)
     if correct_color?(current_user) && !friendly_capture? && current_turn?(current_user)
       move_rook if piece_type == "rook"
-      if self.piece_type == "bishop"
-        if self.diagonal_move?
-          if self.path_clear?(self.diagonal_path)
-            self.update_x_and_y
-            self.game.invert_turn
-          end
-        end
-      end
+      move_bishop if piece_type == "bishop"
       if self.piece_type == "queen"
         if self.diagonal_move?
           if self.path_clear?(self.diagonal_path)
