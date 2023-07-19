@@ -149,36 +149,27 @@ class Piece < ApplicationRecord
     current_user.username == game.as_black
   end
 
-  def move_rook
+  def move_horizontaly_or_vertically
     return unless horizontal_move? || verticle_move?
 
     update_x_and_y && game.invert_turn if path_clear?(horizontal_or_verticle_path)
   end
 
-  def move_bishop
+  def move_diagonally
     return unless diagonal_move?
 
     update_x_and_y && game.invert_turn if path_clear?(diagonal_path)
   end
 
+  def move_queen
+    move_diagonally || move_horizontaly_or_vertically
+  end
+
   def valid_move?(current_user)
     if correct_color?(current_user) && !friendly_capture? && current_turn?(current_user)
-      move_rook if piece_type == "rook"
-      move_bishop if piece_type == "bishop"
-      if self.piece_type == "queen"
-        if self.diagonal_move?
-          if self.path_clear?(self.diagonal_path)
-            self.update_x_and_y
-            self.game.invert_turn
-          end
-        end
-        if self.horizontal_move? || self.verticle_move?
-          if self.path_clear?(self.horizontal_or_verticle_path)
-            self.update_x_and_y
-            self.game.invert_turn
-          end
-        end
-      end
+      move_horizontaly_or_vertically if piece_type == "rook"
+      move_diagonally if piece_type == "bishop"
+      move_queen if piece_type == "queen"
       if self.piece_type == "king"
         if self.king_move?
           self.update_x_and_y
