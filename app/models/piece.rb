@@ -169,18 +169,17 @@ class Piece < ApplicationRecord
     update_x_and_y && game.invert_turn if king_move?
   end
 
+  def move_knight
+    update_x_and_y && game.invert_turn if knight_move?
+  end
+
   def valid_move?(current_user)
     if correct_color?(current_user) && !friendly_capture? && current_turn?(current_user)
       move_horizontaly_or_vertically if piece_type == "rook"
       move_diagonally if piece_type == "bishop"
       move_queen if piece_type == "queen"
       move_king if piece_type == "king"
-      if self.piece_type == "knight"
-        if self.knight_move?
-          self.update_x_and_y
-          self.game.invert_turn
-        end
-      end
+      move_knight if piece_type == "knight"
       if self.piece_type == "pawn"
         if self.color == "white"
           if self.forward_pawn_move?(:+) || self.pawn_capturing?(:+)
