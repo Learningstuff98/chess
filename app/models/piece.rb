@@ -173,6 +173,22 @@ class Piece < ApplicationRecord
     update_x_and_y && game.invert_turn if knight_move?
   end
 
+  def handle_pawn_movement
+    if color == "white"
+      move_pawn(:+, 8, 2)
+    else
+      move_pawn(:-, 1, 7)
+    end
+  end
+
+  def move_pawn(operation, promotion_row, starting_row)
+    if forward_pawn_move?(operation) || pawn_capturing?(operation)
+      update_x_and_y
+      game.invert_turn unless on_row?(promotion_row)
+    end
+    update_x_and_y && game.invert_turn if double_jump?(operation, starting_row)
+  end
+
   def valid_move?(current_user)
     if correct_color?(current_user) && !friendly_capture? && current_turn?(current_user)
       move_horizontaly_or_vertically if piece_type == "rook"
@@ -180,31 +196,7 @@ class Piece < ApplicationRecord
       move_queen if piece_type == "queen"
       move_king if piece_type == "king"
       move_knight if piece_type == "knight"
-      if self.piece_type == "pawn"
-        if self.color == "white"
-          if self.forward_pawn_move?(:+) || self.pawn_capturing?(:+)
-            self.update_x_and_y
-            if !self.on_row?(8)
-              self.game.invert_turn
-            end
-          end
-          if self.double_jump?(:+, 2)
-            self.update_x_and_y
-            self.game.invert_turn
-          end
-        else
-          if self.forward_pawn_move?(:-) || self.pawn_capturing?(:-)
-            self.update_x_and_y
-            if !self.on_row?(1)
-              self.game.invert_turn
-            end
-          end
-          if self.double_jump?(:-, 7)
-            self.update_x_and_y
-            self.game.invert_turn
-          end
-        end
-      end
+      handle_pawn_movement if piece_type == "pawn"
     end
   end
 end
