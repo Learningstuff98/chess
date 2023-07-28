@@ -190,13 +190,13 @@ class Piece < ApplicationRecord
   end
 
   def valid_move?(current_user)
-    if correct_color?(current_user) && !friendly_capture? && current_turn?(current_user)
-      move_horizontaly_or_vertically if piece_type == "rook"
-      move_diagonally if piece_type == "bishop"
-      move_queen if piece_type == "queen"
-      move_king if piece_type == "king"
-      move_knight if piece_type == "knight"
-      handle_pawn_movement if piece_type == "pawn"
-    end
+    return unless correct_color?(current_user) && !friendly_capture? && current_turn?(current_user)
+
+    move_horizontaly_or_vertically if piece_type == "rook"
+    move_diagonally if piece_type == "bishop"
+    move_queen if piece_type == "queen"
+    move_king if piece_type == "king"
+    move_knight if piece_type == "knight"
+    handle_pawn_movement if piece_type == "pawn"
   end
 end
