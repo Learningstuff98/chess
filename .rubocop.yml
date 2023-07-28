@@ -15,7 +15,6 @@ AllCops:
     - 'spec/factories.rb'
     - 'node_modules/**/*'
     - 'app/models/user.rb'
-    - 'app/models/piece.rb'
 
 Metrics/BlockLength:
   IgnoredMethods: ['describe', 'context', 'it']
@@ -27,4 +26,10 @@ Style/FrozenStringLiteralComment:
   Enabled: false
 
 Documentation:
+  Enabled: false
+
+Metrics/ClassLength:
+  Enabled: false
+
+Layout/LineLength:
   Enabled: false
