@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from "axios";
+import SelectPieceIcon from './SelectPieceIcon';
 
 function Tile(props) {
 
@@ -23,35 +24,10 @@ function Tile(props) {
     .catch((err) => console.log(err.response.data));
   };
 
-  const selectPieceIcon = () => {
-    let icon = "";
-    switch (props.piece.piece_type) {
-      case "pawn":
-        icon = "♙";
-        break;
-      case "knight":
-        icon = "♞";
-        break;
-      case "bishop":
-        icon = "♝";
-        break;
-      case "rook":
-        icon = "♜";
-        break;
-      case "queen":
-        icon = "♛";
-        break;
-      case "king":
-        icon = "♚";
-        break;
-    }
-    return icon;
-  };
-
   const renderPieceIcon = () => {
     if(props.piece) {
       return <div className={`${props.piece.color}-icon icon-size cursor no-highlights`}>
-        {selectPieceIcon()}
+        {<SelectPieceIcon piece_type={props.piece.piece_type} />}
       </div>
     }
   };

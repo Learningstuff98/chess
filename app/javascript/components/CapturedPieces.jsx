@@ -1,4 +1,5 @@
 import React from 'react';
+import SelectPieceIcon from './SelectPieceIcon';
 
 function CapturedPieces(props) {
 
@@ -8,7 +9,7 @@ function CapturedPieces(props) {
 
   const icons = getCapturedPieces.map((piece) => {
     return <div className={`${props.color}-icon`} key={piece.id}>
-      {piece.icon}
+      {<SelectPieceIcon piece_type={piece.piece_type} />}
     </div>
   });
 
