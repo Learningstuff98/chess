@@ -23,10 +23,35 @@ function Tile(props) {
     .catch((err) => console.log(err.response.data));
   };
 
-  const handlePieceIcon = () => {
+  const selectPieceIcon = () => {
+    let icon = "";
+    switch (props.piece.piece_type) {
+      case "pawn":
+        icon = "♙";
+        break;
+      case "knight":
+        icon = "♞";
+        break;
+      case "bishop":
+        icon = "♝";
+        break;
+      case "rook":
+        icon = "♜";
+        break;
+      case "queen":
+        icon = "♛";
+        break;
+      case "king":
+        icon = "♚";
+        break;
+    }
+    return icon;
+  };
+
+  const renderPieceIcon = () => {
     if(props.piece) {
       return <div className={`${props.piece.color}-icon icon-size cursor no-highlights`}>
-        {props.piece.icon}
+        {selectPieceIcon()}
       </div>
     }
   };
@@ -49,7 +74,7 @@ function Tile(props) {
   };
 
   return <div onClick={() => handlePiece()} className={`tile tile-dimensions ${handleColor()}`}>
-    {handlePieceIcon()}
+    {renderPieceIcon()}
   </div>
 }
 
