@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_06_28_181943) do
+ActiveRecord::Schema.define(version: 2023_07_29_001924) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,7 +41,6 @@ ActiveRecord::Schema.define(version: 2023_06_28_181943) do
     t.integer "y"
     t.string "piece_type"
     t.string "color"
-    t.string "icon"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "destination_x"
