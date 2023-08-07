@@ -1,6 +1,14 @@
 Hello and welcome to my chess app!
 
-Here I want to provide a tour of this app and give a bird's eye view of how it works.
+Here I want to provide a tour of this app and give a bird's eye view of how it works along with some information about myself.
+
+About me
+
+I origionally graduated from a bootcamp that taught Ruby on Rails. Since I graduated I've continued learning and imporving my programming skills. I've also made open source contributions to both the Ruby for Good Casa and Human Essentials applications.
+
+So about this chess app. It's the result of a large amount of self learning. For example when I graduated I had never heard of websocket protocal which this project uses for its real time functionality. I had to do quite a bit of reaearch to learn how to set this up with rails. Also I had to do a good deal of practice/research with React for the piece movement and chat.
+
+Since I completed this project, I've continued programming which resulted in me gaining more skill so I recently did some refactoring for the backend. I gained an appreciation for the Rubocop gem when I made the before mentioned open source contributions to the Ruby for Good applications, so I added it to this project. I removed redundant self statements, made the code more declarative, and got far more comfortable letting the tests that I wrote guide me in the refactor process. [Here's](https://github.com/Learningstuff98/chess/pull/26/files) a merged pull request from the refactor.
 
 
 Overview
@@ -27,3 +35,7 @@ This app uses out of the box rails html.erb views along with React.js when neces
 ![lobbygif](https://user-images.githubusercontent.com/42154066/212790909-5d328d23-9a63-4ee7-bb31-5e8efad1a72f.gif)
 
 The chess board and chat box work for different screen sizes.
+
+What I would do differently
+
+I would break the piece model up into seperate models like rook, queen, pawn ect. I would move logic that would need to be shared by some of the models like rooks and queens to somewhere else, maybe modules or service objects, although I would need to do more research about that.
