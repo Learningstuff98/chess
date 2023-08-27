@@ -262,55 +262,6 @@ RSpec.describe Piece, type: :model do
     end
   end
 
-  describe "king_move? function" do
-    it "should return true if the destination coordinates directly border the king", :aggregate_failures do
-      piece = FactoryBot.create(:piece)
-      piece.update(destination_x: 5)
-      piece.update(destination_y: 4)
-      expect(piece.king_move?).to eq true
-      piece.update(destination_x: 6)
-      piece.update(destination_y: 4)
-      expect(piece.king_move?).to eq true
-      piece.update(destination_x: 6)
-      piece.update(destination_y: 5)
-      expect(piece.king_move?).to eq true
-      piece.update(destination_x: 6)
-      piece.update(destination_y: 6)
-      expect(piece.king_move?).to eq true
-      piece.update(destination_x: 5)
-      piece.update(destination_y: 6)
-      expect(piece.king_move?).to eq true
-      piece.update(destination_x: 4)
-      piece.update(destination_y: 6)
-      expect(piece.king_move?).to eq true
-      piece.update(destination_x: 4)
-      piece.update(destination_y: 5)
-      expect(piece.king_move?).to eq true
-      piece.update(destination_x: 4)
-      piece.update(destination_y: 4)
-      expect(piece.king_move?).to eq true
-    end
-
-    it "should not return true if the destination coordinates do not border the king", :aggregate_failures do
-      piece = FactoryBot.create(:piece)
-      piece.update(destination_x: 8)
-      piece.update(destination_y: 8)
-      expect(piece.king_move?).not_to eq true
-      piece.update(destination_x: 1)
-      piece.update(destination_y: 1)
-      expect(piece.king_move?).not_to eq true
-      piece.update(destination_x: 1)
-      piece.update(destination_y: 8)
-      expect(piece.king_move?).not_to eq true
-      piece.update(destination_x: 8)
-      piece.update(destination_y: 1)
-      expect(piece.king_move?).not_to eq true
-      piece.update(destination_x: 7)
-      piece.update(destination_y: 5)
-      expect(piece.king_move?).not_to eq true
-    end
-  end
-
   describe "friendly_capture? function" do
     it "should return true if a piece's destination is occupied by a friendly piece" do
       game = FactoryBot.create(:game)

@@ -25,14 +25,6 @@ class Piece < ApplicationRecord
     (x - destination_x).abs == (y - destination_y).abs
   end
 
-  def king_move?
-    distance_of_x = (destination_x - x).abs
-    distance_of_y = (destination_y - y).abs
-    return [0, 1].include?(distance_of_x) if distance_of_y == 1
-
-    distance_of_x == 1 if distance_of_y.zero?
-  end
-
   def horizontal_or_verticle_path
     if x != destination_x
       horizontal_path
@@ -157,10 +149,6 @@ class Piece < ApplicationRecord
     move_diagonally || move_horizontaly_or_vertically
   end
 
-  def move_king
-    update_x_and_y && game.invert_turn if king_move?
-  end
-
   def handle_pawn_movement
     if color == "white"
       move_pawn(:+, 8, 2)
@@ -179,6 +167,10 @@ class Piece < ApplicationRecord
 
   def move_knight
     update_x_and_y && game.invert_turn if KnightMovementProfile.knight_move?(destination_x, destination_y, x, y)
+  end
+
+  def move_king
+    update_x_and_y && game.invert_turn if KingMovementProfile.king_move?(destination_x, destination_y, x, y)
   end
 
   def valid_move?(current_user)
