@@ -33,14 +33,6 @@ class Piece < ApplicationRecord
     distance_of_x == 1 if distance_of_y.zero?
   end
 
-  def knight_move?
-    distance_of_x = (destination_x - x).abs
-    distance_of_y = (destination_y - y).abs
-    return distance_of_y == 1 if distance_of_x == 2
-
-    distance_of_y == 2 if distance_of_x == 1
-  end
-
   def horizontal_or_verticle_path
     if x != destination_x
       horizontal_path
@@ -169,10 +161,6 @@ class Piece < ApplicationRecord
     update_x_and_y && game.invert_turn if king_move?
   end
 
-  def move_knight
-    update_x_and_y && game.invert_turn if knight_move?
-  end
-
   def handle_pawn_movement
     if color == "white"
       move_pawn(:+, 8, 2)
@@ -187,6 +175,10 @@ class Piece < ApplicationRecord
       game.invert_turn unless on_row?(promotion_row)
     end
     update_x_and_y && game.invert_turn if double_jump?(operation, starting_row)
+  end
+
+  def move_knight
+    update_x_and_y && game.invert_turn if KnightMovementProfile.knight_move?(destination_x, destination_y, x, y)
   end
 
   def valid_move?(current_user)
