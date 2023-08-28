@@ -284,38 +284,6 @@ RSpec.describe Piece, type: :model do
     end
   end
 
-  describe "forward_pawn_move? function" do
-    it "should return true if the piece wants to advance by one tile" do
-      piece = FactoryBot.create(:piece)
-      piece.update(destination_x: 5)
-      piece.update(destination_y: 6)
-      expect(piece.forward_pawn_move?(:+)).to eq true
-    end
-
-    it "should not return true if the piece doesn't want to advance forward by just one tile", :aggregate_failures do
-      piece = FactoryBot.create(:piece)
-      piece.update(destination_x: 5)
-      piece.update(destination_y: 3)
-      expect(piece.forward_pawn_move?(:-)).not_to eq true
-      piece.update(destination_x: 1)
-      piece.update(destination_y: 1)
-      expect(piece.forward_pawn_move?(:-)).not_to eq true
-      piece.update(destination_x: 8)
-      piece.update(destination_y: 8)
-      expect(piece.forward_pawn_move?(:-)).not_to eq true
-      piece.update(destination_x: 5)
-      piece.update(destination_y: 6)
-      expect(piece.forward_pawn_move?(:-)).not_to eq true
-    end
-
-    it "should not return true if there is a piece in the way" do
-      game = FactoryBot.create(:game)
-      game.pieces.create(x: 5, y: 6)
-      piece = FactoryBot.create(:piece, game_id: game.id, destination_x: 5, destination_y: 6)
-      expect(piece.forward_pawn_move?(:+)).not_to eq true
-    end
-  end
-
   describe "double_jump? function" do
     it "should return true if the piece wants to advance by two tiles from the starting point" do
       piece = FactoryBot.create(:piece)
@@ -420,20 +388,6 @@ RSpec.describe Piece, type: :model do
       piece.update(destination_x: 1)
       piece.update(destination_y: 8)
       expect(piece.pawn_capturing?(:-)).not_to eq true
-    end
-  end
-
-  describe "tile_has_piece? function" do
-    it "should return true if a given tile is occupied" do
-      game = FactoryBot.create(:game)
-      piece = FactoryBot.create(:piece, game_id: game.id)
-      expect(piece.tile_has_piece?(5, 5)).to eq true
-    end
-
-    it "should return false if a given tile is not occupied" do
-      game = FactoryBot.create(:game)
-      piece = FactoryBot.create(:piece, game_id: game.id)
-      expect(piece.tile_has_piece?(3, 3)).to eq false
     end
   end
 

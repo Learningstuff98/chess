@@ -86,19 +86,6 @@ class Piece < ApplicationRecord
     false
   end
 
-  def tile_has_piece?(tile_x, tile_y)
-    game.pieces.each do |piece|
-      return true if piece.x == tile_x && piece.y == tile_y
-    end
-    false
-  end
-
-  def forward_pawn_move?(operation)
-    x == destination_x &&
-      destination_y == y.send(operation, 1) &&
-      !tile_has_piece?(destination_x, destination_y)
-  end
-
   def double_jump?(operation, starting_y)
     x == destination_x &&
       y == starting_y &&
@@ -158,7 +145,7 @@ class Piece < ApplicationRecord
   end
 
   def move_pawn(operation, promotion_row, starting_row)
-    if forward_pawn_move?(operation) || pawn_capturing?(operation)
+    if PawnMovementProfile.forward_pawn_move?(destination_x, destination_y, x, y, operation, game) || pawn_capturing?(operation)
       update_x_and_y
       game.invert_turn unless on_row?(promotion_row)
     end
