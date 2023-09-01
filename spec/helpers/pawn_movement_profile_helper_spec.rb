@@ -38,4 +38,42 @@ RSpec.describe PawnMovementProfile, type: :helper do
       expect(PawnMovementProfile.forward_pawn_move?(5, 4, 5, 5, :-, game)).not_to eq true
     end
   end
+
+  describe "pawn_capturing? function" do
+    it "should return true if the piece goes for a capture to it's right" do
+      game = FactoryBot.create(:game)
+      game.pieces.create(x: 6, y: 6)
+      expect(PawnMovementProfile.pawn_capturing?(6, 6, 5, 5, :+, game)).to eq true
+    end
+
+    it "should return true if the piece goes for a capture to it's left" do
+      game = FactoryBot.create(:game)
+      game.pieces.create(x: 4, y: 4)
+      expect(PawnMovementProfile.pawn_capturing?(4, 4, 5, 5, :-, game)).to eq true
+    end
+
+    it "should return false if the piece goes for a capture to it's left, but there's no piece to capture" do
+      game = FactoryBot.create(:game)
+      expect(PawnMovementProfile.pawn_capturing?(6, 6, 5, 5, :+, game)).to eq false
+    end
+
+    it "should return false if the piece goes for a capture to it's right, but there's no piece to capture" do
+      game = FactoryBot.create(:game)
+      expect(PawnMovementProfile.pawn_capturing?(6, 4, 5, 5, :-, game)).to eq false
+    end
+
+    it "shouldn't return true if the piece tries to make a capture that's not directly forward and to either side", :aggregate_failures do
+      game = FactoryBot.create(:game)
+      game.pieces.create(x: 8, y: 8)
+      expect(PawnMovementProfile.pawn_capturing?(8, 8, 5, 5, :-, game)).not_to eq true
+      game.pieces.first.update(x: 1, y: 1)
+      expect(PawnMovementProfile.pawn_capturing?(1, 1, 5, 5, :+, game)).not_to eq true
+      game.pieces.first.update(x: 1, y: 8)
+      expect(PawnMovementProfile.pawn_capturing?(1, 8, 5, 5, :+, game)).not_to eq true
+      game.pieces.first.update(x: 8, y: 1)
+      expect(PawnMovementProfile.pawn_capturing?(8, 1, 5, 5, :+, game)).not_to eq true
+      game.pieces.first.update(x: 4, y: 3)
+      expect(PawnMovementProfile.pawn_capturing?(4, 3, 5, 5, :-, game)).not_to eq true
+    end
+  end
 end

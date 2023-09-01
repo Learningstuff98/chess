@@ -6,9 +6,20 @@ module PawnMovementProfile
     false
   end
 
+  def self.forward_pawn_move_or_pawn_capturing?(destination_x, destination_y, x, y, operation, game)
+    forward_pawn_move?(destination_x, destination_y, x, y, operation, game) ||
+      pawn_capturing?(destination_x, destination_y, x, y, operation, game)
+  end
+
   def self.forward_pawn_move?(destination_x, destination_y, x, y, operation, game)
     x == destination_x &&
       destination_y == y.send(operation, 1) &&
       !tile_has_piece?(destination_x, destination_y, game)
+  end
+
+  def self.pawn_capturing?(destination_x, destination_y, x, y, operation, game)
+    destination_y == y.send(operation, 1) &&
+      [x + 1, x - 1].include?(destination_x) &&
+      tile_has_piece?(destination_x, destination_y, game)
   end
 end

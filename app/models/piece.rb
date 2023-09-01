@@ -94,12 +94,6 @@ class Piece < ApplicationRecord
       !tile_has_piece?(destination_x, y.send(operation, 1))
   end
 
-  def pawn_capturing?(operation)
-    destination_y == y.send(operation, 1) &&
-      [x + 1, x - 1].include?(destination_x) &&
-      tile_has_piece?(destination_x, destination_y)
-  end
-
   def promoted?(origional_piece_type)
     origional_piece_type != piece_type
   end
@@ -145,7 +139,7 @@ class Piece < ApplicationRecord
   end
 
   def move_pawn(operation, promotion_row, starting_row)
-    if PawnMovementProfile.forward_pawn_move?(destination_x, destination_y, x, y, operation, game) || pawn_capturing?(operation)
+    if PawnMovementProfile.forward_pawn_move_or_pawn_capturing?(destination_x, destination_y, x, y, operation, game)
       update_x_and_y
       game.invert_turn unless on_row?(promotion_row)
     end
