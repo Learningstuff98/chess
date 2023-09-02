@@ -90,10 +90,6 @@ class Piece < ApplicationRecord
     origional_piece_type != piece_type
   end
 
-  def on_row?(promotion_row)
-    y == promotion_row
-  end
-
   def current_turn?(current_user)
     return current_user.username == game.as_white if game.whites_turn
 
@@ -145,7 +141,7 @@ class Piece < ApplicationRecord
   def move_pawn(operation, promotion_row, starting_row)
     if PawnMovementProfile.forward_pawn_move_or_pawn_capturing?(destination_x, destination_y, x, y, operation, game)
       update_x_and_y
-      game.invert_turn unless on_row?(promotion_row)
+      game.invert_turn unless y == promotion_row
     end
     handle_double_jump(starting_row, operation)
   end

@@ -31,5 +31,5 @@ module PawnMovementProfile
       !tile_has_piece?(destination_x, y.send(operation, 1), game)
   end
 
-  # look at the on_row? and promoted? functions too.
+  # look at the promoted? function too.
 end

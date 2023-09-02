@@ -296,18 +296,6 @@ RSpec.describe Piece, type: :model do
     end
   end
 
-  describe "on_row? function" do
-    it "should return true if a piece is on a given row" do
-      piece = FactoryBot.create(:piece)
-      expect(piece.on_row?(5)).to eq true
-    end
-
-    it "should return false if a piece isn't on a given row" do
-      piece = FactoryBot.create(:piece)
-      expect(piece.on_row?(6)).to eq false
-    end
-  end
-
   describe "current_turn? function" do
     before do
       @user = FactoryBot.create(:user)
