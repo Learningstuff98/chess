@@ -284,18 +284,6 @@ RSpec.describe Piece, type: :model do
     end
   end
 
-  describe "promoted? function" do
-    it "should return true if a given piece type isn't equal to a piece's type" do
-      piece = FactoryBot.create(:piece)
-      expect(piece.promoted?("pawn")).to eq true
-    end
-
-    it "should return false if a given piece type is equal to a piece's type" do
-      piece = FactoryBot.create(:piece, piece_type: "pawn")
-      expect(piece.promoted?("pawn")).to eq false
-    end
-  end
-
   describe "current_turn? function" do
     before do
       @user = FactoryBot.create(:user)

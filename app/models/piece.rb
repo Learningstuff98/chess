@@ -86,10 +86,6 @@ class Piece < ApplicationRecord
     false
   end
 
-  def promoted?(origional_piece_type)
-    origional_piece_type != piece_type
-  end
-
   def current_turn?(current_user)
     return current_user.username == game.as_white if game.whites_turn
 

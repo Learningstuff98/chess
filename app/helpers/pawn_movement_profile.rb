@@ -31,5 +31,7 @@ module PawnMovementProfile
       !tile_has_piece?(destination_x, y.send(operation, 1), game)
   end
 
-  # look at the promoted? function too.
+  def self.promoted?(origional_piece_type, piece_type)
+    origional_piece_type != piece_type
+  end
 end
