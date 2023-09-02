@@ -76,4 +76,32 @@ RSpec.describe PawnMovementProfile, type: :helper do
       expect(PawnMovementProfile.pawn_capturing?(4, 3, 5, 5, :-, game)).not_to eq true
     end
   end
+
+  describe "double_jump? function" do
+    it "should return true if the piece wants to advance by two tiles from the starting point" do
+      game = FactoryBot.create(:game)
+      expect(PawnMovementProfile.double_jump?(1, 5, 1, 7, :-, 7, game)).to eq true
+    end
+
+    it "should return false if there is a piece directly in the way" do
+      game = FactoryBot.create(:game)
+      game.pieces.create(x: 1, y: 6)
+      expect(PawnMovementProfile.double_jump?(1, 5, 1, 7, :-, 7, game)).to eq false
+    end
+
+    it "should return false if there is a piece at the destination" do
+      game = FactoryBot.create(:game)
+      game.pieces.create(x: 1, y: 5)
+      expect(PawnMovementProfile.double_jump?(1, 5, 1, 7, :-, 7, game)).to eq false
+    end
+
+    it "should not return true if the piece isn't trying to move forward by two tiles", :aggregate_failures do
+      game = FactoryBot.create(:game)
+      expect(PawnMovementProfile.double_jump?(1, 5, 1, 2, :+, 2, game)).not_to eq true
+      expect(PawnMovementProfile.double_jump?(1, 1, 1, 2, :+, 2, game)).not_to eq true
+      expect(PawnMovementProfile.double_jump?(8, 8, 1, 2, :+, 2, game)).not_to eq true
+      expect(PawnMovementProfile.double_jump?(1, 8, 1, 2, :+, 2, game)).not_to eq true
+      expect(PawnMovementProfile.double_jump?(4, 4, 1, 2, :+, 2, game)).not_to eq true
+    end
+  end
 end

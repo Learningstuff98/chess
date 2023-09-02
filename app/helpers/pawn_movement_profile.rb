@@ -22,4 +22,14 @@ module PawnMovementProfile
       [x + 1, x - 1].include?(destination_x) &&
       tile_has_piece?(destination_x, destination_y, game)
   end
+
+  def self.double_jump?(destination_x, destination_y, x, y, operation, starting_y, game)
+    x == destination_x &&
+      y == starting_y &&
+      destination_y == starting_y.send(operation, 2) &&
+      !tile_has_piece?(destination_x, destination_y, game) &&
+      !tile_has_piece?(destination_x, y.send(operation, 1), game)
+  end
+
+  # look at the on_row? and promoted? functions too.
 end

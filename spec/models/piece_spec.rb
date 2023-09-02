@@ -284,60 +284,6 @@ RSpec.describe Piece, type: :model do
     end
   end
 
-  describe "double_jump? function" do
-    it "should return true if the piece wants to advance by two tiles from the starting point" do
-      piece = FactoryBot.create(:piece)
-      piece.update(x: 1)
-      piece.update(y: 7)
-      piece.update(destination_x: 1)
-      piece.update(destination_y: 5)
-      expect(piece.double_jump?(:-, 7)).to eq true
-    end
-
-    it "should return false if there is a piece directly in the way" do
-      game = FactoryBot.create(:game)
-      game.pieces.create(x: 1, y: 6)
-      piece = FactoryBot.create(:piece, game_id: game.id)
-      piece.update(x: 1)
-      piece.update(y: 7)
-      piece.update(destination_x: 1)
-      piece.update(destination_y: 5)
-      expect(piece.double_jump?(:-, 7)).to eq false
-    end
-
-    it "should return false if there is a piece at the destination" do
-      game = FactoryBot.create(:game)
-      game.pieces.create(x: 1, y: 5)
-      piece = FactoryBot.create(:piece, game_id: game.id)
-      piece.update(x: 1)
-      piece.update(y: 7)
-      piece.update(destination_x: 1)
-      piece.update(destination_y: 5)
-      expect(piece.double_jump?(:-, 7)).to eq false
-    end
-
-    it "should not return true if the piece isn't trying to move forward by two tiles", :aggregate_failures do
-      piece = FactoryBot.create(:piece)
-      piece.update(x: 1)
-      piece.update(y: 2)
-      piece.update(destination_x: 1)
-      piece.update(destination_y: 5)
-      expect(piece.double_jump?(:+, 2)).not_to eq true
-      piece.update(destination_x: 1)
-      piece.update(destination_y: 1)
-      expect(piece.double_jump?(:+, 2)).not_to eq true
-      piece.update(destination_x: 8)
-      piece.update(destination_y: 8)
-      expect(piece.double_jump?(:+, 2)).not_to eq true
-      piece.update(destination_x: 1)
-      piece.update(destination_y: 8)
-      expect(piece.double_jump?(:+, 2)).not_to eq true
-      piece.update(destination_x: 4)
-      piece.update(destination_y: 4)
-      expect(piece.double_jump?(:+, 2)).not_to eq true
-    end
-  end
-
   describe "promoted? function" do
     it "should return true if a given piece type isn't equal to a piece's type" do
       piece = FactoryBot.create(:piece)

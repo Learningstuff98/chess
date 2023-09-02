@@ -86,14 +86,6 @@ class Piece < ApplicationRecord
     false
   end
 
-  def double_jump?(operation, starting_y)
-    x == destination_x &&
-      y == starting_y &&
-      destination_y == starting_y.send(operation, 2) &&
-      !tile_has_piece?(destination_x, destination_y) &&
-      !tile_has_piece?(destination_x, y.send(operation, 1))
-  end
-
   def promoted?(origional_piece_type)
     origional_piece_type != piece_type
   end
@@ -138,12 +130,24 @@ class Piece < ApplicationRecord
     end
   end
 
+  def handle_double_jump(starting_row, operation)
+    update_x_and_y && game.invert_turn if PawnMovementProfile.double_jump?(
+      destination_x,
+      destination_y,
+      x,
+      y,
+      operation,
+      starting_row,
+      game
+    )
+  end
+
   def move_pawn(operation, promotion_row, starting_row)
     if PawnMovementProfile.forward_pawn_move_or_pawn_capturing?(destination_x, destination_y, x, y, operation, game)
       update_x_and_y
       game.invert_turn unless on_row?(promotion_row)
     end
-    update_x_and_y && game.invert_turn if double_jump?(operation, starting_row)
+    handle_double_jump(starting_row, operation)
   end
 
   def move_knight
