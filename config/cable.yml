@@ -6,5 +6,5 @@ test:
 
 production:
   adapter: redis
-  url: redis://:pc5e2bbbfc090e04c394fcd703209adf0af148f59812b86d5e2efc4c96e30886c@ec2-34-195-28-96.compute-1.amazonaws.com:12039
+  url: redis://:pc5e2bbbfc090e04c394fcd703209adf0af148f59812b86d5e2efc4c96e30886c@ec2-3-226-127-73.compute-1.amazonaws.com:16939
   channel_prefix: chess_production
