@@ -33,14 +33,6 @@ class Piece < ApplicationRecord
     end
   end
 
-  def range(value, destination_value)
-    if destination_value > value
-      ((value + 1)..(destination_value - 1)).to_a
-    else
-      ((destination_value + 1)..(value - 1)).to_a
-    end
-  end
-
   def horizontal_path
     range(x, destination_x).map do |x_value|
       [x_value, y]
