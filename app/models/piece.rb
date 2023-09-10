@@ -29,13 +29,7 @@ class Piece < ApplicationRecord
     if x != destination_x
       PathFinder.horizontal_path(x, y, destination_x)
     else
-      verticle_path
-    end
-  end
-
-  def verticle_path
-    range(y, destination_y).map do |y_value|
-      [x, y_value]
+      PathFinder.verticle_path(x, y, destination_y)
     end
   end
 

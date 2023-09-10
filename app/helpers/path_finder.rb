@@ -12,6 +12,12 @@ module PathFinder
       [x_value, y]
     end
   end
+
+  def self.verticle_path(x, y, destination_y)
+    range(y, destination_y).map do |y_value|
+      [x, y_value]
+    end
+  end
 end
 
 # need the following functions:
@@ -19,7 +25,7 @@ end
 #   horizontal_or_verticle_path this one feels redundant
 #   range DONE
 #   horizontal_path DONE
-#   verticle_path
+#   verticle_path DONE
 #   diagonal_path
 #   diagonal_y_values
 #   path_clear?
