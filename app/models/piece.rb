@@ -27,7 +27,7 @@ class Piece < ApplicationRecord
 
   def horizontal_or_verticle_path
     if x != destination_x
-      PathFinder.horizontal_path(x, destination_x)
+      PathFinder.horizontal_path(x, y, destination_x)
     else
       verticle_path
     end
