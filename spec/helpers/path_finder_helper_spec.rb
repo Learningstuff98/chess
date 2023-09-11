@@ -50,6 +50,13 @@ RSpec.describe PathFinder, type: :helper do
       [[2, 7], [3, 6], [4, 5], [5, 4], [6, 3], [7, 2]].each do |coordinates|
         expect(PathFinder.diagonal_path(8, 1, 1, 8).include?(coordinates)).to eq true
       end
+
+      expect(PathFinder.diagonal_path(7, 1, 4, 4).length).to eq 2
+      [[6, 2], [5, 3]].each do |coordinates|
+        expect(PathFinder.diagonal_path(7, 1, 4, 4).include?(coordinates)).to eq true
+      end
+
+      expect(PathFinder.diagonal_path(6, 8, 8, 6)).to eq [[7, 7]]
     end
   end
 end
