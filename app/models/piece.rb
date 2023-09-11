@@ -33,23 +33,6 @@ class Piece < ApplicationRecord
     end
   end
 
-  def diagonal_path
-    y_values = diagonal_y_values
-    range(x, destination_x).map.with_index do |x_value, index|
-      [x_value, y_values[index]]
-    end
-  end
-
-  def diagonal_y_values
-    y_values = range(y, destination_y)
-    if destination_x > x
-      y_values = y_values.reverse if destination_y < y
-    elsif destination_y > y
-      y_values = y_values.reverse
-    end
-    y_values
-  end
-
   def path_clear?(path)
     path.each do |coord_pair|
       game.pieces.each do |piece|
@@ -87,7 +70,7 @@ class Piece < ApplicationRecord
   def move_diagonally
     return unless diagonal_move?
 
-    update_x_and_y && game.invert_turn if path_clear?(diagonal_path)
+    update_x_and_y && game.invert_turn if path_clear?(PathFinder.diagonal_path(x, y, destination_x, destination_y))
   end
 
   def move_queen

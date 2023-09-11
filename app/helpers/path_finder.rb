@@ -18,6 +18,23 @@ module PathFinder
       [x, y_value]
     end
   end
+
+  def self.diagonal_path(x, y, destination_x, destination_y)
+    y_values = diagonal_y_values(x, y, destination_x, destination_y)
+    range(x, destination_x).map.with_index do |x_value, index|
+      [x_value, y_values[index]]
+    end
+  end
+
+  def self.diagonal_y_values(x, y, destination_x, destination_y)
+    y_values = range(y, destination_y)
+    if destination_x > x
+      y_values = y_values.reverse if destination_y < y
+    elsif destination_y > y
+      y_values = y_values.reverse
+    end
+    y_values
+  end
 end
 
 # need the following functions:
@@ -26,6 +43,6 @@ end
 #   range DONE
 #   horizontal_path DONE
 #   verticle_path DONE
-#   diagonal_path
+#   diagonal_path DONE
 #   diagonal_y_values
 #   path_clear?

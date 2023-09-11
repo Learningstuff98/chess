@@ -28,4 +28,28 @@ RSpec.describe PathFinder, type: :helper do
       end
     end
   end
+
+  describe "diagonal_path function" do
+    it "returns an array of diagonal coordinates that fills the gap between (not including) the inputs", :aggregate_failures do
+      expect(PathFinder.diagonal_path(1, 1, 8, 8).length).to eq 6
+      [[2, 2], [3, 3], [4, 4], [5, 5], [6, 6], [7, 7]].each do |coordinates|
+        expect(PathFinder.diagonal_path(1, 1, 8, 8).include?(coordinates)).to eq true
+      end
+
+      expect(PathFinder.diagonal_path(8, 8, 1, 1).length).to eq 6
+      [[2, 2], [3, 3], [4, 4], [5, 5], [6, 6], [7, 7]].each do |coordinates|
+        expect(PathFinder.diagonal_path(8, 8, 1, 1).include?(coordinates)).to eq true
+      end
+
+      expect(PathFinder.diagonal_path(1, 8, 8, 1).length).to eq 6
+      [[2, 7], [3, 6], [4, 5], [5, 4], [6, 3], [7, 2]].each do |coordinates|
+        expect(PathFinder.diagonal_path(1, 8, 8, 1).include?(coordinates)).to eq true
+      end
+
+      expect(PathFinder.diagonal_path(8, 1, 1, 8).length).to eq 6
+      [[2, 7], [3, 6], [4, 5], [5, 4], [6, 3], [7, 2]].each do |coordinates|
+        expect(PathFinder.diagonal_path(8, 1, 1, 8).include?(coordinates)).to eq true
+      end
+    end
+  end
 end
