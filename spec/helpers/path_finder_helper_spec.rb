@@ -59,4 +59,13 @@ RSpec.describe PathFinder, type: :helper do
       expect(PathFinder.diagonal_path(6, 8, 8, 6)).to eq [[7, 7]]
     end
   end
+
+  describe "diagonal_y_values function" do
+    it "returns a list of y values in the correct order", :aggregate_failures do
+      expect(PathFinder.diagonal_y_values(1, 1, 8, 8)).to eq [2, 3, 4, 5, 6, 7]
+      expect(PathFinder.diagonal_y_values(8, 8, 1, 1)).to eq [2, 3, 4, 5, 6, 7]
+      expect(PathFinder.diagonal_y_values(1, 8, 8, 1)).to eq [7, 6, 5, 4, 3, 2]
+      expect(PathFinder.diagonal_y_values(8, 1, 1, 8)).to eq [7, 6, 5, 4, 3, 2]
+    end
+  end
 end

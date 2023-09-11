@@ -39,10 +39,9 @@ end
 
 # need the following functions:
 
-#   horizontal_or_verticle_path this one feels redundant
 #   range DONE
 #   horizontal_path DONE
 #   verticle_path DONE
 #   diagonal_path DONE
-#   diagonal_y_values
+#   diagonal_y_values DONE
 #   path_clear?
