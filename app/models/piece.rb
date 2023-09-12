@@ -33,15 +33,6 @@ class Piece < ApplicationRecord
     end
   end
 
-  def path_clear?(path)
-    path.each do |coord_pair|
-      game.pieces.each do |piece|
-        return false if piece.x == coord_pair.first && piece.y == coord_pair.last
-      end
-    end
-    true
-  end
-
   def friendly_capture?
     game.pieces.each do |piece|
       return piece.color == color if piece.x == destination_x && piece.y == destination_y
@@ -64,13 +55,13 @@ class Piece < ApplicationRecord
   def move_horizontaly_or_vertically
     return unless horizontal_move? || verticle_move?
 
-    update_x_and_y && game.invert_turn if path_clear?(horizontal_or_verticle_path)
+    update_x_and_y && game.invert_turn if PathFinder.path_clear?(horizontal_or_verticle_path, game)
   end
 
   def move_diagonally
     return unless diagonal_move?
 
-    update_x_and_y && game.invert_turn if path_clear?(PathFinder.diagonal_path(x, y, destination_x, destination_y))
+    update_x_and_y && game.invert_turn if PathFinder.path_clear?(PathFinder.diagonal_path(x, y, destination_x, destination_y), game)
   end
 
   def move_queen

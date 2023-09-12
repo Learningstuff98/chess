@@ -68,4 +68,18 @@ RSpec.describe PathFinder, type: :helper do
       expect(PathFinder.diagonal_y_values(8, 1, 1, 8)).to eq [7, 6, 5, 4, 3, 2]
     end
   end
+
+  describe "path_clear? function" do
+    it "should return false if any piece coordinates match any of the given path coordinates" do
+      game = FactoryBot.create(:game)
+      FactoryBot.create(:piece, game_id: game.id)
+      expect(PathFinder.path_clear?([[5, 4], [5, 5], [5, 6]], game)).to eq false
+    end
+
+    it "should return true if no piece coordinates match any of the given path coordinates" do
+      game = FactoryBot.create(:game)
+      FactoryBot.create(:piece, game_id: game.id)
+      expect(PathFinder.path_clear?([[1, 4], [1, 5], [1, 6]], game)).to eq true
+    end
+  end
 end

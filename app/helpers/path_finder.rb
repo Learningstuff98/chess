@@ -35,13 +35,13 @@ module PathFinder
     end
     y_values
   end
+
+  def self.path_clear?(path, game)
+    path.each do |coord_pair|
+      game.pieces.each do |piece|
+        return false if piece.x == coord_pair.first && piece.y == coord_pair.last
+      end
+    end
+    true
+  end
 end
-
-# need the following functions:
-
-#   range DONE
-#   horizontal_path DONE
-#   verticle_path DONE
-#   diagonal_path DONE
-#   diagonal_y_values DONE
-#   path_clear?
