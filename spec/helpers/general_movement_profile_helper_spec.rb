@@ -12,4 +12,16 @@ RSpec.describe GeneralMovementProfile, type: :helper do
       expect(GeneralMovementProfile.horizontal_move?(5, 5, 5, 1)).to eq false
     end
   end
+
+  describe "verticle_move? function" do
+    it "should return true if the starting and ending coordinates are verticle", :aggregate_failures do
+      expect(GeneralMovementProfile.verticle_move?(5, 5, 5, 1)).to eq true
+      expect(GeneralMovementProfile.verticle_move?(5, 5, 5, 8)).to eq true
+    end
+
+    it "should return false if the starting and ending coordinates are not verticle", :aggregate_failures do
+      expect(GeneralMovementProfile.verticle_move?(5, 5, 8, 8)).to eq false
+      expect(GeneralMovementProfile.verticle_move?(5, 5, 1, 1)).to eq false
+    end
+  end
 end

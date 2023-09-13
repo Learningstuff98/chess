@@ -13,10 +13,6 @@ class Piece < ApplicationRecord
     end
   end
 
-  def verticle_move?
-    destination_y != y && destination_x == x
-  end
-
   def diagonal_move?
     (x - destination_x).abs == (y - destination_y).abs
   end
@@ -48,8 +44,13 @@ class Piece < ApplicationRecord
     current_user.username == game.as_black
   end
 
+  def horizontal_or_verticle_move?
+    GeneralMovementProfile.horizontal_move?(x, y, destination_x, destination_y) ||
+      GeneralMovementProfile.verticle_move?(x, y, destination_x, destination_y)
+  end
+
   def move_horizontaly_or_vertically
-    return unless GeneralMovementProfile.horizontal_move?(x, y, destination_x, destination_y) || verticle_move?
+    return unless horizontal_or_verticle_move?
 
     update_x_and_y && game.invert_turn if PathFinder.path_clear?(horizontal_or_verticle_path, game)
   end
