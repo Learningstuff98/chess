@@ -7,7 +7,7 @@ class PiecesController < ApplicationController
     origional_piece_type = piece.piece_type
     piece.update(piece_params)
     piece.valid_move?(current_user)
-    piece.game.invert_turn if piece.promoted?(origional_piece_type)
+    piece.game.invert_turn if PawnMovementProfile.promoted?(origional_piece_type, piece.piece_type)
     piece.capture_piece
     piece.game.victory?
     SendGameAndPiecesJob.perform_later(piece.game)
