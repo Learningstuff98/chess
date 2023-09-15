@@ -104,40 +104,6 @@ RSpec.describe Piece, type: :model do
     end
   end
 
-  describe "diagonal_move? function" do
-    it "should return true if the starting and ending coordinates are diagonal", :aggregate_failures do
-      piece = FactoryBot.create(:piece)
-      piece.update(destination_x: 7)
-      piece.update(destination_y: 7)
-      expect(piece.diagonal_move?).to eq true
-      piece.update(destination_x: 3)
-      piece.update(destination_y: 3)
-      expect(piece.diagonal_move?).to eq true
-      piece.update(destination_x: 3)
-      piece.update(destination_y: 7)
-      expect(piece.diagonal_move?).to eq true
-      piece.update(destination_x: 8)
-      piece.update(destination_y: 2)
-      expect(piece.diagonal_move?).to eq true
-    end
-
-    it "should return false if the starting and ending coordinates are not diagonal", :aggregate_failures do
-      piece = FactoryBot.create(:piece)
-      piece.update(destination_x: 2)
-      piece.update(destination_y: 1)
-      expect(piece.diagonal_move?).to eq false
-      piece.update(destination_x: 6)
-      piece.update(destination_y: 1)
-      expect(piece.diagonal_move?).to eq false
-      piece.update(destination_x: 3)
-      piece.update(destination_y: 6)
-      expect(piece.diagonal_move?).to eq false
-      piece.update(destination_x: 8)
-      piece.update(destination_y: 6)
-      expect(piece.diagonal_move?).to eq false
-    end
-  end
-
   describe "friendly_capture? function" do
     it "should return true if a piece's destination is occupied by a friendly piece" do
       game = FactoryBot.create(:game)

@@ -13,10 +13,6 @@ class Piece < ApplicationRecord
     end
   end
 
-  def diagonal_move?
-    (x - destination_x).abs == (y - destination_y).abs
-  end
-
   def horizontal_or_verticle_path
     if x != destination_x
       PathFinder.horizontal_path(x, y, destination_x)
@@ -56,7 +52,7 @@ class Piece < ApplicationRecord
   end
 
   def move_diagonally
-    return unless diagonal_move?
+    return unless GeneralMovementProfile.diagonal_move?(x, y, destination_x, destination_y)
 
     update_x_and_y && game.invert_turn if PathFinder.path_clear?(PathFinder.diagonal_path(x, y, destination_x, destination_y), game)
   end
