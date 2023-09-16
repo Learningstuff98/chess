@@ -10,6 +10,7 @@ So about this chess app. It's the result of a large amount of self learning. For
 
 Since I completed this project, I've continued programming which resulted in me gaining more skill so I recently did some refactoring for the backend. I gained an appreciation for the Rubocop gem when I made the before mentioned open source contributions to the Ruby for Good applications, so I added it to this project. I removed redundant self statements, made the code more declarative, and got far more comfortable letting the tests that I wrote guide me in the refactor process. [Here's](https://github.com/Learningstuff98/chess/pull/26/files) a merged pull request from the refactor.
 
+In September of 2023 I merged a PR that moved the logic responsible for piece movement and detecting any pieces that are blocking a given path into their own modules for the sake of learning and maintainability. This was the first time that I've used modules with rails. [Here's the PR.](https://github.com/Learningstuff98/chess/pull/29/files)
 
 Overview
 
@@ -19,7 +20,7 @@ This is a rails 6 app that uses devise for user functionality. Users can start g
 
 Back end
 
-Games belong to users. Pieces and comments belong to games. Games contain functionality for things like creating the pieces with their starting positions and determining the victor. Pieces contain logic for things like how a piece is allowed to move given what type of piece that it is, whether or not another piece is in the way and if a proposed capture is friendly/illegal.
+Games belong to users. Pieces and comments belong to games. Games contain functionality for things like creating the pieces with their starting positions and determining the victor. Pieces call on modules which contain logic for things like how a piece is allowed to move and whether or not another piece is in the way.
 
 When a piece is selected and a tile is clicked, this sends a patch request to the back end. Pieces have x and y attributes along with destination_x and destination_y attributes. The logic around piece movement is based on the starting point (x and y attributes) and the proposed destination (destination_x and destination_y attributes). If a proposed move is legal then the x and y attributes are updated and a broadcast is sent with action cable to the front end with the game and its pieces.
 
