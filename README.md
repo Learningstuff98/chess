@@ -26,8 +26,11 @@ When a piece is selected and a tile is clicked, this sends a patch request to th
 
 ![pawnpromotion](https://user-images.githubusercontent.com/42154066/212790878-9f03e3c8-cda3-4c58-8c8c-d34030e61c6c.gif)
 
-This project uses both Rspec and Factorybot for testing. I have tests written for both models and controllers which can be found in the spec folder.
+This project uses both Rspec and Factorybot for testing. I have tests written for models, modules and controllers, github links provided below:
 
+[requests](https://github.com/Learningstuff98/chess/tree/master/spec/requests)
+[models](https://github.com/Learningstuff98/chess/tree/master/spec/models)
+[modules](https://github.com/Learningstuff98/chess/tree/master/spec/helpers)
 
 Front end
 
@@ -39,4 +42,4 @@ The chess board and chat box work for different screen sizes.
 
 What I would do differently
 
-I would break the piece model up into seperate models like rook, queen, pawn ect. I would move logic that would need to be shared by some of the models like rooks and queens to somewhere else, maybe modules or service objects, although I would need to do more research about that.
+I would break the piece model up into seperate models like rook, queen, pawn ect. I would move logic that would need to be shared by some of the models like rooks and queens to their own modules.
