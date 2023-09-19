@@ -29,7 +29,9 @@ When a piece is selected and a tile is clicked, this sends a patch request to th
 This project uses both Rspec and Factorybot for testing. I have tests written for models, modules and controllers, github links provided below:
 
 [requests](https://github.com/Learningstuff98/chess/tree/master/spec/requests)
+
 [models](https://github.com/Learningstuff98/chess/tree/master/spec/models)
+
 [modules](https://github.com/Learningstuff98/chess/tree/master/spec/helpers)
 
 Front end
