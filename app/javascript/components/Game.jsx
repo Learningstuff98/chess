@@ -7,6 +7,7 @@ import DisplayPlayer from './DisplayPlayer';
 import VictoryStatement from './VictoryStatement';
 import CurrentTurn from './CurrentTurn';
 import Chat from './Chat';
+import EventMessages from './EventMessages'
 
 function Game(props) {
   const [game, setGame] = useState(props.game);
@@ -14,6 +15,7 @@ function Game(props) {
   const [selectedPiece, setSelectedPiece] = useState(null);
   const [promotionPiece, setPromotionPiece] = useState(null);
   const [comments, setComments] = useState(props.comments);
+  const [eventMessages, setEventMessages] = useState(props.event_messages);
 
   useEffect(() => {
     handleWebSocketUpdates();
@@ -91,6 +93,10 @@ function Game(props) {
     root_url={props.root_url}
   />
 
+  const eventMessagesBox = <EventMessages
+    eventMessages={eventMessages} 
+  />
+
   return <div>
     {pawnPromotionMenu}
     {victoryStatement}
@@ -99,6 +105,8 @@ function Game(props) {
     {asBlack}
     <br/>
     {currentTurn}
+    <br/>
+    {eventMessagesBox}
     <br/>
     {board}
     <br/>

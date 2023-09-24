@@ -36,12 +36,21 @@ module PathFinder
     y_values
   end
 
-  def self.path_clear?(path, game)
+  def self.path_clear?(path, game, selected_piece)
     path.each do |coord_pair|
       game.pieces.each do |piece|
-        return false if piece.x == coord_pair.first && piece.y == coord_pair.last
+        if piece.x == coord_pair.first && piece.y == coord_pair.last
+          create_event_message(game, selected_piece, piece)
+          return false
+        end
       end
     end
     true
+  end
+
+  def self.create_event_message(game, selected_piece, piece)
+    game.event_messages.create(
+      content: "The #{selected_piece.piece_type} isn't allowed to jump over the #{piece.piece_type}."
+    )
   end
 end

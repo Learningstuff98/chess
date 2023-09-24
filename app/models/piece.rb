@@ -48,13 +48,13 @@ class Piece < ApplicationRecord
   def move_horizontaly_or_vertically
     return unless horizontal_or_verticle_move?
 
-    update_x_and_y && game.invert_turn if PathFinder.path_clear?(horizontal_or_verticle_path, game)
+    update_x_and_y && game.invert_turn if PathFinder.path_clear?(horizontal_or_verticle_path, game, self)
   end
 
   def move_diagonally
     return unless GeneralMovementProfile.diagonal_move?(x, y, destination_x, destination_y)
 
-    update_x_and_y && game.invert_turn if PathFinder.path_clear?(PathFinder.diagonal_path(x, y, destination_x, destination_y), game)
+    update_x_and_y && game.invert_turn if PathFinder.path_clear?(PathFinder.diagonal_path(x, y, destination_x, destination_y), game, self)
   end
 
   def move_queen
