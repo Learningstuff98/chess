@@ -16,12 +16,14 @@ function Comments(props) {
     return newComments;
   };
 
-  return <div className="chat-box chat-box-dimensions">
+  return <div className="message-box chat-box-dimensions">
     {sortByID(cloneComments()).map((comment) => {
       return <div className="green" key={comment.id}>
-        <div>{comment.username}</div>
-        {comment.content}
-        <br/><br/>
+        <h5>
+          <div>{comment.username}</div>
+          {comment.content}
+        </h5>
+        <br/>
       </div>
     })}
   </div>

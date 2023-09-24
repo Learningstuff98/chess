@@ -1,11 +1,11 @@
 import React from 'react';
 
 function EventMessages(props) {
-  return <div className="green">
+  return <div className="green message-box event-box-dimensions">
     {props.eventMessages.map((eventMessage) => {
-      return <h3 key={eventMessage.id}>
+      return <h5 key={eventMessage.id}>
         {eventMessage.content}
-      </h3>
+      </h5>
     })}
   </div>
 }
