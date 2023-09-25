@@ -34,9 +34,20 @@ function Game(props) {
           if(data.comments) {
             setComments(data.comments);
           }
+          if(data.event_message) {
+            handleSettingEventMessages(data.event_message);
+          }
         }
       }
     });
+  };
+
+  const handleSettingEventMessages = (event_message) => {
+    let clonedEventMessages = eventMessages.map((eventMessage) => {
+      return eventMessage;
+    });
+    clonedEventMessages.push(event_message);
+    setEventMessages(clonedEventMessages);
   };
 
   const board = <Board
