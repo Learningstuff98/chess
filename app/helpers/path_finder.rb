@@ -40,18 +40,11 @@ module PathFinder
     path.each do |coord_pair|
       game.pieces.each do |piece|
         if piece.x == coord_pair.first && piece.y == coord_pair.last
-          create_event_message(game, selected_piece, piece)
+          EventMessage.create_event_message(game, selected_piece, piece)
           return false
         end
       end
     end
     true
-  end
-
-  def self.create_event_message(game, selected_piece, piece)
-    event_message = game.event_messages.create(
-      content: "The #{selected_piece.piece_type} isn't allowed to jump over the #{piece.piece_type}."
-    )
-    SendEventMessageJob.perform_later(game, event_message)
   end
 end
