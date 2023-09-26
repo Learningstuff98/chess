@@ -3,7 +3,11 @@ class EventMessage < ApplicationRecord
 
   def self.create_event_message(game, selected_piece, piece)
     event_message = game.event_messages.create(
-      content: "The #{selected_piece.piece_type} isn't allowed to jump over the #{piece.piece_type} at #{translate_coordinates_to_board_format(piece)}."
+      content: "
+        The #{selected_piece.piece_type} at #{translate_coordinates_to_board_format(selected_piece)}
+        isn't allowed to jump over the #{piece.piece_type} at
+        #{translate_coordinates_to_board_format(piece)}.
+      "
     )
     SendEventMessageJob.perform_later(game, event_message)
   end
