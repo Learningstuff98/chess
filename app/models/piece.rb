@@ -3,6 +3,7 @@ class Piece < ApplicationRecord
 
   def update_x_and_y
     update(x: destination_x, y: destination_y)
+    EventMessage.create_movement_message(game, self)
   end
 
   def capture_piece

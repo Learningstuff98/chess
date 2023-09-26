@@ -1,7 +1,14 @@
 class EventMessage < ApplicationRecord
   belongs_to :game
 
-  def self.create_event_message(game, selected_piece, piece)
+  def self.create_movement_message(game, piece)
+    event_message = game.event_messages.create(
+      content: "The #{piece.piece_type} moved to #{translate_coordinates_to_board_format(piece)}."
+    )
+    SendEventMessageJob.perform_later(game, event_message)
+  end
+
+  def self.create_illegal_jump_over_message(game, selected_piece, piece)
     event_message = game.event_messages.create(
       content: "
         The #{selected_piece.piece_type} at #{translate_coordinates_to_board_format(selected_piece)}

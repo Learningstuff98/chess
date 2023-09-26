@@ -40,7 +40,7 @@ module PathFinder
     path.each do |coord_pair|
       game.pieces.each do |piece|
         if piece.x == coord_pair.first && piece.y == coord_pair.last
-          EventMessage.create_event_message(game, selected_piece, piece)
+          EventMessage.create_illegal_jump_over_message(game, selected_piece, piece)
           return false
         end
       end
