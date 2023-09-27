@@ -34,20 +34,12 @@ function Game(props) {
           if(data.comments) {
             setComments(data.comments);
           }
-          if(data.event_message) {
-            handleSettingEventMessages(data.event_message);
+          if(data.event_messages) {
+            setEventMessages(data.event_messages);
           }
         }
       }
     });
-  };
-
-  const handleSettingEventMessages = (event_message) => {
-    let clonedEventMessages = eventMessages.map((eventMessage) => {
-      return eventMessage;
-    });
-    clonedEventMessages.push(event_message);
-    setEventMessages(clonedEventMessages);
   };
 
   const board = <Board
