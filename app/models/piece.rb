@@ -3,15 +3,21 @@ class Piece < ApplicationRecord
 
   def update_x_and_y
     update(x: destination_x, y: destination_y)
-    EventMessage.create_movement_message(game, self)
+    EventMessage.create_movement_message(game, self) unless capture_piece
+    true
   end
 
   def capture_piece
     game.pieces.each do |piece|
       next if self == piece
 
-      piece.update(x: 100, in_play: false) if piece.x == x && piece.y == y
+      next unless piece.x == x && piece.y == y
+
+      EventMessage.create_capture_message(game, piece, self)
+      piece.update(x: 100, in_play: false)
+      return true
     end
+    false
   end
 
   def horizontal_or_verticle_path
