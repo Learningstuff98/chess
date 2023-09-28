@@ -2,22 +2,20 @@ import React from 'react';
 
 function Comments(props) {
 
-  const sortByID = (comments) => {
+  const sortCommentsByID = (comments) => {
     return comments.sort((x, y) => {
-      return x.id - y.id;
+      return y.id - x.id;
     })
   };
 
   const cloneComments = () => {
-    let newComments = [];
-    for(const comment of props.comments) {
-      newComments.push(comment);
-    }
-    return newComments;
+    return props.comments.map((comment) => {
+      return comment;
+    });
   };
 
   return <div className="message-box chat-box-dimensions">
-    {sortByID(cloneComments()).map((comment) => {
+    {sortCommentsByID(cloneComments()).map((comment) => {
       return <div className="green" key={comment.id}>
         <h5>
           <div>{comment.username}</div>
