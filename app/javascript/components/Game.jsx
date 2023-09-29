@@ -42,6 +42,18 @@ function Game(props) {
     });
   };
 
+  const sortInstancesByID = (instances) => {
+    return instances.sort((x, y) => {
+      return y.id - x.id;
+    })
+  };
+
+  const cloneInstances = (instances) => {
+    return instances.map((instance) => {
+      return instance;
+    });
+  };
+
   const board = <Board
     pieces={pieces}
     selectedPiece={selectedPiece}
@@ -94,10 +106,14 @@ function Game(props) {
     game={game}
     comments={comments}
     root_url={props.root_url}
+    sortInstancesByID={sortInstancesByID}
+    cloneInstances={cloneInstances}
   />
 
   const eventMessagesBox = <EventMessages
-    eventMessages={eventMessages} 
+    eventMessages={eventMessages}
+    sortInstancesByID={sortInstancesByID}
+    cloneInstances={cloneInstances}
   />
 
   return <div>

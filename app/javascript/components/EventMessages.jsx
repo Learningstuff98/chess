@@ -2,20 +2,12 @@ import React from 'react';
 
 function EventMessages(props) {
 
-  const sortEventMessagesByID = (eventMessages) => {
-    return eventMessages.sort((x, y) => {
-      return y.id - x.id;
-    })
-  };
-
-  const cloneEventMessages = () => {
-    return props.eventMessages.map((eventMessage) => {
-      return eventMessage;
-    });
-  };
+  const sortedEventMessages = props.sortInstancesByID(
+    props.cloneInstances(props.eventMessages)
+  );
 
   return <div className="green message-box event-box-dimensions">
-    {sortEventMessagesByID(cloneEventMessages()).map((eventMessage) => {
+    {sortedEventMessages.map((eventMessage) => {
       return <h5 key={eventMessage.id}>
         {eventMessage.content}
       </h5>

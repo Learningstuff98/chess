@@ -7,6 +7,8 @@ function Chat(props) {
   return <div>
     <Comments
       comments={props.comments}
+      sortInstancesByID={props.sortInstancesByID}
+      cloneInstances={props.cloneInstances}
     />
     <CommentForm
       root_url={props.root_url}
