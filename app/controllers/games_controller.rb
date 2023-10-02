@@ -16,7 +16,8 @@ class GamesController < ApplicationController
   def show
     @game = Game.find(params[:id])
     @game.assign_guest(current_user)
-    @comments = @game.comments.all
+    @comments = @game.comments
+    @event_messages = @game.event_messages
     SendVacantGamesJob.perform_later
     SendGameAndPiecesJob.perform_later(@game)
   end

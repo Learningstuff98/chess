@@ -7,6 +7,7 @@ import DisplayPlayer from './DisplayPlayer';
 import VictoryStatement from './VictoryStatement';
 import CurrentTurn from './CurrentTurn';
 import Chat from './Chat';
+import EventMessages from './EventMessages'
 
 function Game(props) {
   const [game, setGame] = useState(props.game);
@@ -14,6 +15,7 @@ function Game(props) {
   const [selectedPiece, setSelectedPiece] = useState(null);
   const [promotionPiece, setPromotionPiece] = useState(null);
   const [comments, setComments] = useState(props.comments);
+  const [eventMessages, setEventMessages] = useState(props.event_messages);
 
   useEffect(() => {
     handleWebSocketUpdates();
@@ -32,8 +34,23 @@ function Game(props) {
           if(data.comments) {
             setComments(data.comments);
           }
+          if(data.event_messages) {
+            setEventMessages(data.event_messages);
+          }
         }
       }
+    });
+  };
+
+  const sortInstancesByID = (instances) => {
+    return instances.sort((x, y) => {
+      return y.id - x.id;
+    })
+  };
+
+  const cloneInstances = (instances) => {
+    return instances.map((instance) => {
+      return instance;
     });
   };
 
@@ -89,6 +106,14 @@ function Game(props) {
     game={game}
     comments={comments}
     root_url={props.root_url}
+    sortInstancesByID={sortInstancesByID}
+    cloneInstances={cloneInstances}
+  />
+
+  const eventMessagesBox = <EventMessages
+    eventMessages={eventMessages}
+    sortInstancesByID={sortInstancesByID}
+    cloneInstances={cloneInstances}
   />
 
   return <div>
@@ -99,6 +124,8 @@ function Game(props) {
     {asBlack}
     <br/>
     {currentTurn}
+    <br/>
+    {eventMessagesBox}
     <br/>
     {board}
     <br/>

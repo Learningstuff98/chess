@@ -114,6 +114,11 @@ body {
     height: 45vw;
   }
 
+  .event-box-dimensions {
+    width: 90vw;
+    height: 15vw;
+  }
+
   .captured-pieces {
     font-size: 4vw;
   }
@@ -187,6 +192,11 @@ body {
     height: 300px;
   }
 
+  .event-box-dimensions {
+    width: 900px;
+    height: 150px;
+  }
+
   .captured-pieces {
     font-size: 40px;
   }
@@ -224,7 +234,7 @@ body {
   }
 }
 
-.chat-box {
+.message-box {
   padding: 10px;
   border: 2px solid;
   border-color: rgb(87, 163, 101);

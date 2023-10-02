@@ -73,13 +73,15 @@ RSpec.describe PathFinder, type: :helper do
     it "should return false if any piece coordinates match any of the given path coordinates" do
       game = FactoryBot.create(:game)
       FactoryBot.create(:piece, game_id: game.id)
-      expect(PathFinder.path_clear?([[5, 4], [5, 5], [5, 6]], game)).to eq false
+      piece = FactoryBot.create(:piece, game_id: game.id, x: 5, y: 3)
+      expect(PathFinder.path_clear?([[5, 4], [5, 5], [5, 6]], game, piece)).to eq false
     end
 
     it "should return true if no piece coordinates match any of the given path coordinates" do
       game = FactoryBot.create(:game)
       FactoryBot.create(:piece, game_id: game.id)
-      expect(PathFinder.path_clear?([[1, 4], [1, 5], [1, 6]], game)).to eq true
+      piece = FactoryBot.create(:piece, game_id: game.id, x: 5, y: 3)
+      expect(PathFinder.path_clear?([[1, 4], [1, 5], [1, 6]], game, piece)).to eq true
     end
   end
 end

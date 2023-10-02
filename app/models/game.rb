@@ -2,6 +2,7 @@ class Game < ApplicationRecord
   belongs_to :user
   has_many :pieces, dependent: :destroy
   has_many :comments, dependent: :destroy
+  has_many :event_messages, dependent: :destroy
 
   def self.vacant_games
     Game.select { |game| !game.as_white || !game.as_black }

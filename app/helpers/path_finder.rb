@@ -36,10 +36,13 @@ module PathFinder
     y_values
   end
 
-  def self.path_clear?(path, game)
+  def self.path_clear?(path, game, selected_piece)
     path.each do |coord_pair|
       game.pieces.each do |piece|
-        return false if piece.x == coord_pair.first && piece.y == coord_pair.last
+        if piece.x == coord_pair.first && piece.y == coord_pair.last
+          EventMessage.create_illegal_jump_over_message(game, selected_piece, piece)
+          return false
+        end
       end
     end
     true

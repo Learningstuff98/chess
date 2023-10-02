@@ -1,4 +1,8 @@
 FactoryBot.define do
+  factory :event_message do
+    
+  end
+
   factory :comment do
     
   end
