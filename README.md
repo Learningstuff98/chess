@@ -12,6 +12,8 @@ Since I completed this project, I've continued programming which resulted in me 
 
 In September of 2023 I merged a PR that moved the logic responsible for piece movement and detecting any pieces that are blocking a given path into their own modules for the sake of learning and maintainability. This was the first time that I've used modules with rails. [Here's the PR.](https://github.com/Learningstuff98/chess/pull/29/files)
 
+In October of 2023 I merged a PR that adds event messages that render in real time above the board. These messages describe game events like piece movement, piece capturing and if an illegal jump over is attempted. [Here's the PR.](https://github.com/Learningstuff98/chess/pull/30/files)
+
 Overview
 
 This is a rails 6 app that uses devise for user functionality. Users can start games and choose which color that they want to play as, or they can join games in the lobby that are being hosted by other users. The rules of chess are enforced on the back end. The game is turn based, pieces can't jump over eachother except for knights and a victor can be declared. A real time chat box is included below the board.
