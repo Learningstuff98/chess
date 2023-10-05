@@ -32,13 +32,19 @@ A real time chat box is included below the board.
 
 <br/>
 
+Pawns can be promoted to either rooks, knights, bishops, or queens.
+
+<br/>
+
+![](https://github.com/Learningstuff98/chess/blob/master/app/assets/images/pawnpromotionupdated.gif)
+
+<br/>
+
 Back end
 
 Games belong to users. Pieces and comments belong to games. Games contain functionality for things like creating the pieces with their starting positions and determining the victor. Pieces call on modules which contain logic for things like how a piece is allowed to move and whether or not another piece is in the way.
 
 When a piece is selected and a tile is clicked, this sends a patch request to the back end. Pieces have x and y attributes along with destination_x and destination_y attributes. The logic around piece movement is based on the starting point (x and y attributes) and the proposed destination (destination_x and destination_y attributes). If a proposed move is legal then the x and y attributes are updated and a broadcast is sent with action cable to the front end with the game and its pieces.
-
-![pawnpromotion](https://user-images.githubusercontent.com/42154066/212790878-9f03e3c8-cda3-4c58-8c8c-d34030e61c6c.gif)
 
 This project uses both Rspec and Factorybot for testing. I have tests written for models, modules and controllers, github links provided below:
 
