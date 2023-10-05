@@ -22,12 +22,15 @@ This is a rails 6 app that uses devise for user functionality. Users can start g
 
 ![](https://github.com/Learningstuff98/chess/blob/master/app/assets/images/updatedchess.gif)
 
+<br/>
 
 A real time chat box is included below the board.
 
+<br/>
 
 ![](https://github.com/Learningstuff98/chess/blob/master/app/assets/images/chat.gif)
 
+<br/>
 
 Back end
 
