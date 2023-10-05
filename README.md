@@ -16,9 +16,13 @@ In October of 2023 I merged a PR that adds event messages that render in real ti
 
 Overview
 
-This is a rails 6 app that uses devise for user functionality. Users can start games and choose which color that they want to play as, or they can join games in the lobby that are being hosted by other users. The rules of chess are enforced on the back end. The game is turn based, pieces can't jump over eachother except for knights and a victor can be declared. A real time chat box is included below the board.
+This is a rails 6 app that uses devise for user functionality. Users can start games and choose which color that they want to play as, or they can join games in the lobby that are being hosted by other users. The rules of chess are enforced on the back end. The game is turn based, pieces can't jump over eachother except for knights and a victor can be declared.
 
 ![](https://github.com/Learningstuff98/chess/blob/master/app/assets/images/updatedchess.gif)
+
+A real time chat box is included below the board.
+
+![](https://github.com/Learningstuff98/chess/blob/master/app/assets/images/chat.gif)
 
 Back end
 
