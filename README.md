@@ -18,7 +18,7 @@ Overview
 
 This is a rails 6 app that uses devise for user functionality. Users can start games and choose which color that they want to play as, or they can join games in the lobby that are being hosted by other users. The rules of chess are enforced on the back end. The game is turn based, pieces can't jump over eachother except for knights and a victor can be declared. A real time chat box is included below the board.
 
-![chessgif](https://user-images.githubusercontent.com/42154066/212790849-441d4765-a9e5-4642-9b13-ae0742c27cd5.gif)
+![updatedchessgif](https://user-images.githubusercontent.com/42154066/212790849-441d4765-a9e5-4642-9b13-ae0742c27cd5.gif)
 
 Back end
 
